@@ -2,22 +2,21 @@ import React, {useState} from 'react';
 import './App.css';
 
 const App = () => {
-  const [boards, setBoards] = useState([
+  const [columns, setColumns] = useState([
     {id:1, title:"What need", items:[{id:1, title:"Develpometn"},{id:2, title:'Create desigen Todo'},
-                {id:3, title:'made Hello world'},{id:4, title:'Always make Zalupa test on console'}]},
+                {id:3, title:'made Hello world made Hello world '},{id:4, title:'Always make Zalupa test on console'}]},
     {id:2, title:"Process on work", items:[{id:1, title:'Write your cold develope'}, 
                 {id:2, title:'Choice deisgen on Dribble'},{id:3, title:'react Native'}]},
     {id:3, title:'Complete', items:[{id:1, title:'Make a photo'}]}
   ])
-console.log('zalupa', boards)
-console.log('zalupa2', setBoards)
+
   //FORE ITEM
-  const [currentBoard, setCurrentBoard] = useState(null)
+  const [currentColumn, setCurrentColumn] = useState(null)
   const [currentItem, setCurrentItem] = useState(null)
 
   function dragOverHandler(event){
     event.preventDefault()
-    if(event.target.className == 'item'){
+    if(event.target.className === 'item'){
       event.target.classList.toggle('boxShadow')
     }
   }
@@ -26,9 +25,11 @@ console.log('zalupa2', setBoards)
     event.target.classList.remove('boxShadow')
   }
 
-  function dragStartHandler(event, board, item){
-    console.log('drag', board, item) 
-    setCurrentBoard(board)
+  function dragStartHandler(event, column, item){
+    // debugger
+    console.log('Start column', column) 
+    console.log('Start item', item) 
+    setCurrentColumn(column)
     setCurrentItem(item)
   }
 
@@ -36,35 +37,56 @@ console.log('zalupa2', setBoards)
     event.target.classList.remove('boxShadow')
   }
 
-  function dragDropHandler(event, board, item){
+  function dragDropHandler(event, column, item){
     event.preventDefault()
-    const currentIndex = currentBoard.items.indexOf(currentItem)
-    currentBoard.items.splice(currentIndex, 1)
-    const dropIndex = board.items.indexOf(item)
-    board.items.splice(dropIndex + 1, 0, currentItem)
-    setBoards(boards.map(brd => {
-      if (brd.id === board.id){
-        return board
+    const currentIndex = currentColumn.items.indexOf(currentItem)
+    currentColumn.items.splice(currentIndex, 1)
+    const dropIndex = column.items.indexOf(item)
+    column.items.splice(dropIndex + 1, 0, currentItem)
+    setColumns(columns.map(brd => {
+      if (brd.id === column.id){
+        return column
       }
-      if (brd.id === currentBoard.id){
-        return currentBoard
+      if (brd.id === currentColumn.id){
+        return currentColumn
       }
       return brd
     }))
   }
 
+  function dropeZeroStickHandler(event, column) {
+    const currentId = column.items.map(item => item.id)
+    if (!currentId.includes(currentItem.id)) {
+      column.items.push(currentItem)
+             const currentIndex = currentColumn.items.indexOf(currentItem)
+             currentColumn.items.splice(currentIndex, 1)
+             setColumns(columns.map(b => {
+                if (b.id === column.id) {
+                   return column
+                }
+                if (b.id === currentColumn.id) {
+                   return currentColumn
+                }
+                return b
+             }))
+          }
+  }
+
   return (
     <div className="App">
-      {boards.map(board =>
-        <div className="board">
-          <div className="board__title">{board.title}</div>
-            {board.items.map(item =>
+      {columns.map(column =>
+        <div className="column"
+        onDragOver={(event)=> dragOverHandler(event)}
+        onDrop={(event)=> dropeZeroStickHandler(event, column)}
+        >
+          <div className="column__title">{column.title}</div>
+            {column.items.map(item =>
                 <div 
                 onDragOver={(event)=> dragOverHandler(event)}
                 onDragLeave={(event)=> dragLeaveHandler(event)}
-                onDragStart={(event)=> dragStartHandler(event, item, board)}
+                onDragStart={(event)=> dragStartHandler(event, column, item)}
                 onDragEnd={(event)=> dragEndHandler(event)}
-                onDrop={(event)=> dragDropHandler(event, item, board)}
+                onDrop={(event)=> dragDropHandler(event, column, item)}
                 className="item"
                 draggable={true}
                 >
