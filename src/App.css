@@ -64,12 +64,18 @@
 
 .item {
   width: 100%;
-  border: 2px solid lightpink;
+  border: 2px solid #18b882;
   padding: 10px;
   border-radius: 6px;
   margin: 5px;
   cursor: -webkit-grab;
   cursor: grab;
-  background-color: #78a5e0;
+  background-color: rgba(162, 186, 218, 0.479);
+}
+
+.boxShadow {
+  border: 2px solid #5d18b8;
+  -webkit-box-shadow: 3px 5px 10px rgba(116, 114, 114, 0.644);
+          box-shadow: 3px 5px 10px rgba(116, 114, 114, 0.644);
 }
 /*# sourceMappingURL=App.css.map */

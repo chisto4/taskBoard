@@ -2,66 +2,79 @@ import React, {useState} from 'react';
 import './App.css';
 
 const App = () => {
-  const [cardList, setCardList] = useState([
-    {id: 1, order: 3, text: 'Card #1'},
-    {id: 2, order: 1, text: 'Card #2'},
-    {id: 3, order: 2, text: 'Card #3'},
-    {id: 4, order: 4, text: 'Card #4'},
+  const [boards, setBoards] = useState([
+    {id:1, title:"What need", items:[{id:1, title:"Develpometn"},{id:2, title:'Create desigen Todo'},
+                {id:3, title:'made Hello world'},{id:4, title:'Always make Zalupa test on console'}]},
+    {id:2, title:"Process on work", items:[{id:1, title:'Write your cold develope'}, 
+                {id:2, title:'Choice deisgen on Dribble'},{id:3, title:'react Native'}]},
+    {id:3, title:'Complete', items:[{id:1, title:'Make a photo'}]}
   ])
+console.log('zalupa', boards)
+console.log('zalupa2', setBoards)
+  //FORE ITEM
+  const [currentBoard, setCurrentBoard] = useState(null)
+  const [currentItem, setCurrentItem] = useState(null)
 
-  const [currentCard, setCurrentCard] = useState(null)
-
-  function dragStartHandler(event, card){
-    console.log('drag', card)
-    setCurrentCard(card)
-  }
-  function dragLeaveHandler(event){}
-  function dragEndHandler(event){
-    event.target.style.background = 'white'
-  }
   function dragOverHandler(event){
     event.preventDefault()
-    event.target.style.background = 'lightgreen'
-  }
-  function dragDropHandler(event, card){
-    event.preventDefault()
-    console.log('drop', card)
-    setCardList(cardList.map(c => {
-      if (c.id === card.id){
-        return {...c, order: currentCard.order}
-      }
-      if (c.id === currentCard.id){
-        return {...c, order: card.order}
-      }
-      return c
-    }))
-    event.target.style.background = 'white'
+    if(event.target.className == 'item'){
+      event.target.classList.toggle('boxShadow')
+    }
   }
 
-  const sortCards = (a, b) => {
-    if(a.order > b.order){
-      return 1
-    } else {
-      return -1
-    }
+  function dragLeaveHandler(event){
+    event.target.classList.remove('boxShadow')
+  }
+
+  function dragStartHandler(event, board, item){
+    console.log('drag', board, item) 
+    setCurrentBoard(board)
+    setCurrentItem(item)
+  }
+
+  function dragEndHandler(event){
+    event.target.classList.remove('boxShadow')
+  }
+
+  function dragDropHandler(event, board, item){
+    event.preventDefault()
+    const currentIndex = currentBoard.items.indexOf(currentItem)
+    currentBoard.items.splice(currentIndex, 1)
+    const dropIndex = board.items.indexOf(item)
+    board.items.splice(dropIndex + 1, 0, currentItem)
+    setBoards(boards.map(brd => {
+      if (brd.id === board.id){
+        return board
+      }
+      if (brd.id === currentBoard.id){
+        return currentBoard
+      }
+      return brd
+    }))
   }
 
   return (
     <div className="App">
-      {cardList.sort(sortCards).map(card => 
-        <div 
-        onDragStart={(event)=> dragStartHandler(event, card)}
-        onDragLeave={(event)=> dragLeaveHandler(event)}
-        onDragEnd={(event)=> dragEndHandler(event)}
-        onDragOver={(event)=> dragOverHandler(event)}
-        onDrop={(event)=> dragDropHandler(event, card)}
-        draggable={true}
-        className="card">
-          {card.text}
+      {boards.map(board =>
+        <div className="board">
+          <div className="board__title">{board.title}</div>
+            {board.items.map(item =>
+                <div 
+                onDragOver={(event)=> dragOverHandler(event)}
+                onDragLeave={(event)=> dragLeaveHandler(event)}
+                onDragStart={(event)=> dragStartHandler(event, item, board)}
+                onDragEnd={(event)=> dragEndHandler(event)}
+                onDrop={(event)=> dragDropHandler(event, item, board)}
+                className="item"
+                draggable={true}
+                >
+                  {item.title}
+                </div>
+              )}
         </div>
         )}
     </div>
-  );
-}
+    );
+  };
 
 export default App;
