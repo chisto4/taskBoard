@@ -1,6 +1,10 @@
 import React, {useState} from 'react';
 import './App.css';
 
+import deleteButton  from './icon/delete.png';
+import closeButton  from './icon/close.png';
+
+
 const App = () => {
   const [columns, setColumns] = useState([
     {id:1, title:"What need", items:[{id:1, title:"Develpometn"},{id:2, title:'Create desigen Todo'},
@@ -26,6 +30,7 @@ const App = () => {
   }
 
   function dragStartHandler(event, column, item){
+    if(column === undefined || item === undefined){return;}
     // debugger
     console.log('Start column', column) 
     console.log('Start item', item) 
@@ -38,6 +43,7 @@ const App = () => {
   }
 
   function dragDropHandler(event, column, item){
+    if(column === undefined || item === undefined){return;}
     event.preventDefault()
     const currentIndex = currentColumn.items.indexOf(currentItem)
     currentColumn.items.splice(currentIndex, 1)
@@ -54,9 +60,11 @@ const App = () => {
     }))
   }
 
-  function dropeZeroStickHandler(event, column) {
-    const currentId = column.items.map(item => item.id)
-    if (!currentId.includes(currentItem.id)) {
+  function dropeZeroStickHandler(event, column, item) {
+    if(column === undefined || item === undefined){return;}
+    const moveItemId = column.items.map(item => item.id)
+    console.log('zalupen suka', moveItemId)
+      if (!moveItemId.includes(currentItem.id)) {
       column.items.push(currentItem)
              const currentIndex = currentColumn.items.indexOf(currentItem)
              currentColumn.items.splice(currentIndex, 1)
@@ -72,14 +80,31 @@ const App = () => {
           }
   }
 
+  function columnStartHandler(event, column, item){
+    // debugger
+    console.log('Start column', column) 
+    console.log('Start item', item) 
+    setCurrentColumn(column)
+    setCurrentItem(item)
+  }
+
   return (
     <div className="App">
       {columns.map(column =>
         <div className="column"
+        draggable={true}
         onDragOver={(event)=> dragOverHandler(event)}
-        onDrop={(event)=> dropeZeroStickHandler(event, column)}
+        onDrop={(event)=> dropeZeroStickHandler(event, column, {item: column.item})}
+        // onDragLeave={(event)=> columnLeaveHandler(event)}
+        onDragStart={(event)=> columnStartHandler(event, column)}
+        // onDragEnd={(event)=> columnEndHandler(event)}
         >
-          <div className="column__title">{column.title}</div>
+          <div className="column__title">{column.title}
+          <button className="closeButton">
+                    <img src={closeButton} className="icon" alt="delete"/>
+                  </button>
+
+          </div>
             {column.items.map(item =>
                 <div 
                 onDragOver={(event)=> dragOverHandler(event)}
@@ -91,7 +116,11 @@ const App = () => {
                 draggable={true}
                 >
                   {item.title}
+                  <button className="deleteButton">
+                    <img src={deleteButton} className="icon" alt="delete"/>
+                  </button>
                 </div>
+                
               )}
         </div>
         )}
