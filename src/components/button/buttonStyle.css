@@ -1,0 +1,12 @@
+.button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  margin: 10px;
+}
+
+.button:hover {
+  background: #fd7777;
+  -webkit-transition: 0.8s;
+  transition: 0.8s;
+}
+/*# sourceMappingURL=buttonStyle.css.map */

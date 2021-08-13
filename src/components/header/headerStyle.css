@@ -1,0 +1,90 @@
+.headerWrapper {
+  position: absolute;
+  width: 90%;
+  height: 70px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.header a {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.534);
+}
+
+.header a:hover {
+  -webkit-transform: scale(120%);
+          transform: scale(120%);
+}
+
+.header h1 {
+  margin-bottom: 20px;
+}
+
+.userAuthWrapper button {
+  margin-left: 1rem;
+}
+
+.navRegistrationButton {
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: #2654ed;
+  border: none;
+  font-weight: 100;
+  font-size: 16px;
+  -webkit-box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
+          box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
+}
+
+.navRegistrationButton a {
+  color: white;
+}
+
+.navLoginButton {
+  padding: 9px 20px;
+  border-radius: 10px;
+  color: black;
+  border: 1px solid black;
+  font-weight: 100;
+  font-size: 16px;
+  -webkit-box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
+          box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
+}
+
+.bottomLine {
+  width: 100%;
+  height: 1px;
+  background: rgba(0, 0, 0, 0.349);
+  position: absolute;
+  bottom: 0;
+}
+/*# sourceMappingURL=headerStyle.css.map */

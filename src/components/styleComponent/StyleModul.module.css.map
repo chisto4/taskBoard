@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,KAAK,CAAC;EACJ,gBAAgB,EAAE,MAAM;CACzB;;AAED,AAAA,KAAK,CAAC;EACJ,MAAM,EAAC,KAAK;CAKb;;AAHE,AAAD,UAAM,CAAC;EACL,MAAM,EAAC,KAAK;CACb",
+    "sources": [
+        "StyleModul.module.scss"
+    ],
+    "names": [],
+    "file": "StyleModul.module.css"
+}

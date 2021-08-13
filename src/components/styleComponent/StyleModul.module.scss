@@ -1,0 +1,11 @@
+.main {
+  background-color: tomato;
+}
+
+.size {
+  height:400px;
+
+  &__min {
+    height:200px;
+  }
+}
