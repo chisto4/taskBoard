@@ -10,14 +10,12 @@ import Component1 from './components/styleComponent/cssModul';
 function App() {
   return (
     <BrowserRouter>
-    <Component1 />
       <div className="App">
-        <header className="App-header">
+      <Component1 />
           <Main/>
           <Switch>
             <Route path="registration" component={UserRegistrationForm}/>
           </Switch>
-        </header>
       </div>
     </BrowserRouter>
   );

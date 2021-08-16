@@ -65,6 +65,13 @@
           box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
 }
 
+.navRegistrationButton:hover {
+  -webkit-transform: scale(105%);
+          transform: scale(105%);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+}
+
 .navRegistrationButton a {
   color: white;
 }
@@ -78,6 +85,13 @@
   font-size: 16px;
   -webkit-box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
           box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
+}
+
+.navLoginButton:hover {
+  -webkit-transform: scale(105%);
+          transform: scale(105%);
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
 }
 
 .bottomLine {
