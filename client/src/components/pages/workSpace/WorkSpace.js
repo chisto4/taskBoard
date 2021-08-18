@@ -4,6 +4,9 @@ import './workSpaceStyled.css';
 import deleteButton  from '../../../icon/delete.png';
 import closeButton  from '../../../icon/close.png';
 
+import Main from '../../main/Main';
+
+
 interface IWorkSpace {
 }
 
@@ -87,6 +90,7 @@ const WorkSpace: React.FC<IWorkSpace> = () => {
   }
 
   return (
+    <Main>
     <div className="workSpace">
       {columns.map(column =>
         <div className="column"
@@ -112,6 +116,7 @@ const WorkSpace: React.FC<IWorkSpace> = () => {
         </div>
         )}
     </div>
+    </Main>
     );
   };
 

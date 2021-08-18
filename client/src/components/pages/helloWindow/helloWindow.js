@@ -1,5 +1,6 @@
 import React from 'react';
 import './helloWindowStyle.css';
+import Main from '../../main/Main';
 
 const helloWindow = () => {
   return (
@@ -12,6 +13,7 @@ const helloWindow = () => {
         If you want use full function, please Registration
         </h4>
       </div>
+     
   )}
 
 export default helloWindow;

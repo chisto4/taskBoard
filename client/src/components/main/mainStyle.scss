@@ -1,7 +1,7 @@
 main {
   width: 90vw;
   height:90vh;
-  position: relative;
+  // position: relative;
   background: #ebecf0;
   box-shadow: -80px 50px 100px rgba(116, 114, 114, 0.644),
   5px -5px 25px rgba(116, 115, 115, 0.616);
@@ -11,4 +11,5 @@ main {
   align-items: center;
   margin-top: 5vh;
   margin-bottom: 5vh;
+  z-index: 1;
 }

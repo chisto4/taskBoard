@@ -1,39 +1,41 @@
-import React, { useState } from 'react';
 import './mainStyle.css';
 
-import UserRegistrationForm from '../modalWindows/userRegistrationForm/UserRegistrationForm';
-import UserLoginForm from '../modalWindows/loginForm/loginForm';
-import Header from '../header/header';
 import WorkSpace from '../pages/workSpace/WorkSpace'
+import React, { ReactNode, useEffect, useState} from 'react';
+import axios from '../api';
 
-function Main () {
-  const [logForm, setLogForm] = useState(false);
-  const [regForm, setRegForm] = useState(false);
-  const onClickLog = () => {
-    setLogForm(!logForm);
-    if(regForm){
-      setRegForm(!regForm);
-    }
-  }
-  const onClickReg = () => {
-    setRegForm(!regForm);
-    if(logForm){
-      setLogForm(!logForm);
-    }
-  }
+type Props = {
+  children?: ReactNode | undefined;
+}
+
+type UsersType = {
+  dob: string;
+  email: string;
+  id: number;
+  login: string;
+  name: string;
+  surname: string;
+}
+
+const Main: React.FC<Props> = (props) =>{
+  const [state, setState] = useState<UsersType[]>([]);
+
+  
+  useEffect(() => {
+    console.log('Main')
+    axios.get('user')
+      .then(r => {
+        console.log('result', r.data)
+        setState(r.data)
+      })
+      .catch(e => console.log('error', e.message))
+  }, []);
+
   return (
-<main>
-<Header onClickLog={onClickLog}
-  onClickReg={onClickReg}
-/>
-{regForm && <UserRegistrationForm
-    onClickReg={onClickReg}
-/>}
-{logForm && <UserLoginForm
-    onClickLog={onClickLog}
-/>}
-{/* <WorkSpace/> */}
-</main>
+  <main>
+    {state.map(item => <h1 key={item.id}>{item.name}</h1>)}
+    {props.children}
+  </main>
     );
 }
 
