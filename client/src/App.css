@@ -10,6 +10,7 @@
   src: url("./fonts/Cormorant_SC/CormorantSC-Light.ttf");
   font-style: normal;
   font-weight: 100;
+  font-weight: 300;
 }
 .App {
   display: flex;
