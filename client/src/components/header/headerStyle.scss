@@ -31,6 +31,14 @@
   }
 }
 
+.RegLogLink{
+  margin-left: 1rem;
+  a{
+    &:hover{
+    transform: scale(105%);
+    transition: 0.2s;
+  }}
+}
 .userAuthWrapper {
   button{
     margin-left: 1rem;

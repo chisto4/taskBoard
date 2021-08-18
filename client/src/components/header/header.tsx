@@ -9,18 +9,17 @@ interface IHeader {
   onClickReg: () => void;
 }
 
+
 const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
   return (
       <div className="headerWrapper">
         <div className="header">
-          <a href="#">Task Board</a>
+          <a href="/work">Task Board</a>
           <div className="userAuthWrapper">
-            <button onClick={onClickLog} className="navLoginButton">
-            <NavLink to="/login">Login</NavLink>
-            </button>
-            <button onClick={onClickReg} className="navRegistrationButton">
-              <NavLink to="/registration">Registration</NavLink>
-            </button>
+            <NavLink className="RegLogLink" onClick={onClickLog} to="/login">Login</NavLink>
+            <a className="RegLogLink" onClick={onClickLog} href="/login">Login</a>
+            <NavLink className="RegLogLink" onClick={onClickReg} to="/registration">Registration</NavLink>
+
           </div>
         </div>
         <div className="bottomLine"></div>

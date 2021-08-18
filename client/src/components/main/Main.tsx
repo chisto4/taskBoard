@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './mainStyle.css';
 
-import UserRegistrationForm from '../userRegistrationForm/UserRegistrationForm';
-import UserLoginForm from '../loginForm/loginForm';
+import UserRegistrationForm from '../modalWindows/userRegistrationForm/UserRegistrationForm';
+import UserLoginForm from '../modalWindows/loginForm/loginForm';
 import Header from '../header/header';
-import WorkSpace from '../pages/workSpace/workSpace'
+import WorkSpace from '../pages/workSpace/WorkSpace'
 
 function Main () {
   const [logForm, setLogForm] = useState(false);
@@ -32,7 +32,7 @@ function Main () {
 {logForm && <UserLoginForm
     onClickLog={onClickLog}
 />}
-<WorkSpace/>
+{/* <WorkSpace/> */}
 </main>
     );
 }

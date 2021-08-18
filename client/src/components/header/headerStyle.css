@@ -2,52 +2,40 @@
   position: absolute;
   width: 90%;
   height: 70px;
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: row;
-          flex-direction: row;
+  flex-direction: row;
   border-top-left-radius: 30px;
   border-top-right-radius: 30px;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  align-items: center;
+  justify-content: space-between;
   position: absolute;
   top: 0;
   width: 100%;
   height: 100%;
 }
-
 .header a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.534);
 }
-
 .header a:hover {
-  -webkit-transform: scale(120%);
-          transform: scale(120%);
+  transform: scale(120%);
 }
-
 .header h1 {
   margin-bottom: 20px;
+}
+
+.RegLogLink {
+  margin-left: 1rem;
+}
+.RegLogLink a:hover {
+  transform: scale(105%);
+  transition: 0.2s;
 }
 
 .userAuthWrapper button {
@@ -61,17 +49,12 @@
   border: none;
   font-weight: 100;
   font-size: 16px;
-  -webkit-box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
-          box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
+  box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
 }
-
 .navRegistrationButton:hover {
-  -webkit-transform: scale(105%);
-          transform: scale(105%);
-  -webkit-transition: 0.2s;
+  transform: scale(105%);
   transition: 0.2s;
 }
-
 .navRegistrationButton a {
   color: white;
 }
@@ -83,14 +66,10 @@
   border: 1px solid black;
   font-weight: 100;
   font-size: 16px;
-  -webkit-box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
-          box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
+  box-shadow: 1px 5px 10px rgba(71, 69, 69, 0.774);
 }
-
 .navLoginButton:hover {
-  -webkit-transform: scale(105%);
-          transform: scale(105%);
-  -webkit-transition: 0.2s;
+  transform: scale(105%);
   transition: 0.2s;
 }
 
@@ -100,5 +79,4 @@
   background: rgba(0, 0, 0, 0.349);
   position: absolute;
   bottom: 0;
-}
-/*# sourceMappingURL=headerStyle.css.map */
+}/*# sourceMappingURL=headerStyle.css.map */
