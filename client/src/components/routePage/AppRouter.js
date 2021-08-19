@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "./routes";
-import {HOME_PAGE} from "../utils/consts";
+import {HOME_PAGE} from "../const/consts";
 // import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 

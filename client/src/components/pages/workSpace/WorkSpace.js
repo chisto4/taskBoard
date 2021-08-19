@@ -64,29 +64,21 @@ const WorkSpace: React.FC<IWorkSpace> = () => {
   }
 
   function dropeZeroStickHandler(event, column, item) {
-    const currentIndex = currentColumn.items.indexOf(currentItem)
-      if (!currentIndex.includes(currentItem.id)) {
-      column.items.push(currentItem)
-             const currentIndex = currentColumn.items.indexOf(currentItem)
-             currentColumn.items.splice(currentIndex, 1)
-             setColumns(columns.map(b => {
-                if (b.id === column.id) {
-                   return column
-                }
-                if (b.id === currentColumn.id) {
-                   return currentColumn
-                }
-                return b
-             }))
-          }
-  }
-
-  function columnStartHandler(event, column, item){
-    // debugger
-    console.log('Start column', column) 
-    console.log('Start item', item) 
-    setCurrentColumn(column)
-    setCurrentItem(item)
+    const currentId = column.items.map(item => item.id)
+if (!currentId.includes(currentItem.id)) {
+  column.items.push(currentItem)
+         const currentIndex = currentColumn.items.indexOf(currentItem)
+         currentColumn.items.splice(currentIndex, 1)
+         setColumns(columns.map(b => {
+            if (b.id === column.id) {
+               return column
+            }
+            if (b.id === currentColumn.id) {
+               return currentColumn
+            }
+            return b
+         }))
+      }
   }
 
   return (
@@ -95,7 +87,7 @@ const WorkSpace: React.FC<IWorkSpace> = () => {
       {columns.map(column =>
         <div className="column"
         onDragOver={(event)=> dragOverHandler(event)}
-        // onDrop={(event)=> dropeZeroStickHandler(event, column, {item: column.item})}
+        onDrop={(event)=> dropeZeroStickHandler(event, column, {item: column.item})}
         >
           <div className="column__title">{column.title}
           </div>

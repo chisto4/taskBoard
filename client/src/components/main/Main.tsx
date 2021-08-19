@@ -1,6 +1,5 @@
-import './mainStyle.css';
+import styles from './mainStyle.module.scss';
 
-import WorkSpace from '../pages/workSpace/WorkSpace'
 import React, { ReactNode, useEffect, useState} from 'react';
 import axios from '../api';
 
@@ -32,7 +31,7 @@ const Main: React.FC<Props> = (props) =>{
   }, []);
 
   return (
-  <main>
+  <main className={styles.main}>
     {state.map(item => <h1 key={item.id}>{item.name}</h1>)}
     {props.children}
   </main>

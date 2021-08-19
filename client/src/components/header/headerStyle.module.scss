@@ -1,0 +1,52 @@
+.headerWrapper{
+  position: absolute;
+  width: 85%;
+  height: 70px;
+  top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  align-items: center;
+  justify-content: space-between;
+  position:absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+a{
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.534);
+  margin-left: 1rem;
+  &:hover{
+    transform: scale(120%);
+  }
+}
+
+.userAuthWrapper {
+  a{
+    color: black;
+    &:hover{
+      color: red;
+      text-decoration:underline;
+      transform: scale(120%);
+      transition: 0.8s;
+    }
+  }
+}
+
+.bottomLine{
+  width: 100%;
+  height:1px;
+  background: rgba(0, 0, 0, 0.349);
+  position: absolute;
+  bottom: 0;
+}

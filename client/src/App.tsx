@@ -7,9 +7,6 @@ import UserRegistrationForm from './components/modalWindows/userRegistrationForm
 import UserLoginForm from './components/modalWindows/loginForm/loginForm';
 import AppRouter from './components/routePage/AppRouter';
 
-import Main from './components/main/Main';
-import Component1 from './components/styleComponent/cssModul';
-
 import Header from './components/header/header';
 
 function App() {
@@ -42,7 +39,7 @@ function App() {
           <AppRouter/>\
 
           <Switch>
-            <Route path="registration" component={UserRegistrationForm}/>
+            {/* <Route path="registration" component={UserRegistrationForm}/> */}
           </Switch>
       </div>
     </BrowserRouter>

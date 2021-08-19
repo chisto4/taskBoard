@@ -2,8 +2,7 @@ import Main from "../../main/Main";
 
 import React from 'react';
 import { useState } from 'react';
-import './userRegistrationFormStyle.css';
-import closeButton from '../../../icon/close.png'
+import styles from './userRegistrationFormStyle.module.scss';
 
 import instance from '../../api/index'
 
@@ -27,24 +26,20 @@ const UserRegistration: React.FC<IUserRegistrationForm> = ({onClickReg}) => {
   const [password, setPassword] = useState('');
   const [dob, setDOB] = useState('');
 
-  interface AnyInput {
-    inputName: any;
-  }
-
   const inputName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setName(event.target.value)
+    setName(event.target.value.toLocaleLowerCase())
     console.log('zalupa', name)
   }
   const inputSurName = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value)
+    setLastName(event.target.value.toLocaleLowerCase())
     console.log('zalupa', surname)
   }
   const inputLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setLogin(event.target.value)
+    setLogin(event.target.value.toLocaleLowerCase())
     console.log('zalupa', login)
   }
   const inputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value)
+    setEmail(event.target.value.toLocaleLowerCase())
     console.log('zalupa', email)
   }
   const inputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -56,8 +51,7 @@ const UserRegistration: React.FC<IUserRegistrationForm> = ({onClickReg}) => {
     console.log('zalupa', dob)
   }
 
-  const userInfo = async (event) => {
-    event.preventDefault();
+  const userInfo = async (event: { preventDefault: () => void; }) => {
     const res = await instance.post('/registration',      
     {
       name: name,
@@ -67,16 +61,14 @@ const UserRegistration: React.FC<IUserRegistrationForm> = ({onClickReg}) => {
       password: password,
       dob: dob
   })
-debugger
+    event.preventDefault();
+
   }
 
   return (
     <Main>
-      <form className="form" onSubmit={userInfo}>
-        <h1>Registration</h1>
-        <button onClick={onClickReg} className="closeButton" >
-          <img src={closeButton} className="icon" alt="closeButton"/>
-        </button>
+      <form className={styles.form} onSubmit={userInfo}>
+        <h1>REGISTRATION</h1>
         <input name='name' type="text" value={name} onChange={(e) => inputName(e)}  placeholder='Enter your Name'/>
         <input name='surname' type="text"  value={surname} onChange={(e) => inputSurName(e)} placeholder='Enter your Last Name'/>
         <input name='login' type="text"  value={login} onChange={(e) => inputLogin(e)} placeholder='Enter your Login'/>
@@ -84,7 +76,7 @@ debugger
         <input name='password' type="password" value={password} onChange={(e) => inputPassword(e)} placeholder='Enter your Password'/>
         <input name='dob' type="date" value={dob} onChange={(e) => inputDOB(e)} placeholder='Enter your Date of Born'/>
         <input name='avatarUrl' type="url" placeholder='Choice your Avatar'/>
-          <button type="submit" className="registrationButton">REGISTRATION</button>
+          <button type="submit" className={styles.registrationButton}>REGISTRATION</button>
       </form>
     </Main>
     );
