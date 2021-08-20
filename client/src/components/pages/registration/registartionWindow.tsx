@@ -1,10 +1,10 @@
 import Main from "../../main/Main";
 
-import React from 'react';
-import { useState } from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import styles from './userRegistrationFormStyle.module.scss';
 
 import instance from '../../api/index'
+
 
 interface IUserRegistrationForm {
   onClickReg: () => void;
@@ -28,27 +28,35 @@ const UserRegistration: React.FC<IUserRegistrationForm> = ({onClickReg}) => {
 
   const inputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value.toLocaleLowerCase())
-    console.log('zalupa', name)
   }
   const inputSurName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLastName(event.target.value.toLocaleLowerCase())
-    console.log('zalupa', surname)
   }
   const inputLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
     setLogin(event.target.value.toLocaleLowerCase())
-    console.log('zalupa', login)
   }
   const inputEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value.toLocaleLowerCase())
-    console.log('zalupa', email)
   }
   const inputPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value)
-    console.log('zalupa', password)
   }
   const inputDOB = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDOB(event.target.value)
-    console.log('zalupa', dob)
+ }
+
+  interface UserInterface {
+    id: number;
+    name: string;
+    surname: string;
+    login: string;
+    email: string;
+    token: string;
+    dob: Date;
+  }
+
+  type Props = {
+    children?: ReactNode | undefined;
   }
 
   const userInfo = async (event: { preventDefault: () => void; }) => {
@@ -63,7 +71,34 @@ const UserRegistration: React.FC<IUserRegistrationForm> = ({onClickReg}) => {
   })
     event.preventDefault();
 
-  }
+    return (
+        <div className={styles.userRegistrationSucces}>
+          User Hes registration
+          console.log('registracia rabotaet');
+        </div>
+    );
+  }  
+
+//  const getUserIfo: React.FC<Props> = (props) =>{
+//     const [state, setState] = useState<UserInterface[]>([]);
+      
+//     useEffect(() => {
+//       console.log('getUserIfo')
+//       instance.get('user')
+//         .then(r => {
+//           console.log('result', r.data)
+//           setState(r.data)
+//         })
+//         .catch(e => console.log('error', e.message))
+//     }, []);
+  
+//     return (
+//     <main className={styles.main}>
+//       {state.map(item => <h1 key={item.id}>{item.name}</h1>)}
+//       {props.children}
+//     </main>
+//       );
+//   }
 
   return (
     <Main>

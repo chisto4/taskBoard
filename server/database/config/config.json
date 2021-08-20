@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "nikolas",
-    "password": "fusion",
+    "password": "password",
     "database": "taskboard",
     "host": "localhost",
     "dialect": "postgres",
@@ -9,14 +9,14 @@
   },
   "test": {
     "username": "nikolas",
-    "password": "fusion",
+    "password": "password",
     "database": "taskboard",
     "host": "localhost",
     "dialect": "postgres"
   },
   "production": {
     "username": "nikolas",
-    "password": "fusion",
+    "password": "password",
     "database": "taskboard",
     "host": "localhost",
     "dialect": "postgres"

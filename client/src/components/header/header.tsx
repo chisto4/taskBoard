@@ -15,6 +15,7 @@ const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
           <a href="/">Task Board</a>
 
           <div className={styles.userAuthWrapper}>
+            <a href="/user">User Update test</a>
             <a href="/work">Work Space</a>
             <a href="/login">Login</a>
             <a href="/registration">Registration</a>

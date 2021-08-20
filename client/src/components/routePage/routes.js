@@ -2,7 +2,8 @@ import helloWindow from "../pages/helloWindow/helloWindow";
 import UserLogin from "../pages/login/loginPage";
 import UserRegistration from "../pages/registration/registartionWindow";
 import WorkSpace from "../pages/workSpace/WorkSpace";
-import { HELLO_PAGE, LOGIN, REGISTRATION, WORK_SPACE } from "../const/consts";
+import { HELLO_PAGE, LOGIN, REGISTRATION, USER, WORK_SPACE } from "../const/consts";
+import UserPage from "../pages/userPage/userPage";
 const path = require('path');
 
 export const authRoutes = [
@@ -17,6 +18,10 @@ export const authRoutes = [
 {
   path: LOGIN,
   Component: UserLogin
+},
+{
+  path: USER,
+  Component: UserPage
 }
 ] //Странциы и информация доступная только авторизованным пользователям
 

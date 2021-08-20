@@ -14,6 +14,7 @@ type UsersType = {
   login: string;
   name: string;
   surname: string;
+  token: string;
 }
 
 const Main: React.FC<Props> = (props) =>{
