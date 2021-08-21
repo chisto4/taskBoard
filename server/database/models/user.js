@@ -1,6 +1,6 @@
 import Sequelize  from 'sequelize';
 
-const sequelize = new Sequelize('taskboard', 'nikolas', 'fusion', {host: 'localhost', dialect: 'postgres'});
+const sequelize = new Sequelize('taskboard', 'nikolas', 'password', {host: 'localhost', dialect: 'postgres'});
 sequelize.sync().then(()=>{
 }).catch(err=>console.log(err))
 

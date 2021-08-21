@@ -18,63 +18,69 @@ interface UserInterface {
     children?: ReactNode | undefined;
   }
 
-  const userInfo = async (event: { preventDefault: () => void; }) => {
-    const res = await instance.post('/user',      
-    {
-      name: name,
-      surname: surname,
-      login: login,
-      email: email,
-      password: password,
-      dob: dob
-  })
-    event.preventDefault();
+  // const userInfo = async (event: { preventDefault: () => void; }) => {
+  //   const res = await instance.post('/user',      
+  //   {
+  //     name: name,
+  //     surname: surname,
+  //     login: login,
+  //     email: email,
+  //     password: password,
+  //     dob: dob
+  // })
+  //   event.preventDefault();
 
-    return (
-        <div className={styles.userRegistrationSucces}>
-          User Hes registration
-          console.log('registracia rabotaet');
-        </div>
-    );
-  } 
+  //   return (
+  //       <div className={styles.userRegistrationSucces}>
+  //         User Hes registration
+  //         console.log('registracia rabotaet');
+  //       </div>
+  //   );
+  // } 
 
 const UserPage: React.FC = () => {
-const state = const state = useSelector(state => state.users)
-return (
+  return (
 
-<Main>
-<div className={styles.default_user_info_wrapper}>
-<div className={styles.def_string_info}>
-<h6>Name:</h6>{name}
-</div>
-<div className={styles.def_string_info}>
-<h6>Last Name:</h6>{surname}
-</div>
-<div className={styles.def_string_info}>
-<h6>Login:</h6>{login}
-</div>
-<div className={styles.def_string_info}>
-<h6>Date of born:</h6>{dob}
-</div>
-<div className={styles.link_change_email}>
-<a href="/email">Change Email@adress</a>
-</div>
-</div>
+  <Main >
+    <div className={styles.user_update_information_main_wrapper}>
+    <div className={styles.default_user_info_wrapper}>
+      <div className={styles.user_avatar}></div>
+      <div className={styles.def_string_info}>
+        <h6>Name:</h6>User Avatar<p>Nikolas</p>
+      </div>
 
-<div className={styles.change_user_info_wrapper}>
-<form className={styles.form} onSubmit={userInfo}>
-<h1>REGISTRATION</h1>
-<input name='name' type="text" value={name} onChange={(e) => inputName(e)}  placeholder='Enter your Name'/>
-<input name='surname' type="text"  value={surname} onChange={(e) => inputSurName(e)} placeholder='Enter your Last Name'/>
-<input name='login' type="text"  value={login} onChange={(e) => inputLogin(e)} placeholder='Enter your Login'/>
-<input name='email' type="email"  value={email} onChange={(e) => inputEmail(e)} placeholder='Enter your Email'/>
-<input name='password' type="password" value={password} onChange={(e) => inputPassword(e)} placeholder='Enter your Password'/>
-<input name='dob' type="date" value={dob} onChange={(e) => inputDOB(e)} placeholder='Enter your Date of Born'/>
-<input name='avatarUrl' type="url" placeholder='Choice your Avatar'/>
-<button type="submit" className={styles.registrationButton}>REGISTRATION</button>
-</form>
-</div>
-</Main>
+      <div className={styles.def_string_info}>
+        <h6>Last Name:</h6><p>Chistofor</p>
+      </div>
+
+      <div className={styles.def_string_info}>
+        <h6>Login:</h6><p>Chisto4</p>
+      </div>
+
+      <div className={styles.def_string_info}>
+        <h6>Date of born:</h6><p>23/08/1991</p>
+      </div>
+
+      <div className={styles.link_change_email}>
+        <a href="/email">Change Email@adress</a>
+      </div>
+    </div>
+
+    <div className={styles.change_user_info_wrapper}>
+      {/* <form className={styles.form} onSubmit={userInfo}> */}
+      <form className={styles.form}>
+          <h1>Change user information</h1>
+        <input name='name' type="text" placeholder='Enter your Name'/>
+        <input name='surname' type="text"  placeholder='Enter your Last Name'/>
+        <input name='login' type="text"  placeholder='Enter your Login'/>
+        <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
+        <input name='newPassword' type="password" placeholder='Enter your New password'/>
+        <input name='dob' type="date" placeholder='Enter your Date of Born'/>
+        <button type="submit" className={styles.registrationButton}>upadte information</button>
+      </form>
+    </div>
+    </div>
+  </Main>
 );
 };
 
