@@ -25,7 +25,7 @@ userController.loginUser);
 
 userRouter.get('/token', tokenModule, userController.tokenUser);
 
-userRouter.get('/user', tokenModule, userController.getUsers);
+userRouter.get('/users', tokenModule, userController.getUsers);
 userRouter.get('/user/:id', tokenModule, userController.getOneUser);
 userRouter.put('/user', tokenModule, userController.updateUser);
 userRouter.put('/user/email', tokenModule, userController.updateEmail);

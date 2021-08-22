@@ -22,7 +22,8 @@
   height: 100%;
 }
 
-a{
+span{
+  cursor: pointer;
   text-decoration: none;
   color: rgba(0, 0, 0, 0.534);
   margin-left: 1rem;
@@ -32,7 +33,7 @@ a{
 }
 
 .userAuthWrapper {
-  a{
+  span{
     color: black;
     &:hover{
       color: red;

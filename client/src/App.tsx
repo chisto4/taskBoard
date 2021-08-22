@@ -5,7 +5,7 @@ import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom';
 import UserRegistrationForm from './components/modalWindows/userRegistrationForm/UserRegistrationForm'
 import UserLoginForm from './components/modalWindows/loginForm/loginForm';
-import AppRouter from './components/routePage/AppRouter';
+import AppRouter from './components/api/routePage/AppRouter';
 
 import Header from './components/header/header';
 

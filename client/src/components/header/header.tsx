@@ -15,13 +15,14 @@ const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
   return (
       <div className={styles.headerWrapper}>
         <div className={styles.header}>
-          <a onClick={() => {history.push("/")}}>Task Board</a>
+          <span onClick={() => {history.push("/")}}>Task Board</span>
 
           <div className={styles.userAuthWrapper}>
-            <a onClick={() => {history.push("/user")}} >User Update test</a>
-            <a onClick={() => {history.push("/work")}} >Work Space</a>
-            <a onClick={() => {history.push("/login")}} >Login</a>
-            <a onClick={() => {history.push("/registration")}}>Registration</a>
+            <span onClick={() => {history.push("/user")}} >User Update test</span>
+            <span onClick={() => {history.push("/users")}} >User List test</span>
+            <span onClick={() => {history.push("/work")}} >Work Space</span>
+            <span onClick={() => {history.push("/login")}} >Login</span>
+            <span onClick={() => {history.push("/registration")}}>Registration</span>
 
               {/* <NavLink className={styles.RegLogLink} to="/registration"><a>Login</a></NavLink>
               <NavLink className={styles.RegLogLink} onClick={onClickReg} to="/registration">Registration</NavLink> */}

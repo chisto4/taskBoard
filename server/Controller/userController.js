@@ -31,7 +31,7 @@ class UserController{
             await user.create(
                 {name, surname, login:lowerCaseLogin, email:lowerCaseEmail, password:hashPassword, dob}
             )
-            res.status(200).json('New user has registrated')    
+            res.status(200).json('New user registered')    
         }
         catch(e){
             res.status(500).json(e)
@@ -57,7 +57,7 @@ class UserController{
             userLogin = userLogin.toJSON();
             delete userLogin.password;
             const token = genAccessToken(userLogin.id, userLogin.email)
-            console.log('zalupa tut', userLogin.id, userLogin.email)
+            console.log('test token content', userLogin.id, userLogin.email)
             return res.json({token, userLogin})
 } catch (e){
     console.log(e)
