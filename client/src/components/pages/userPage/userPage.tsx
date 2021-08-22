@@ -1,8 +1,11 @@
 import Main from "../../main/Main";
 import {useSelector} from "react-redux";
-import styles from './userPage.module.scss'
 import { ReactNode } from "react";
+
+import styles from './userPage.module.scss'
+import userAvatar from '../../../image/georgeMaichael.jpeg'
 import instance from "../../api";
+import { useTypedSelector } from "../../Redux/types/useTypeSelector";
 
 interface UserInterface {
     id: number;
@@ -39,14 +42,18 @@ interface UserInterface {
   // } 
 
 const UserPage: React.FC = () => {
+  const state = useTypedSelector(state => state.user)
+  console.log('tets state', state)
   return (
 
   <Main >
     <div className={styles.user_update_information_main_wrapper}>
     <div className={styles.default_user_info_wrapper}>
-      <div className={styles.user_avatar}></div>
+      <div className={styles.user_avatar}>
+        <img src={userAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
+      </div>
       <div className={styles.def_string_info}>
-        <h6>Name:</h6>User Avatar<p>Nikolas</p>
+        <h6>Name:</h6><p>Nikolas</p>
       </div>
 
       <div className={styles.def_string_info}>
@@ -75,6 +82,7 @@ const UserPage: React.FC = () => {
         <input name='login' type="text"  placeholder='Enter your Login'/>
         <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
         <input name='newPassword' type="password" placeholder='Enter your New password'/>
+        <input name='newPasswordControl' type="password" placeholder='Confirm the password'/>
         <input name='dob' type="date" placeholder='Enter your Date of Born'/>
         <button type="submit" className={styles.registrationButton}>upadte information</button>
       </form>

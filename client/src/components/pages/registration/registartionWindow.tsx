@@ -60,6 +60,9 @@ const UserRegistration: React.FC<IUserRegistrationForm> = ({onClickReg}) => {
   }
 
   const userInfo = async (event: { preventDefault: () => void; }) => {
+    event.preventDefault();
+    debugger;
+
     const res = await instance.post('/registration',      
     {
       name: name,
@@ -69,14 +72,19 @@ const UserRegistration: React.FC<IUserRegistrationForm> = ({onClickReg}) => {
       password: password,
       dob: dob
   })
-    event.preventDefault();
 
-    return (
-        <div className={styles.userRegistrationSucces}>
-          User Hes registration
-          console.log('registracia rabotaet');
-        </div>
-    );
+  if (res.data === 'registered') {
+    
+  }
+  debugger;
+
+return false;
+    // return (
+    //     <div className={styles.userRegistrationSucces}>
+    //       User Hes registration
+    //       console.log('registracia rabotaet');
+    //     </div>
+    // );
   }  
 
 //  const getUserIfo: React.FC<Props> = (props) =>{
