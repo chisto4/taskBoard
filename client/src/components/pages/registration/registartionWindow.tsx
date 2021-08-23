@@ -5,6 +5,7 @@ import {useDispatch} from 'react-redux';
 import styles from './userRegistrationFormStyle.module.scss';
 
 import {regUsers} from '../../api/registrationUser';
+import { loginUser } from "../../api/loginUser";
 
 const UserRegistration: React.FC = ():JSX.Element => {
   const [userName, setUserName] = useState('');

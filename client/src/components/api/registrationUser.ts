@@ -31,7 +31,7 @@ export const regUsers = (user: {
 
       dispatch(registrationUsers(users));
       loginUser(user);
-      document.location.href = 'http://localhost:3000/work';
+      document.location.href = 'http://localhost:3000/login';
 
     } catch(e) {
       console.log(e);
