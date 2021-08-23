@@ -1,25 +1,11 @@
 import Main from "../../main/Main";
-import {useSelector} from "react-redux";
-import { ReactNode } from "react";
+import {useSelector, useDispatch} from "react-redux";
+import { FormEvent } from 'react';
 
-import styles from './userPage.module.scss'
-import userAvatar from '../../../image/georgeMaichael.jpeg'
-import instance from "../../api";
-import { useTypedSelector } from "../../Redux/types/useTypeSelector";
-
-interface UserInterface {
-    id: number;
-    name: string;
-    surname: string;
-    login: string;
-    email: string;
-    token: string;
-    dob: Date;
-  }
-
-  type Props = {
-    children?: ReactNode | undefined;
-  }
+import styles from './userPage.module.scss';
+import userAvatar from '../../../image/georgeMaichael.jpeg';
+import {deleteUsers} from '../..//api/deleteUser'
+import {editUsers} from '../..//api/updateUser'
 
   // const userInfo = async (event: { preventDefault: () => void; }) => {
   //   const res = await instance.post('/user',      
@@ -41,9 +27,12 @@ interface UserInterface {
   //   );
   // } 
 
-const UserPage: React.FC = () => {
-  const state = useTypedSelector(state => state.user)
-  console.log('tets state', state)
+const UserPage: React.FC = ():JSX.Element => {
+    const dispatch = useDispatch;
+
+    interface defState {
+      
+    }
   return (
 
   <Main >
@@ -71,6 +60,8 @@ const UserPage: React.FC = () => {
       <div className={styles.link_change_email}>
         <a href="/email">Change Email@adress</a>
       </div>
+      {/* <button onSubmit={(deleteUsers)} className={styles.del_user_button}>DELETE USER</button> */}
+      <span onSubmit={(deleteUsers)} className={styles.del_user_button}>DELETE USER</span>
     </div>
 
     <div className={styles.change_user_info_wrapper}>

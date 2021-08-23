@@ -1,16 +1,16 @@
-// export interface userInterface {
-//     id?: number,
-//     name?: string,
-//     surname?: string,
-//     login?: string,
-//     password?: string,
-//     email?: string,
-//     dob?: string,
-//     avatar: URL,
-// }
+export interface usersInterface {
+    id: number,
+    name?: string,
+    surname?: string,
+    login?: string,
+    password?: string,
+    email?: string,
+    dob?: string,
+    token?: string,
+}
 
-// export interface actionInterface {
-//     type: string,
-//     payload: userInterface[],
-// }
+export interface actionInterface {
+    type: string,
+    payload: usersInterface[],
+}
 
