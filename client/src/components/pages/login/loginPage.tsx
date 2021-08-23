@@ -7,7 +7,7 @@ import {loginUser} from '../../api/loginUser';
 import Main from "../../main/Main";
 
 
-const UserLogin: React.FC = ():JSX.Element => {
+const UserLogin: React.FC = (user):JSX.Element => {
 
   const userInfo = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
     event.preventDefault();
