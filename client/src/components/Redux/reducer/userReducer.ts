@@ -6,6 +6,12 @@ const initialState: UserState = {
     error: null
   }
 
+const initialState: UserState = {
+    users: [],
+    loading: false,
+    error: null
+  }
+
 export const userReducer = (state = initialState, action: UserAction): UserState => {
     switch (action.type) {
         case UserActionTypes.GET_ALL_USERS:
@@ -19,3 +25,5 @@ export const userReducer = (state = initialState, action: UserAction): UserState
     }
 
 }
+
+export const loginReducer = (state:)

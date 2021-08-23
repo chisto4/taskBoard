@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import { Action } from 'redux';
 import {deleteUser} from '../Redux/store/action';
-import instance from './index';
+import axios from './index';
 
 export const deleteUsers = (user: {
   id: number,
@@ -10,11 +10,11 @@ export const deleteUsers = (user: {
 }, token: string) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
    
-    const response = await instance.delete(`/users/${user.id}`, {
+    const response = await axios.delete(`/users/${user.id}`, {
 
     headers: { Authorization:localStorage.getItem('token') } })
-            .then(response=> console.log(response))
-            .catch(error => console.log(error));
+            // .then(response=> console.log(response))
+            // .catch(error => console.log(error));
 
 
     //   headers: {

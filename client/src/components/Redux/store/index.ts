@@ -12,4 +12,5 @@ declare global {
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 /* eslint-disable no-underscore-dangle */
+
 export const store = createStore(reducer, composeEnhancers(applyMiddleware(thunk)));

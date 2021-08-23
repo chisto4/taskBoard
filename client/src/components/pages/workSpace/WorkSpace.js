@@ -1,16 +1,12 @@
 import React, {useState} from 'react';
 import './workSpaceStyled.css';
 
-import deleteButton  from '../../../icon/delete.png';
-import closeButton  from '../../../icon/close.png';
+// import deleteButton  from '../../../icon/delete.png';
+// import closeButton  from '../../../icon/close.png';
 
 import Main from '../../main/Main';
 
-
-interface IWorkSpace {
-}
-
-const WorkSpace: React.FC<IWorkSpace> = () => {
+const WorkSpace = () => {
   const [columns, setColumns] = useState([
     {id:1, title:"What need", items:[{id:1, title:"Develpometn"},{id:2, title:'Create desigen Todo'},
                 {id:3, title:'made Hello world made Hello world '},{id:4, title:'Always make Zalupa test on console'}]},

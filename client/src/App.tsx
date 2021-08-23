@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 
 import './App.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import {BrowserRouter, Switch} from 'react-router-dom';
 import UserRegistrationForm from './components/modalWindows/userRegistrationForm/UserRegistrationForm'
 import UserLoginForm from './components/modalWindows/loginForm/loginForm';
 import AppRouter from './components/api/routePage/AppRouter';

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+// import React, {useContext} from 'react';
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "./routes";
 import {HOME_PAGE} from "../const/const";
@@ -7,7 +7,7 @@ import {observer} from "mobx-react-lite";
 
 const AppRouter = observer(() => {
     // const {user} = useContext(Context)
-const isAuth = false
+// const isAuth = false
     // console.log(user)
     return (
         <Switch>

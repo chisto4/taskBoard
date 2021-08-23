@@ -1,11 +1,11 @@
 import Main from "../../main/Main";
-import {useSelector, useDispatch} from "react-redux";
-import { FormEvent } from 'react';
+// import {useDispatch, useSelector} from "react-redux";
+// import { FormEvent } from 'react';
 
 import styles from './userPage.module.scss';
 import userAvatar from '../../../image/georgeMaichael.jpeg';
-import {deleteUsers} from '../..//api/deleteUser'
-import {editUsers} from '../..//api/updateUser'
+// import {deleteUsers} from '../..//api/deleteUser'
+// import {editUsers} from '../..//api/updateUser'
 
   // const userInfo = async (event: { preventDefault: () => void; }) => {
   //   const res = await instance.post('/user',      
@@ -28,11 +28,12 @@ import {editUsers} from '../..//api/updateUser'
   // } 
 
 const UserPage: React.FC = ():JSX.Element => {
-    const dispatch = useDispatch;
+    // const dispatch = useDispatch;
+    // cons user = useSelector((state) => state.user)
 
-    interface defState {
+    // interface defState {
       
-    }
+    // }
   return (
 
   <Main >
@@ -61,7 +62,7 @@ const UserPage: React.FC = ():JSX.Element => {
         <a href="/email">Change Email@adress</a>
       </div>
       {/* <button onSubmit={(deleteUsers)} className={styles.del_user_button}>DELETE USER</button> */}
-      <span onSubmit={(deleteUsers)} className={styles.del_user_button}>DELETE USER</span>
+      {/* <span onClick={() => deleteUsers({email, })} className={styles.del_user_button}>DELETE USER</span> */}
     </div>
 
     <div className={styles.change_user_info_wrapper}>

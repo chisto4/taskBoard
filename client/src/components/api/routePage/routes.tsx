@@ -4,7 +4,7 @@ import UserRegistration from "../../pages/registration/registartionWindow";
 import WorkSpace from "../../pages/workSpace/WorkSpace";
 import { HELLO_PAGE, LOGIN, REGISTRATION, USER, WORK_SPACE } from "../const/const";
 import UserPage from "../../pages/userPage/userPage";
-const path = require('path');
+// const path = require('path');
 
 export const authRoutes = [
  { 

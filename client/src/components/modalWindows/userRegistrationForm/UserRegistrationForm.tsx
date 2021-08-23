@@ -23,9 +23,6 @@ const UserRegistrationForm: React.FC<IUserRegistrationForm> = ({onClickReg}) => 
   const [password, setPassword] = useState('');
   const [dob, setDOB] = useState('');
 
-  interface AnyInput {
-    inputName: any;
-  }
 
   const inputName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)

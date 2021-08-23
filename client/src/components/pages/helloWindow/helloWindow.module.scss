@@ -36,4 +36,7 @@
   margin-top: 50px;
   border-radius: 20px;
   box-shadow: 10px 20px 40px rgba(128, 128, 128, 0.664);
+  @media screen and (max-width:1560px) {
+    width:40%;
+    }
   }

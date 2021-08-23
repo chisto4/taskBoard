@@ -22,7 +22,7 @@ const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
             <span onClick={() => {history.push("/user")}} >User Information</span>
             <span onClick={() => {history.push("/work")}} >Work Space</span>
             <span onClick={() => {history.push("/login")}} >Login</span>
-            <span onClick={(logOut)}>Log Out</span>
+            <span onClick={(logOut)} className={styles.log_out}>Log Out</span>
             <span onClick={() => {history.push("/registration")}}>Registration</span>
 
               {/* <NavLink className={styles.RegLogLink} to="/registration"><a>Login</a></NavLink>

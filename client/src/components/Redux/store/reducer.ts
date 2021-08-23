@@ -19,21 +19,6 @@ const updateUser = (currentUser: usersInterface[], allUsers: usersInterface[]) =
       surname: currentUser[0].surname,
       login: currentUser[0].login,
       dob: currentUser[0].dob,
-      avatar: currentUser[0].avatar,
-    };
-  });
-};
-
-const updateEmail = (currentUser: usersInterface[], allUsers: usersInterface[]) => {
-  return allUsers.map(item => {
-    if (item.token !== currentUser[0].token) return item;
-    return {
-      id: item.id,
-      name: currentUser[0].name,
-      surname: currentUser[0].surname,
-      login: currentUser[0].login,
-      dob: currentUser[0].dob,
-      avatar: currentUser[0].avatar,
     };
   });
 };
@@ -47,7 +32,6 @@ const getOneUser = (currentUser: usersInterface[]) => {
     login: currentUser[0].login,
     email: currentUser[0].email,
     dob: currentUser[0].dob,
-    avatar: currentUser[0].avatar,
   };
 };
 
@@ -72,7 +56,7 @@ export const reducer = (state = defaultState, action: {type: string, payload: us
     const user = getOneUser(action.payload);
     return { ...state, authUser: user };
   }
-    break;
+    // break;
   default:
     return state;
   }

@@ -7,6 +7,9 @@
   flex-direction: column;
   align-items: center;
   z-index: 10;
+  @media screen and (max-width:1560px) {
+    width:70%;
+    }
 }
 
 .header {
@@ -43,6 +46,17 @@ span{
     }
   }
 }
+
+.log_out {
+  span{
+    color: red;
+    &:hover{
+      color: blue;
+      text-decoration:underline;
+      transform: scale(120%);
+      transition: 0.8s;
+    }
+  }}
 
 .bottomLine{
   width: 100%;

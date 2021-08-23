@@ -3,6 +3,7 @@ import { Action } from 'redux';
 
 import {registrationUsers} from '../Redux/store/action';
 import instance from './index';
+import {loginUser} from './loginUser';
 
 export const regUsers = (user: {
   name: string,
@@ -26,9 +27,12 @@ export const regUsers = (user: {
         dob: res.data.dob,
       }];
 
-      console.log('api reg',user);
+      console.log('User info registaration',user);
 
       dispatch(registrationUsers(users));
+      loginUser(user);
+      document.location.href = 'http://localhost:3000/work';
+
     } catch(e) {
       console.log(e);
     }
