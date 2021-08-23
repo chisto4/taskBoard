@@ -69,7 +69,7 @@ const UserPage: React.FC = ():JSX.Element => {
       {/* <form className={styles.form} onSubmit={userInfo}> */}
       <form className={styles.form}>
           <h1>Change user information</h1>
-        <input name='name' type="text" placeholder='Enter your Name'/>
+        <input name='name' defaultValue="userName" type="text" placeholder='Enter your Name'/>
         <input name='surname' type="text"  placeholder='Enter your Last Name'/>
         <input name='login' type="text"  placeholder='Enter your Login'/>
         <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
