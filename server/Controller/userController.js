@@ -31,6 +31,7 @@ class UserController{
             await user.create(
                 {name, surname, login:lowerCaseLogin, email:lowerCaseEmail, password:hashPassword, dob}
             )
+
             res.status(200).json('New user registered')    
         }
         catch(e){
