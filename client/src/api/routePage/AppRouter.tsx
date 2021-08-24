@@ -4,10 +4,11 @@ import {authRoutes, publicRoutes} from "./routes";
 import {HOME_PAGE} from "../const/const";
 // import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
+import { useAppSelector } from '../../store/reducers';
+
 
 const AppRouter = observer(() => {
-    const tokenTrue = localStorage.getItem('token')
-const isAuth = tokenTrue
+    const isAuth = useAppSelector((state) => state.user.auth)
     return (
         <Switch>
             {isAuth && authRoutes.map(({path, Component}) =>

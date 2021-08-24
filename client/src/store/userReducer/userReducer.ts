@@ -21,7 +21,15 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
         case actions.SET_AUTH:
             return {...state, auth: action.payload }
         case actions.SET_ERROR:
+            return {...state, error: action.payload }
+        case actions.LOG_USER:
+            return {...state, user: action.payload }
+        case actions.LOG_AUTH:
+            return {...state, auth: action.payload }
+        case actions.LOG_ERROR:
             return {...state, error: action.payload}
+            case actions.UPDATE_USER:
+                return {...state, user : action.payload }
             default:
         return state
     }

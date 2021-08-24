@@ -28,17 +28,24 @@ class UserController{
                 return res.status(400).json({message:'This login is alredy registrated'})
             }
             const hashPassword = bcrypt.hashSync(password, 5);
-            await user.create(
+            let newUser = await user.create(
                 {name, surname, login:lowerCaseLogin, email:lowerCaseEmail, password:hashPassword, dob}
             )
-
-            res.status(200).json('New user registered')    
+                newUser = newUser.toJSON();
+                delete newUser.password;
+                const token = genAccessToken(newUser.id, newUser.email)
+                // console.log('test token content', userLogin.id, userLogin.email)
+                // return res.json({token})
+                console.log({token, newUser})
+            return res.status(200).json({token, newUser})    
         }
         catch(e){
             res.status(500).json(e)
             console.log(e.message)
         }
     }
+
+
     async loginUser(req, res){
         try{
             const {login, password} = req.body
@@ -65,6 +72,8 @@ class UserController{
     res.status(400).json({message:'Login fail error'})
     }
 }
+
+
 async tokenUser(req, res){
     try{
         const {id} = req.user
@@ -93,6 +102,8 @@ async tokenUser(req, res){
           console.log(e);
         }
       }
+
+
     async getOneUser(req, res){
         try{
             const id = req.params.id
@@ -110,8 +121,11 @@ async tokenUser(req, res){
             console.log('User ID not found')
     }
 }
+
+
     async updateUser(req, res){
         try{
+            console.log(req.body)
         const {name, surname, login, email, password, dob} = req.body
         const lowerCaseEmail = email.toLowerCase();
         const userEmail = await user.findOne({where:{email: lowerCaseEmail}})
@@ -129,6 +143,8 @@ async tokenUser(req, res){
         console.log('User information not update error')
     }
     }
+
+
     async updateEmail(req, res){
         try{
         const {name, surname, login, email, password, dob} = req.body
@@ -148,6 +164,7 @@ async tokenUser(req, res){
         console.log('User Email not update error')
     }
     }
+
 
     async deleteUser(req, res){
         try{

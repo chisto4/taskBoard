@@ -5,6 +5,7 @@ import {logOut} from "../../logOut"
 // import {NavLink} from 'react-router-dom';
 
 import useRoutes from '../../../routePage/useMemo';
+import { useAppSelector } from '../../../../store/reducers';
 
 interface IHeader {
   onClickLog: () => void;
@@ -18,8 +19,9 @@ const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
     history.push("/");
   }
   const tokenTrue = localStorage.getItem('token')
-  const isAuth = tokenTrue
   
+  const isAuth = useAppSelector((state) => state.user.auth)
+ 
   return (
       <div className={styles.headerWrapper}>
         <div className={styles.header}>

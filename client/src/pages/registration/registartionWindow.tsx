@@ -4,8 +4,6 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './userRegistrationFormStyle.module.scss';
 
-import { regUser } from '../../api/userApi/registrationUser';
-import { loginUser } from "../../api/userApi/loginUser";
 import { registrationUsers } from "../../store/userReducer/userThunk";
 import { IUser } from "../../types/types";
 
@@ -16,6 +14,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
   const [userDob, setUserDob] = useState('');
+
   const state = useSelector((state) => state)
 
   console.log('state', state);
@@ -36,9 +35,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
       password: userPassword,
       dob: parseDate,
     };
-    // console.log('zalupa', user)
     dispatch(registrationUsers(user));
-
   };
 
   return (
@@ -57,8 +54,6 @@ const UserRegistration: React.FC = (): JSX.Element => {
     </Main>
   );
 }
-
-
 export default UserRegistration;
 
 

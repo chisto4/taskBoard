@@ -1,10 +1,10 @@
 export interface usersInterface {
-    id: number,
+    id?: number,
     name?: string,
     surname?: string,
-    login?: string,
-    password?: string,
-    email?: string,
+    login: string,
+    password: string,
+    email: string,
     dob?: Date,
 }
 
@@ -19,7 +19,13 @@ export interface IUser {
   login: string,
   password: string,
   email: string,
-  dob: Date
+  dob: Date | string
+}
+
+export interface ILogUser {
+  login: string,
+  password: string,
+  email: string,
 }
 
 export interface IUserState {

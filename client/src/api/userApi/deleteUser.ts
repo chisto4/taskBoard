@@ -1,6 +1,6 @@
 import { Dispatch } from 'react';
 import { Action } from 'redux';
-import {deleteUser} from '../../store/userReducer/actionUser';
+// import {deleteUser} from '../../store/userReducer/actionUser';
 import axios from './index';
 
 export const deleteUsers = (user: {
@@ -31,7 +31,6 @@ export const deleteUsers = (user: {
         id: user.id,
         email: user.email,
       }];
-      dispatch(deleteUser(users));
       document.location.href = 'http://localhost:3000/';
     }
     else {
