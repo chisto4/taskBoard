@@ -3,11 +3,11 @@ import React, { useState } from 'react';
 
 import './App.css';
 import {BrowserRouter, Switch} from 'react-router-dom';
-import UserRegistrationForm from './components/modalWindows/userRegistrationForm/UserRegistrationForm'
-import UserLoginForm from './components/modalWindows/loginForm/loginForm';
-import AppRouter from './components/api/routePage/AppRouter';
+import UserRegistrationForm from './api/userApi/components/modalWindows/userRegistrationForm/UserRegistrationForm'
+import UserLoginForm from './api/userApi/components/modalWindows/loginForm/loginForm';
+import AppRouter from './api/routePage/AppRouter';
 
-import Header from './components/header/header';
+import Header from './api/userApi/components/header/header';
 
 function App() {
   const [logForm, setLogForm] = useState(false);
