@@ -34,10 +34,10 @@ export const updateUser = (user: IUser) => async (dispatch: any):Promise<void> =
       dispatch(actionsLogError(error.message))
   }
 };
-export const updateUserInformationToken = (user: IUser) => async (dispatch: any):Promise<void> => {
+export const updateUserInformationToken = () => async (dispatch: any):Promise<void> => {
   try {
-    const data: any = await getToken(user)
-      dispatch(actionsGetToken(data));
+    const data: any = await getToken()
+      dispatch(actionsGetToken(data.user));
       dispatch(actionsGetTokenAuth(true));
   } catch(error: any) {
       dispatch(actionsGetTokenError(error.message))
