@@ -18,10 +18,10 @@ export const actionsSetError = (error:string | null) => ({
   payload: error,
 });
 
-export const actionsLogUser = (user: IUser) => ({
-  type: actions.LOG_USER,
-  payload: user,
-})
+// export const actionsLogUser = (user: IUser) => ({
+//   type: actions.LOG_USER,
+//   payload: user,
+// })
 
 export const actionsLogAuth = (boolean: boolean) => ({
   type: actions.LOG_AUTH,

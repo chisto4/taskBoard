@@ -8,14 +8,19 @@ import UserLoginForm from './api/userApi/components/modalWindows/loginForm/login
 import AppRouter from './api/routePage/AppRouter';
 
 import Header from './api/userApi/components/header/header';
-import { getToken } from './api/userApi/getToken';
 import { useDispatch } from 'react-redux';
+import { updateUserInformationToken } from './store/userReducer/userThunk';
+import { useAppSelector } from './store/reducers';
 
 function App() {
   const [logForm, setLogForm] = useState(false);
   const [regForm, setRegForm] = useState(false);
 
   const dispatch:any = useDispatch<any>();
+
+  const stateName = useAppSelector((state) => state)
+  console.log('zalupa', stateName)
+
 
   const onClickLog = () => {
     setLogForm(!logForm);
@@ -41,8 +46,8 @@ function App() {
 
 
   useEffect(() => {
-    dispatch(getToken());
-    }, [dispatch, getToken])
+    dispatch(updateUserInformationToken());
+    }, [dispatch, updateUserInformationToken])
 
   return (
     <BrowserRouter>

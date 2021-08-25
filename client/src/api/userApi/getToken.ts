@@ -3,11 +3,10 @@ import axios from './index';
 import { logUser } from './loginUser';
 
 
-export const getToken = () => async (): Promise<any> => {  try {
+export const getToken = async () => {  
+  try {
     const res = await axios.get('/token');
-    console.log('User info token update', res.data.user);
-    let user = res.data;
-    logUser(user.user)
+    console.log('User info token update', res.data);
     return res.data
   } catch (e) {
     console.log(e);

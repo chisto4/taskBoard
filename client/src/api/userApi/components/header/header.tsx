@@ -4,6 +4,8 @@ import { useHistory } from "react-router-dom";
 import {logOut} from "../../logOut"
 // import {NavLink} from 'react-router-dom';
 
+import userAvatar from '../../../../image/georgeMaichael.jpeg';
+
 import useRoutes from '../../../routePage/useMemo';
 import { useAppSelector } from '../../../../store/reducers';
 import { logOutThunk } from '../../../../store/userReducer/userThunk';
@@ -17,6 +19,7 @@ interface IHeader {
 const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
 
   const dispatch = useDispatch();
+  // const { login } = useAppSelector((state) => state.user.user)
 
   let history = useHistory();
   function logOuting() {
@@ -35,7 +38,10 @@ const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
           <span onClick={() => {history.push("/")}}>Task Board</span>
 
           <div className={styles.userAuthWrapper}>
-            {isAuth && <span onClick={() => {history.push("/user")}} >User Information</span>}
+          <div className={styles.user_avatar}>
+            {isAuth && <img src={userAvatar} className={styles.circle_avatar} alt='User Avatar'></img>}
+          </div>
+            {/* {isAuth && <span onClick={() => {history.push("/user")}} >{login}</span>} */}
             {isAuth && <span onClick={() => {history.push("/work")}} >Work Space</span>}
             {!isAuth && <span onClick={() => {history.push("/login")}} >Login</span>}
             {isAuth && <span onClick={(logOuting)} className={styles.log_out}>Log Out</span>}

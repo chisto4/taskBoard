@@ -37,4 +37,24 @@ const user = sequelize.define("user", {
     }
 })
 
+// export const userImage = sequelize.define("image", {
+//     id:{
+//         type: Sequelize.INTEGER,
+//         autoIncrement: true,
+//         primaryKey: true,
+//         allowNull: true
+//     },
+//     pastName: {
+//         type: Sequelize.STRING,
+//         unique: true
+//     }
+// })
+
+// user.hasMany(userImage)
+// userImage.hasOne(user, {
+//     foreignKey:{
+// userIdentefication
+// }
+// })
+
 export default user

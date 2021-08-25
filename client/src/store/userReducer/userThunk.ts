@@ -3,7 +3,7 @@ import { logUser } from "../../api/userApi/loginUser";
 import { regUser } from "../../api/userApi/registrationUser";
 import { editUsers } from "../../api/userApi/updateUser";
 import { IUser } from "../../types/types";
-import {actionsGetToken, actionsGetTokenAuth, actionsGetTokenError, actionsLogAuth, actionsLogError, actionsLogOut, actionsLogUser, actionsSetAuth, actionsSetError, actionsSetUser, actionsUpdateUser} from './actionUser'
+import { actionsGetTokenAuth, actionsGetTokenError, actionsLogAuth, actionsLogError, actionsLogOut, actionsSetAuth, actionsSetError, actionsSetUser, actionsUpdateUser} from './actionUser'
 
 export const registrationUsers = (user: IUser) => async (dispatch: any):Promise<void> => {
   try {
@@ -19,7 +19,7 @@ export const loginUser = (user: IUser) => async (dispatch: any):Promise<void> =>
   try {
     const data = await logUser(user)
       localStorage.setItem('token', data.token)
-      dispatch(actionsLogUser(data.userLogin));
+      dispatch(actionsSetUser(data.userLogin));
       dispatch(actionsLogAuth(true));
   } catch(error: any) {
       dispatch(actionsLogError(error.message))
@@ -36,8 +36,9 @@ export const updateUser = (user: IUser) => async (dispatch: any):Promise<void> =
 };
 export const updateUserInformationToken = () => async (dispatch: any):Promise<void> => {
   try {
-    const data: any = await getToken()
-      dispatch(actionsGetToken(data.user));
+    const data = await getToken()
+
+      dispatch(actionsSetUser(data));
       dispatch(actionsGetTokenAuth(true));
   } catch(error: any) {
       dispatch(actionsGetTokenError(error.message))
