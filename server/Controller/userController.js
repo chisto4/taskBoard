@@ -81,7 +81,7 @@ async tokenUser(req, res){
         if(!id){
             return res.status(400).json({message: "ID not use"})
         }
-        const userIdToken = await user.findAll({where:{id}, raw: true,
+        const userIdToken = await user.findOne({where:{id}, raw: true,
             attributes: ['id', 'name', 'surname', 'login', 'email', 'dob']
         })
         console.log(userIdToken)

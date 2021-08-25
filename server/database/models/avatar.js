@@ -4,18 +4,25 @@ const sequelize = new Sequelize('taskboard', 'nikolas', 'password', {host: 'loca
 sequelize.sync().then(()=>{
 }).catch(err=>console.log(err))
 
-const userImage = sequelize.define("image", {
+export const userImage = sequelize.define("image", {
     id:{
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
-        allowNull: false
+        allowNull: true
     },
-    title: {
+    pastName: {
         type: Sequelize.STRING,
-        allowNull: false,
         unique: true
     }
 })
+
+user.hasMany(userImage)
+userImage.hasOne(user, {
+    foreignKey:{
+userIdentefication
+}
+})
+
 
 export default userImage
