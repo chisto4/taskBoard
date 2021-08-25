@@ -1,12 +1,12 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import {validationResult} from 'express-validator'
-import { v4 as uuidv4 } from 'uuid';
+import { v4 } from 'uuid';
 import {genAccessToken} from '../middleware/authMiddleware.js'
 
 import user from '../database/models/user.js'
 import regularEmail from '../middleware/regularConstant.js'
-
+ 
 export const secretKey = 'q1w2e3r4'
 
 class UserController{
@@ -183,12 +183,13 @@ async tokenUser(req, res){
 
     async uploadAvatar (req, res){
         try{
-        const {file} = req.body.file
-        const user = await user.findById(req.user.id);
+        const {file} = req.body
+        const id = req.body.id
+        const foundUser = await user.findById(id);
         const avatarName = v4() + ".jpg";
         file.mv(config.get('staticPatch') + "\\" + avatarName)
-        user.avatar = avatarName
-        await user.save()
+        foundUser.avatar = avatarName
+        await foundUser.save()
         return res.json({message: "Avatar was uploaded"})
         }
         catch(e) {

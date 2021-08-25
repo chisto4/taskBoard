@@ -40,9 +40,9 @@ function App() {
   // }
 
 
-  // useEffect(() => {
-  //   dispatch(getToken(user));
-  //   }, [dispatch, getToken])
+  useEffect(() => {
+    dispatch(getToken());
+    }, [dispatch, getToken])
 
   return (
     <BrowserRouter>

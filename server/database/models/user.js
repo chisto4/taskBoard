@@ -34,7 +34,7 @@ const user = sequelize.define("user", {
     dob: {
         type: Sequelize.STRING,
         allowNull: false
-    }  
+    }
 })
 
 export default user
