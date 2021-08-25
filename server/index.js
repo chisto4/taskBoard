@@ -8,6 +8,7 @@ const PORT = process.env.PORT || 3005;
 const app = express();
 app.use(cors())
 app.use(express.json());
+app.use(express.static('static'))
 app.get('/test', (req, res) => {
     res.json(
         {hello: 'hello'}

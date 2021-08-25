@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import {validationResult} from 'express-validator'
+import { v4 as uuidv4 } from 'uuid';
 import {genAccessToken} from '../middleware/authMiddleware.js'
 
 import user from '../database/models/user.js'
@@ -176,6 +177,23 @@ async tokenUser(req, res){
         catch {
             console.log(e);
             console.log('User not found. Try again')
+        }
+    }
+
+
+    async uploadAvatar (req, res){
+        try{
+        const {file} = req.body.file
+        const user = await user.findById(req.user.id);
+        const avatarName = v4() + ".jpg";
+        file.mv(config.get('staticPatch') + "\\" + avatarName)
+        user.avatar = avatarName
+        await user.save()
+        return res.json({message: "Avatar was uploaded"})
+        }
+        catch(e) {
+            console.log(e);
+            return res.status(400).json({message: "Upload avatar error"})
         }
     }
 }
