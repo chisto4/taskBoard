@@ -8,11 +8,14 @@ export enum actions {
   LOG_USER = 'LOG_USER',
   LOG_AUTH = 'LOG_AUTH',
   LOG_ERROR = 'LOG_ERROR',
+  LOG_OUT = 'LOG_OUT',
   UPDATE_USER_EMAIL = 'UPDATE_USER_EMAIL',
   GET_ONE_USER = 'GET_ONE_USER',
   UPDATE_USER = 'UPDATE_USER',
   DELETE_USER = 'DELETE_USER',
   GET_TOKEN = 'GET_TOKEN',
+  GET_TOKEN_AUTH = 'GET_TOKEN_AUTH',
+  GET_TOKEN_ERROR = 'GET_TOKEN_ERROR',
 }
 
 export type ActionsSetUser = {
@@ -48,6 +51,26 @@ export type ActionsUpdateUser = {
   payload: IUser
 }
 
+export type ActionsGetToken = {
+  type: actions.GET_TOKEN,
+  payload: IUser
+}
+
+export type ActionsGetTokenAuth = {
+  type: actions.GET_TOKEN_AUTH,
+  payload: boolean
+}
+
+export type ActionsGetTokenError = {
+  type: actions.GET_TOKEN_ERROR,
+  payload: string | null
+}
+
+export type ActionsLogOut = {
+  type: actions.LOG_OUT,
+}
+
+
 export type ActionUser =
   | ActionsSetUser
   | ActionsSetAuth
@@ -56,3 +79,7 @@ export type ActionUser =
   | ActionsLogAuth
   | ActionsLogError
   | ActionsUpdateUser
+  | ActionsGetToken
+  | ActionsGetTokenAuth
+  | ActionsGetTokenError
+  | ActionsLogOut

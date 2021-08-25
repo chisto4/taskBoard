@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './loginPage.module.scss';
 import Main from "../../api/userApi/components/main/Main";
@@ -7,17 +7,20 @@ import { useSelector, useDispatch } from 'react-redux';
 import { IUser } from '../../types/types';
 import { loginUser } from "../../store/userReducer/userThunk";
 import { useAppSelector } from '../../store/reducers';
+import { useHistory } from 'react-router';
 
 const UserLogin: React.FC = (): JSX.Element => {
   const [userLogin, setUserLogin] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
-  const stateChange = useAppSelector((state) => state.user)
+  const auth = useAppSelector((state) => state.user.auth)
 
-  console.log('info', stateChange);
+  let history = useHistory();
+
 
   const dispatch = useDispatch();
+
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -32,12 +35,17 @@ const UserLogin: React.FC = (): JSX.Element => {
       dob: ''
     };
     dispatch(loginUser(user));
-
   };
+
+  useEffect(() => {
+    if (auth) {history.push("/user")}
+    }, [auth, history])
+    
+
   return (
     <Main>
       <form className={styles.form} onSubmit={userInfo}>
-        <h1>REGISTRATION</h1>
+        <h1>LOGIN</h1>
         <input onChange={(e) => setUserLogin(e.target.value)} name='login' type="text" placeholder='Enter your Login' />
         <input onChange={(e) => setUserEmail(e.target.value)} name='email' type="email" placeholder='Enter your Email' />
         <input onChange={(e) => setUserPassword(e.target.value)} name='password' type="password" placeholder='Enter your Password' />

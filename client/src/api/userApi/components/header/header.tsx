@@ -6,6 +6,8 @@ import {logOut} from "../../logOut"
 
 import useRoutes from '../../../routePage/useMemo';
 import { useAppSelector } from '../../../../store/reducers';
+import { logOutThunk } from '../../../../store/userReducer/userThunk';
+import { useDispatch } from 'react-redux';
 
 interface IHeader {
   onClickLog: () => void;
@@ -13,14 +15,19 @@ interface IHeader {
 }
 
 const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
+
+  const dispatch = useDispatch();
+
   let history = useHistory();
   function logOuting() {
+    dispatch(logOutThunk());
     localStorage.clear();
     history.push("/");
   }
-  const tokenTrue = localStorage.getItem('token')
   
   const isAuth = useAppSelector((state) => state.user.auth)
+  const testState = useAppSelector((state) => state)
+  console.log(testState)
  
   return (
       <div className={styles.headerWrapper}>
@@ -31,7 +38,7 @@ const Header: React.FC<IHeader> = ({onClickLog, onClickReg}) => {
             {isAuth && <span onClick={() => {history.push("/user")}} >User Information</span>}
             {isAuth && <span onClick={() => {history.push("/work")}} >Work Space</span>}
             {!isAuth && <span onClick={() => {history.push("/login")}} >Login</span>}
-            {isAuth && <span onClick={(logOut)} className={styles.log_out}>Log Out</span>}
+            {isAuth && <span onClick={(logOuting)} className={styles.log_out}>Log Out</span>}
             {!isAuth && <span onClick={() => {history.push("/registration")}}>Registration</span>}
 
               {/* <NavLink className={styles.RegLogLink} to="/registration"><a>Login</a></NavLink>

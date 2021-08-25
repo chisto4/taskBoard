@@ -1,11 +1,13 @@
 import Main from "../../api/userApi/components/main/Main";
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './userRegistrationFormStyle.module.scss';
 
 import { registrationUsers } from "../../store/userReducer/userThunk";
 import { IUser } from "../../types/types";
+import { useAppSelector } from "../../store/reducers";
+import { useHistory } from "react-router";
 
 const UserRegistration: React.FC = (): JSX.Element => {
   const [userName, setUserName] = useState('');
@@ -15,12 +17,12 @@ const UserRegistration: React.FC = (): JSX.Element => {
   const [userPassword, setUserPassword] = useState('');
   const [userDob, setUserDob] = useState('');
 
-  const state = useSelector((state) => state)
-
-  console.log('state', state);
-  
+  const auth = useAppSelector((state) => state.user.auth)  
 
   const dispatch = useDispatch();
+
+  let history = useHistory();
+
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -37,6 +39,10 @@ const UserRegistration: React.FC = (): JSX.Element => {
     };
     dispatch(registrationUsers(user));
   };
+
+  useEffect(() => {
+    if (auth) {history.push("/user")}
+    }, [auth, history])
 
   return (
     <Main>

@@ -11,7 +11,7 @@ const initialState: IUserState = {
         login: '',
     },
     auth: false,
-    error: null
+    error: null,
   }
 
 export const userReducer = (state = initialState, action: ActionUser): IUserState => {
@@ -28,8 +28,21 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
             return {...state, auth: action.payload }
         case actions.LOG_ERROR:
             return {...state, error: action.payload}
-            case actions.UPDATE_USER:
-                return {...state, user : action.payload }
+        case actions.UPDATE_USER:
+            return {...state, user : action.payload }
+        case actions.GET_TOKEN:
+            return {...state, user : action.payload}
+        case actions.GET_TOKEN_AUTH:
+            return {...state, auth: action.payload }
+        case actions.GET_TOKEN_ERROR:
+            return {...state, error: action.payload }  
+        case actions.LOG_OUT:
+            return {...state, auth: false, error: null, user: {dob: new Date(),
+                email: '',
+                surname: '',
+                name: '',
+                password: '',
+                login: '',} }      
             default:
         return state
     }

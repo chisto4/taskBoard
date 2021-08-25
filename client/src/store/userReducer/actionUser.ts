@@ -37,3 +37,23 @@ export const actionsUpdateUser = (user: IUser) => ({
   type: actions.UPDATE_USER,
   payload: user,
 })
+
+export const actionsGetToken = (user: IUser) => ({
+  type: actions.GET_TOKEN,
+  payload: user,
+})
+
+export const actionsGetTokenAuth = (boolean: boolean) => ({
+  type: actions.GET_TOKEN_AUTH,
+  payload:boolean,
+});
+
+export const actionsGetTokenError = (error:string | null) => ({
+  type: actions.GET_TOKEN_ERROR,
+  payload: error,
+});
+
+export const actionsLogOut = () => ({
+  type: actions.LOG_OUT,
+  // payload:boolean,
+});

@@ -28,7 +28,7 @@ import axios from './index';
 
 export const editUsers = async (user: IUser) => {
   try {
-    const res = await axios.post('/user', user);
+    const res = await axios.put('/user', user);
     console.log('User info registaration', res.data);
     // document.location.href = 'http://localhost:3000/login';
     return res.data

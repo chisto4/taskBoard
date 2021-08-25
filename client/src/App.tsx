@@ -1,5 +1,5 @@
 // import React from 'react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './App.css';
 import {BrowserRouter, Switch} from 'react-router-dom';
@@ -8,10 +8,15 @@ import UserLoginForm from './api/userApi/components/modalWindows/loginForm/login
 import AppRouter from './api/routePage/AppRouter';
 
 import Header from './api/userApi/components/header/header';
+import { getToken } from './api/userApi/getToken';
+import { useDispatch } from 'react-redux';
 
 function App() {
   const [logForm, setLogForm] = useState(false);
   const [regForm, setRegForm] = useState(false);
+
+  const dispatch:any = useDispatch<any>();
+
   const onClickLog = () => {
     setLogForm(!logForm);
     if(regForm){
@@ -24,6 +29,21 @@ function App() {
       setLogForm(!logForm);
     }
   }
+
+  // const user = {
+  //   login: '',
+  //   email: '',
+  //   password: '',
+  //   name: '',
+  //   surname: '',
+  //   dob: ''
+  // }
+
+
+  // useEffect(() => {
+  //   dispatch(getToken(user));
+  //   }, [dispatch, getToken])
+
   return (
     <BrowserRouter>
       <div className="App">
