@@ -4,7 +4,7 @@ import './workSpaceStyled.css';
 // import deleteButton  from '../../../icon/delete.png';
 // import closeButton  from '../../../icon/close.png';
 
-import Main from '../../api/userApi/components/main/Main';
+import Main from '../components/main/Main';
 
 const WorkSpace = () => {
   const [columns, setColumns] = useState([

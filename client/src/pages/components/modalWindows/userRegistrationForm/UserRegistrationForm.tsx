@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState } from 'react';
 import './userRegistrationFormStyle.css';
-import closeButton from '../../../../../icon/close.png'
+import closeButton from '../../../../icon/close.png'
 
 interface IUserRegistrationForm {
   onClickReg: () => void;

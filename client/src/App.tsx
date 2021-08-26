@@ -1,16 +1,15 @@
-// import React from 'react';
 import React, { useEffect, useState } from 'react';
 
 import './App.css';
 import { BrowserRouter, Switch } from 'react-router-dom';
-import UserRegistrationForm from './api/userApi/components/modalWindows/userRegistrationForm/UserRegistrationForm'
-import UserLoginForm from './api/userApi/components/modalWindows/loginForm/loginForm';
+import UserRegistrationForm from './pages/components/modalWindows/userRegistrationForm/UserRegistrationForm'
+import UserLoginForm from './pages/components/modalWindows/loginForm/loginForm';
 import AppRouter from './api/routePage/AppRouter';
 
-import Header from './api/userApi/components/header/header';
+import Header from './pages/components/header/header';
 import { useDispatch } from 'react-redux';
 import { updateUserInformationToken } from './store/userReducer/userThunk';
-import { useAppSelector } from './store/reducers';
+// import { useAppSelector } from './store/reducers';
 
 function App() {
   const [logForm, setLogForm] = useState(false);
@@ -18,8 +17,7 @@ function App() {
 
   const dispatch: any = useDispatch<any>();
 
-  const isAuth = useAppSelector((state) => state.user.auth)
-
+  // const isAuth = useAppSelector((state) => state.user.auth)
 
   const onClickLog = () => {
     setLogForm(!logForm);
@@ -34,18 +32,8 @@ function App() {
     }
   }
 
-  // const user = {
-  //   login: '',
-  //   email: '',
-  //   password: '',
-  //   name: '',
-  //   surname: '',
-  //   dob: ''
-  // }
-
-
   useEffect(() => {
-    if (!isAuth) return;
+    // if (!isAuth) return;
     dispatch(updateUserInformationToken());
   }, [dispatch, updateUserInformationToken])
 

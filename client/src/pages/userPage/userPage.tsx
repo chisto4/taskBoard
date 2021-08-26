@@ -1,9 +1,9 @@
-import Main from "../../api/userApi/components/main/Main";
+import Main from "../components/main/Main";
 // import {useDispatch, useSelector} from "react-redux";
 // import { FormEvent } from 'react';
 
 import styles from './userPage.module.scss';
-import userAvatar from '../../image/georgeMaichael.jpeg';
+import userAvatar from '../../image/user2.jpg';
 import { useAppSelector } from "../../store/reducers";
 import { useState } from "react";
 import { IUser } from "../../types/types";
@@ -46,6 +46,8 @@ const UserPage: React.FC = (): JSX.Element => {
   const [userPassword, setUserPassword] = useState('');
   const [userDob, setUserDob] = useState('');
 
+  format(new Date(), 'MM/dd/yyyy')
+
   const { name: stateName, dob: stateDob, email: stateEmail, login: stateLogin, surname: stateSurName } = useAppSelector((state) => state.user.user)
 
   const dispatch = useDispatch();
@@ -54,7 +56,6 @@ const UserPage: React.FC = (): JSX.Element => {
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     console.log('event', event);
-    const parseDate = new Date(userDob);
 
     const user: IUser = {
       name: userName,
@@ -66,6 +67,18 @@ const UserPage: React.FC = (): JSX.Element => {
     };
     dispatch(updateUser(user));
   };
+
+  const dates = new Date(stateDob)
+  const parseDate = new Date(userDob);
+  console.log('dates', dates);
+
+
+  var funcDate = stateDob.toString();
+  funcDate = funcDate.substring(6);
+  console.log('substringDate', funcDate)
+
+  $date = "2014-06-03T07:00:00.000Z";
+  echo date("Y-m-d h:i", strtotime($date));
 
   return (
 

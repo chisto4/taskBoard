@@ -1,7 +1,4 @@
-import { getToken } from "../../api/userApi/getToken";
-import { logUser } from "../../api/userApi/loginUser";
-import { regUser } from "../../api/userApi/registrationUser";
-import { editUsers } from "../../api/userApi/updateUser";
+import { editUsers, regUser, logUser, getToken  } from "../../api/userApi/userApi";
 import { IUser } from "../../types/types";
 import { actionsGetTokenAuth, actionsGetTokenError, actionsLogAuth, actionsLogError, actionsLogOut, actionsLogUser, actionsSetAuth, actionsSetError, actionsSetUser, actionsUpdateUser } from './actionUser'
 
@@ -44,7 +41,7 @@ export const updateUserInformationToken = () => async (dispatch: any): Promise<v
     console.log('el problema', data)
     const isToken = localStorage.getItem('token');
     if (isToken) {
-      dispatch(actionsGetTokenAuth(true));
+      dispatch(actionsSetAuth(true));
     }
   } catch (error: any) {
     dispatch(actionsGetTokenError(error.message))

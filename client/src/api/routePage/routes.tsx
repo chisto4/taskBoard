@@ -1,4 +1,4 @@
-import helloWindow from "../../pages/helloWindow/helloWindow";
+import helloWindow from "../../pages/homePage/homePage";
 import UserLogin from "../../pages/login/loginPage";
 import UserRegistration from "../../pages/registration/registartionWindow";
 import WorkSpace from "../../pages/workSpace/WorkSpace";

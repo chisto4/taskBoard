@@ -1,5 +1,5 @@
-import styles from './helloWindow.module.scss';
-import Main from '../../api/userApi/components/main/Main';
+import styles from './homePage.module.scss';
+import Main from '../components/main/Main';
 
 import welcomwScreenImage from '../../image/welcomePageScreen.png';
 

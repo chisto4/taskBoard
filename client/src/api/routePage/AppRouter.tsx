@@ -2,7 +2,6 @@
 import {Switch, Route, Redirect} from 'react-router-dom'
 import {authRoutes, publicRoutes} from "./routes";
 import {HOME_PAGE} from "../const/const";
-// import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import { useAppSelector } from '../../store/reducers';
 

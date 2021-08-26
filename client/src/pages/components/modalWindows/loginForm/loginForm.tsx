@@ -1,6 +1,6 @@
 import React from 'react';
 import './loginFromStyle.css';
-import closeButton from '../../../../../icon/close.png'
+import closeButton from '../../../../icon/close.png'
 
 interface IUserLoginForm {
   onClickLog: () => void;

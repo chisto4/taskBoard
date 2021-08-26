@@ -1,14 +1,12 @@
 // import React, { SetStateAction } from 'react';
 import styles from './headerStyle.module.scss'
 import { useHistory } from "react-router-dom";
-import { logOut } from "../../logOut"
 // import {NavLink} from 'react-router-dom';
 
-import userAvatar from '../../../../image/georgeMaichael.jpeg';
+import userAvatar from '../../../image/user2.jpg';
 
-import useRoutes from '../../../routePage/useMemo';
-import { useAppSelector } from '../../../../store/reducers';
-import { logOutThunk } from '../../../../store/userReducer/userThunk';
+import { useAppSelector } from '../../../store/reducers';
+import { logOutThunk } from '../../../store/userReducer/userThunk';
 import { useDispatch } from 'react-redux';
 
 interface IHeader {

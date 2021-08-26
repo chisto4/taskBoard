@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 
 import styles from './loginPage.module.scss';
-import Main from "../../api/userApi/components/main/Main";
+import Main from "../components/main/Main";
 import { useSelector, useDispatch } from 'react-redux';
 import { IUser } from '../../types/types';
 import { loginUser } from "../../store/userReducer/userThunk";
