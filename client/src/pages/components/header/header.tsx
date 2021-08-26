@@ -1,13 +1,13 @@
 // import React, { SetStateAction } from 'react';
-import styles from './headerStyle.module.scss'
+import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
-// import {NavLink} from 'react-router-dom';
 
-import userAvatar from '../../../image/user2.jpg';
-
+import styles from './headerStyle.module.scss'
 import { useAppSelector } from '../../../store/reducers';
 import { logOutThunk } from '../../../store/userReducer/userThunk';
-import { useDispatch } from 'react-redux';
+
+import userAvatar from '../../../image/user2.jpg';
+// import {NavLink} from 'react-router-dom';
 
 interface IHeader {
   onClickLog: () => void;
@@ -24,15 +24,8 @@ const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
     history.push("/");
   }
 
-  const isToken = localStorage.getItem('token');
-
   const isAuth = useAppSelector((state) => state.user.auth)
-
   const login = useAppSelector((state) => state.user.user.login)
-  // const login = 'login'
-  // {!isAuth && const login = 'login'}
-
-
 
   const testState = useAppSelector((state) => state)
   console.log(testState)

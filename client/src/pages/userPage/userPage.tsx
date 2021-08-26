@@ -1,15 +1,17 @@
 import Main from "../components/main/Main";
 // import {useDispatch, useSelector} from "react-redux";
 // import { FormEvent } from 'react';
+import React, {useState, useRef, useCallback} from 'react';
 
 import styles from './userPage.module.scss';
 import userAvatar from '../../image/user2.jpg';
 import { useAppSelector } from "../../store/reducers";
-import { useState } from "react";
 import { IUser } from "../../types/types";
 import { updateUser } from "../../store/userReducer/userThunk";
 import { useDispatch } from "react-redux";
 import { format, compareAsc } from 'date-fns'
+import axios from '../../api/userApi/index';
+
 // import {deleteUsers} from '../..//api/deleteUser'
 // import {editUsers} from '../..//api/updateUser'
 
@@ -69,17 +71,82 @@ const UserPage: React.FC = (): JSX.Element => {
     
     dispatch(updateUser(user));
   };
-  
   console.log('text', userName);
 
-  return (
 
+    //UPLOAD IMAGE
+    // const fileRef = useRef(null);
+    // const [ loading, setLoading ] = useState(false);
+    // const startUploadSumbit = useCallback( event => {
+    //   event.preventDefault();
+  
+    //   const fetchData = async (uint8Array: any) => {
+    //     try {
+    //       const response = await axios({
+    //         method: 'post',
+    //         url: '/avatar',
+    //         data: [...uint8Array] // не отправляем в JSON, размер изображения увеличится
+    //       });
+  
+    //       setLoading(false);
+    //       console.log(response);
+    //     } catch (e) {
+    //       console.error((e), 'function handleSubmit')
+    //     }
+    //   };
+    //   fetchData(Uint8Array);
+      // if(!fileRef.current) return void null;
+  
+      // const reader = new FileReader();
+      // reader.onloadend = () => {
+      //   const uint8Array = new Uint8Array(reader.result);
+      //   setLoading(true);
+      //   fetchData(uint8Array);
+      // };
+    
+      // рекомендованный метод
+      // reader.readAsArrayBuffer(fileRef.current[0]);
+  
+      // метод reader.readAsBinaryString(fileRef.current[0])
+      // согласно MDN,
+      // уже был однажды удален из File API specification,
+      // но после его вернули
+      // в использование, но все же рекомендуют
+      // использовать readAsArrayBuffer
+      // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsBinaryString
+    // }, []);
+  
+
+  return (
     <Main >
       <div className={styles.user_update_information_main_wrapper}>
         <div className={styles.default_user_info_wrapper}>
           <div className={styles.user_avatar}>
             <img src={userAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
+
+            {/* <form onSubmit={startUploadSumbit}>
+              <div>
+                <input
+                  onChange={e => e.target.files}
+                  accept="image/*"
+                  type="file"
+                  id="button-file"
+                />
+              </div>
+              <button type="submit">{loading ? 'Сохраняю...' : 'Сохранить'}</button>
+          </form> */}
+
           </div>
+                {/* <form className={styles.avatar_form} action="/profile" method="post" encType="multipart/form-data">
+                   <input className={styles.avatar_form_input} type="file" name="avatar" placeholder='Enter your Last Name'/>
+                </form> */}
+
+                <form className={styles.avatar_form} action="/upload" method="post" encType="multipart/form-data">
+                  <label>Upload your Avatar</label><br/>
+                  <input className={styles.avatar_form_input} type="file" name="filedata" /><br/>
+                  <input className={styles.avatar_form_send_button} type="submit" value="Send" />
+              </form>
+
           <div className={styles.def_string_info}>
             <h6>Name:</h6><p>{stateName}</p>
           </div>

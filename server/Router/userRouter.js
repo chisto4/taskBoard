@@ -1,5 +1,7 @@
 import {Router} from "express";
 import {check} from "express-validator";
+import multer from 'multer';
+const upload = multer({ dest: "public/files" });
 
 import {tokenModule} from '../middleware/authMiddleware.js';
 import userController from '../Controller/userController.js';
@@ -30,6 +32,6 @@ userRouter.get('/user/:id', tokenModule, userController.getOneUser);
 userRouter.put('/user', tokenModule, userController.updateUser);
 userRouter.put('/user/email', tokenModule, userController.updateEmail);
 userRouter.delete('/user/:id', tokenModule, userController.deleteUser);
-userRouter.post('/avatar', tokenModule, userController.uploadAvatar);
+userRouter.post('/avatar', tokenModule, upload.single("file"), userController.uploadAvatar);
 
 export default userRouter;

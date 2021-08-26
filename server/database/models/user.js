@@ -1,60 +1,36 @@
-import Sequelize  from 'sequelize';
+'use strict';
+const { Model } = require("sequelize");
 
-const sequelize = new Sequelize('taskboard', 'nikolas', 'password', {host: 'localhost', dialect: 'postgres'});
-sequelize.sync().then(()=>{
-}).catch(err=>console.log(err))
-
-const user = sequelize.define("user", {
-    id:{
-        type: Sequelize.INTEGER,
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // models.User.belongsTo(models.user);
+    }
+  }
+  User.init(
+    {
+      id: {
+        type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true,
         allowNull: false
+      },
+      name: DataTypes.STRING,
+      surname: DataTypes.STRING,
+      login: DataTypes.STRING,
+      email: DataTypes.STRING,
+      password: DataTypes.STRING,
+      dob: DataTypes.STRING,
     },
-    name: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    surname: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    login: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    email: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    password: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    dob: {
-        type: Sequelize.STRING,
-        allowNull: false
+    {
+      sequelize,
+      modelName: "User",
     }
-})
-
-// export const userImage = sequelize.define("image", {
-//     id:{
-//         type: Sequelize.INTEGER,
-//         autoIncrement: true,
-//         primaryKey: true,
-//         allowNull: true
-//     },
-//     pastName: {
-//         type: Sequelize.STRING,
-//         unique: true
-//     }
-// })
-
-// user.hasMany(userImage)
-// userImage.hasOne(user, {
-//     foreignKey:{
-// userIdentefication
-// }
-// })
-
-export default user
+  );
+  return User;
+};

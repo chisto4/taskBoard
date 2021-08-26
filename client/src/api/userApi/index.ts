@@ -14,7 +14,6 @@ instance.interceptors.request.use(
     if (!token) {
       return config;
     }
-    
     config.headers.common.Authorization = `Bearer ${token}`;
     return config;
   },

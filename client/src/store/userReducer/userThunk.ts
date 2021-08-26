@@ -33,16 +33,20 @@ export const updateUser = (user: IUser) => async (dispatch: any): Promise<void> 
 };
 export const updateUserInformationToken = () => async (dispatch: any): Promise<void> => {
   try {
-    const data = await getToken()
-
-    if (data) {
-      dispatch(actionsUpdateUser(data));
-    }
-    console.log('el problema', data)
-    const isToken = localStorage.getItem('token');
-    if (isToken) {
-      dispatch(actionsSetAuth(true));
-    }
+    const user = await getToken();
+    dispatch(actionsUpdateUser(user));
+    dispatch(actionsSetAuth(true));
+    // const data = await getToken()
+    // if (data) {
+    //   dispatch(actionsUpdateUser(data));
+    // }
+    // console.log('el problema', data)
+    // const isToken = localStorage.getItem('token');
+    // if (isToken) {
+    //   dispatch(actionsSetAuth(true));
+    // }else {
+    //   localStorage.clear();
+    // }
   } catch (error: any) {
     dispatch(actionsGetTokenError(error.message))
   }

@@ -4,45 +4,26 @@ import { IUser, ILogUser } from "../../types/types";
 import axios from './index';
 
 export const regUser = async (user: IUser) => {
-  try {
     const res = await axios.post('/registration', user);
     console.log('User info registaration', res.data);
     return res.data
-
-  } catch (e) {
-    console.log(e);
-  }
 };
 
 export const logUser = async (user: ILogUser) => {
-  try{
     const res = await axios.post('/login', user);
     return res.data
-  } catch (e) {
-    console.log(e);
-  }
 };
 
 export const getToken = async () => {  
-  try {
     const res = await axios.get('/token');
     console.log('User info token update', res.data);
     return res.data
-  } catch (e) {
-    console.log(e);
-  }
 };
 
 export const editUsers = async (user: IUser) => {
-  try {
     const res = await axios.put('/user', user);
     console.log('User info update', res.data);
-    // document.location.href = 'http://localhost:3000/login';
     return res.data
-
-  } catch (e) {
-    console.log(e);
-  }
 };
 
 export const logOut = (): void => {

@@ -9,6 +9,7 @@ import AppRouter from './api/routePage/AppRouter';
 import Header from './pages/components/header/header';
 import { useDispatch } from 'react-redux';
 import { updateUserInformationToken } from './store/userReducer/userThunk';
+import { useAppSelector } from './store/reducers';
 // import { useAppSelector } from './store/reducers';
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
 
   const dispatch: any = useDispatch<any>();
 
-  // const isAuth = useAppSelector((state) => state.user.auth)
+  const isAuth = useAppSelector((state) => state.user.auth)
 
   const onClickLog = () => {
     setLogForm(!logForm);
@@ -35,7 +36,7 @@ function App() {
   useEffect(() => {
     // if (!isAuth) return;
     dispatch(updateUserInformationToken());
-  }, [dispatch, updateUserInformationToken])
+  }, [])
 
   return (
     <BrowserRouter>
