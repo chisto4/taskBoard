@@ -36,7 +36,7 @@ export const getToken = async () => {
 export const editUsers = async (user: IUser) => {
   try {
     const res = await axios.put('/user', user);
-    console.log('User info registaration', res.data);
+    console.log('User info update', res.data);
     // document.location.href = 'http://localhost:3000/login';
     return res.data
 

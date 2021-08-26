@@ -40,18 +40,18 @@ const UserPage: React.FC = (): JSX.Element => {
   // interface defState {
 
   // }
-  const [userName, setUserName] = useState('');
-  const [userSurName, setUserSurName] = useState('');
-  const [userLogin, setUserLogin] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-  const [userDob, setUserDob] = useState('');
 
-  format(new Date(), 'MM/dd/yyyy')
 
   const { name: stateName, dob: stateDob, email: stateEmail, login: stateLogin, surname: stateSurName } = useAppSelector((state) => state.user.user)
+  const thrueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
+
+  const [userName, setUserName] = useState(stateName);
+  const [userSurName, setUserSurName] = useState(stateSurName);
+  const [userLogin, setUserLogin] = useState(stateLogin);
+  const [userPassword, setUserPassword] = useState('');
+  const [userDob, setUserDob] = useState(stateDob);
 
   const dispatch = useDispatch();
-
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -62,23 +62,15 @@ const UserPage: React.FC = (): JSX.Element => {
       surname: userSurName,
       login: userLogin,
       password: userPassword,
-      dob: parseDate,
+      dob: userDob,
       email: stateEmail,
     };
+    console.log('send', user);
+    
     dispatch(updateUser(user));
   };
-
-  const dates = new Date(stateDob)
-  const parseDate = new Date(userDob);
-  console.log('dates', dates);
-
-
-  var funcDate = stateDob.toString();
-  funcDate = funcDate.substring(6);
-  console.log('substringDate', funcDate)
-
-  $date = "2014-06-03T07:00:00.000Z";
-  echo date("Y-m-d h:i", strtotime($date));
+  
+  console.log('text', userName);
 
   return (
 
@@ -101,7 +93,7 @@ const UserPage: React.FC = (): JSX.Element => {
           </div>
 
           <div className={styles.def_string_info}>
-            <h6>Date of born:</h6><p>{stateDob}</p>
+            <h6>Date of born:</h6><p>{thrueDateFormat}</p>
           </div>
 
           <div className={styles.link_change_email}>
@@ -120,7 +112,7 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
             {/* <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
         <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
-            <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' type="password" placeholder='New password' />
+            <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl'  required type="password" placeholder='New password' />
             <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
             <button type="submit" className={styles.registrationButton}>upadte information</button>
           </form>
