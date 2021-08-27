@@ -12,7 +12,7 @@ import regularEmail from '../middleware/regularConstant.js'
 export const secretKey = 'q1w2e3r4'
 class UserController {
     async registrationUser(req, res) {
-        const { name, surname, login, email, password, dob } = req.body
+        const { name, surname, login, email, password, dob, avatarId } = req.body
         const lowerCaseEmail = email.toLowerCase();
         const userEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
         try {
@@ -31,7 +31,7 @@ class UserController {
             }
             const hashPassword = bcrypt.hashSync(password, 5);
             let newUser = await db.User.create(
-                { name, surname, login: lowerCaseLogin, email: lowerCaseEmail, password: hashPassword, dob }
+                { name, surname, login: lowerCaseLogin, email: lowerCaseEmail, password: hashPassword, dob, avatarId }
             )
             newUser = newUser.toJSON();
             delete newUser.password;
@@ -84,7 +84,7 @@ class UserController {
             }
             const userIdToken = await db.User.findOne({
                 where: { id }, raw: true,
-                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob']
+                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
             })
             console.log(userIdToken)
             res.status(200).json(userIdToken)
@@ -98,7 +98,7 @@ class UserController {
         try {
             const users = await db.User.findAll({
                 raw: true,
-                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob']
+                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
             });
             console.log(users);
             res.status(200).json(users);
@@ -115,9 +115,9 @@ class UserController {
             if (!id) {
                 throw res.status(400).json('Not found user ID')
             }
-            const getUser = await db.User.findAll({
+            const getUser = await db.User.findOne({
                 where: { id }, raw: true,
-                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob']
+                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
             });
             console.log(getUser)
             res.status(200).json(getUser)
@@ -184,52 +184,5 @@ class UserController {
             console.log('User not found. Try again')
         }
     }
-
-
-    //     async uploadAvatar (req, res){
-    //         try{
-    //             const randomString = crypto.randomBytes(5).toString('hex');
-    //             const stream = fs.createWriteStream(`./public/images/${randomString}.png`);
-
-    //             stream.on('finish', function () {
-    //               console.log('file has been written');
-    //               res.end('file has been written');
-    //             });     
-    //             stream.write(Buffer.from(req.body), 'utf-8');
-    //             stream.end();     
-    //         return res.json({message: "Avatar was uploaded"})
-    //         }
-    //         catch(e) {
-    //             console.log(e);
-    //             return res.status(400).json({message: "Upload avatar error"})
-    //         }
-    //     }
-    // }
-    async uploadAvatar(req, res) {
-        try {
-            // let filedata = req.file;
-            const file = req.file;
-            // const avatarName = v4() + ".jpg";
-            // file.mv(config.get('staticPatch') + "\\" + avatarName)
-            res.json("Avatar was uploaded")
-        }
-        catch (e) {
-            console.log(e);
-            res.status(400).json("Upload avatar error")
-        }
-    }
-    // async uploadAvatar (req, res){
-    //     try{
-    //     const file = req.file;
-    //     const avatarName = v4() + ".jpg";
-    //     file.mv(config.get('staticPatch') + "\\" + avatarName)
-    //     // await foundUser.save()
-    //     return res.json({message: "Avatar was uploaded"})
-    //     }
-    //     catch(e) {
-    //         console.log(e);
-    //         return res.status(400).json({message: "Upload avatar error"})
-    //     }
-    // }
 }
 export default new UserController()

@@ -34,5 +34,6 @@ userRouter.put('/user', tokenModule, userController.updateUser);
 userRouter.put('/user/email', tokenModule, userController.updateEmail);
 userRouter.delete('/user/:id', tokenModule, userController.deleteUser);
 userRouter.post('/user', tokenModule, upload.single("file"), avatarController.uploadAvatar);
+userRouter.get('/avatar', tokenModule, avatarController.getAvatarInfo);
 
 export default userRouter;

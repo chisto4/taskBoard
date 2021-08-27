@@ -1,34 +1,48 @@
 import db from '../database/models/index.js'
-import {v4} from 'uuid'
-import path  from 'path';
-
 
 class AvatarController {
-  async uploadAvatar (req, res) {
+  async uploadAvatar(req, res) {
     try {
-    const { id } = req.user
-    if (!id) {
-      return res.status(400).json({ message: "ID not use" })
+      const { id } = req.user
+      if (!id) {
+        return res.status(400).json({ message: "ID not use" })
       }
-    const file = req.file;
-    const way = req.file.path
-    const userIdToken = await db.User.findOne({
-      where: { id }, raw: true,
-      attributes: ['id']
+      const file = req.file;
+      const way = req.file.path
+      let avatarImage = await db.Images.create({
+        pathImages: way, userId: id
       })
-    let avatarImage = await db.Images.create({
-      pathImages :way, userId: userIdToken.id
-      }).catch(err => console.log(err));
-    res.json({message: "Avatar was uploaded", file, avatarImage})
-  } catch (e) {
-    console.log(e);}
+      await db.User.update({ avatarId: avatarImage.id }, { where: { id } })
+      res.json({ message: "Avatar was uploaded", file, avatarImage })
+    } catch (e) {
+      console.log(e);
+      res.json({ message: "Avatar was uploaded", message: e.message })
+    }
+  }
+
+  async getAvatarInfo(req, res) {
+    try {
+      const { id } = req.user
+      if (!id) {
+        return res.status(400).json({ message: "ID not use" })
+      }
+        const getUser = await db.User.findOne({
+            where: { id }, raw: true,
+            attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
+        });
+        console.log('avatar id form', getUser.avatarId)
+        const avatarInfo = await db.Images.findOne({
+          where: {id: getUser.avatarId}, raw: true,
+          attributes: ['id', 'pathImages', 'userId']
+      });
+        console.log(avatarInfo)
+        res.status(200).json(avatarInfo)
+    }
+    catch (e) {
+        console.log(e);
+        console.log('Avatar not found')
+    }
   }
 }
 
 export default new AvatarController()
-
-    // 
-    // const {img} = req.files
-    // let fileName = v4() + ".jpg"
-    // // img.mv(path.resolve(__dirname, '..', 'static', fileName))
-    // const image = await db.Images.create({id, wayImages, userId, img: fileName});
