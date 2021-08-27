@@ -49,8 +49,10 @@ export const updateUserInformationToken = () => async (dispatch: any): Promise<v
     // }
   } catch (error: any) {
     dispatch(actionsGetTokenError(error.message))
+    localStorage.clear();
   }
 };
 export const logOutThunk = () => (dispatch: any) => {
   dispatch(actionsLogOut());
+  localStorage.clear();
 };

@@ -1,7 +1,7 @@
 import Main from "../components/main/Main";
 // import {useDispatch, useSelector} from "react-redux";
 // import { FormEvent } from 'react';
-import React, {useState, useRef, useCallback} from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 
 import styles from './userPage.module.scss';
 import userAvatar from '../../image/user2.jpg';
@@ -9,7 +9,8 @@ import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
 import { updateUser } from "../../store/userReducer/userThunk";
 import { useDispatch } from "react-redux";
-import { format, compareAsc } from 'date-fns'
+import { format, compareAsc } from 'date-fns';
+import { Card, Form, Button, Figure } from 'react-bootstrap';
 import axios from '../../api/userApi/index';
 
 // import {deleteUsers} from '../..//api/deleteUser'
@@ -68,54 +69,58 @@ const UserPage: React.FC = (): JSX.Element => {
       email: stateEmail,
     };
     console.log('send', user);
-    
+
     dispatch(updateUser(user));
   };
   console.log('text', userName);
+  const handlerUpload = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+  }
 
 
-    //UPLOAD IMAGE
-    // const fileRef = useRef(null);
-    // const [ loading, setLoading ] = useState(false);
-    // const startUploadSumbit = useCallback( event => {
-    //   event.preventDefault();
-  
-    //   const fetchData = async (uint8Array: any) => {
-    //     try {
-    //       const response = await axios({
-    //         method: 'post',
-    //         url: '/avatar',
-    //         data: [...uint8Array] // не отправляем в JSON, размер изображения увеличится
-    //       });
-  
-    //       setLoading(false);
-    //       console.log(response);
-    //     } catch (e) {
-    //       console.error((e), 'function handleSubmit')
-    //     }
-    //   };
-    //   fetchData(Uint8Array);
-      // if(!fileRef.current) return void null;
-  
-      // const reader = new FileReader();
-      // reader.onloadend = () => {
-      //   const uint8Array = new Uint8Array(reader.result);
-      //   setLoading(true);
-      //   fetchData(uint8Array);
-      // };
-    
-      // рекомендованный метод
-      // reader.readAsArrayBuffer(fileRef.current[0]);
-  
-      // метод reader.readAsBinaryString(fileRef.current[0])
-      // согласно MDN,
-      // уже был однажды удален из File API specification,
-      // но после его вернули
-      // в использование, но все же рекомендуют
-      // использовать readAsArrayBuffer
-      // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsBinaryString
-    // }, []);
-  
+  //UPLOAD IMAGE
+  // const fileRef = useRef(null);
+  // const [ loading, setLoading ] = useState(false);
+  // const startUploadSumbit = useCallback( event => {
+  //   event.preventDefault();
+
+  //   const fetchData = async (uint8Array: any) => {
+  //     try {
+  //       const response = await axios({
+  //         method: 'post',
+  //         url: '/avatar',
+  //         data: [...uint8Array] // не отправляем в JSON, размер изображения увеличится
+  //       });
+
+  //       setLoading(false);
+  //       console.log(response);
+  //     } catch (e) {
+  //       console.error((e), 'function handleSubmit')
+  //     }
+  //   };
+  //   fetchData(Uint8Array);
+  // if(!fileRef.current) return void null;
+
+  // const reader = new FileReader();
+  // reader.onloadend = () => {
+  //   const uint8Array = new Uint8Array(reader.result);
+  //   setLoading(true);
+  //   fetchData(uint8Array);
+  // };
+
+  // рекомендованный метод
+  // reader.readAsArrayBuffer(fileRef.current[0]);
+
+  // метод reader.readAsBinaryString(fileRef.current[0])
+  // согласно MDN,
+  // уже был однажды удален из File API specification,
+  // но после его вернули
+  // в использование, но все же рекомендуют
+  // использовать readAsArrayBuffer
+  // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsBinaryString
+  // }, []);
+
 
   return (
     <Main >
@@ -137,16 +142,33 @@ const UserPage: React.FC = (): JSX.Element => {
           </form> */}
 
           </div>
-                {/* <form className={styles.avatar_form} action="/profile" method="post" encType="multipart/form-data">
-                   <input className={styles.avatar_form_input} type="file" name="avatar" placeholder='Enter your Last Name'/>
-                </form> */}
 
-                <form className={styles.avatar_form} action="/upload" method="post" encType="multipart/form-data">
-                  <label>Upload your Avatar</label><br/>
-                  <input className={styles.avatar_form_input} type="file" name="filedata" /><br/>
-                  <input className={styles.avatar_form_send_button} type="submit" value="Send" />
-              </form>
+          <form
+            // onSubmit={(e) => handlerUpload(e)}
+            className={styles.avatar_form}
+            action="/user"
+            method="post"
+            encType="multipart/form-data"
+          >
+            <label>Change your Avatar</label><br />
+            <input className={styles.avatar_form_input} type="file" name="filedata" /><br />
+            <input className={styles.avatar_form_send_button} type="submit" value="Send" />
+          </form>
 
+          {/* <Form>
+                        <Form.Group>
+                            <Button
+                                style={{ marginTop: '10px' }}
+                                variant="outline-primary" 
+                                className="mt-2"
+                                as="input"
+                                type="submit"
+                                value="Load"
+                                size="sm"
+                                disabled={!userAvatar}
+                            />
+                        </Form.Group>
+                    </Form> */}
           <div className={styles.def_string_info}>
             <h6>Name:</h6><p>{stateName}</p>
           </div>
@@ -179,7 +201,7 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
             {/* <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
         <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
-            <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl'  required type="password" placeholder='New password' />
+            <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='New password' />
             <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
             <button type="submit" className={styles.registrationButton}>upadte information</button>
           </form>

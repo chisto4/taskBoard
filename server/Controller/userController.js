@@ -2,6 +2,7 @@ import bcrypt from 'bcryptjs'
 import { validationResult } from 'express-validator'
 import { genAccessToken } from '../middleware/authMiddleware.js'
 import db from '../database/models/index.js'
+import {v4} from 'uuid'
 
 import regularEmail from '../middleware/regularConstant.js'
 
@@ -204,15 +205,17 @@ class UserController {
     //         }
     //     }
     // }
-    async uploadAvatar(req, res, next) {
+    async uploadAvatar(req, res) {
         try {
-            let filedata = req.file;
-            console.log(filedata);
-            return res.json({ message: "Avatar was uploaded" })
+            // let filedata = req.file;
+            const file = req.file;
+            // const avatarName = v4() + ".jpg";
+            // file.mv(config.get('staticPatch') + "\\" + avatarName)
+            res.json("Avatar was uploaded")
         }
         catch (e) {
             console.log(e);
-            return res.status(400).json({ message: "Upload avatar error" })
+            res.status(400).json("Upload avatar error")
         }
     }
     // async uploadAvatar (req, res){

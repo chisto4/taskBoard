@@ -4,7 +4,7 @@
       "env",
       {
         "targets": {
-          "node": "12"
+          "node": "14"
         }
       }
     ]
@@ -12,5 +12,7 @@
   "plugins": [
     "babel-plugin-transform-object-rest-spread",
     "transform-async-to-generator"
-  ]
+  ],
+  "sourceMaps": true,
+  "retainLines": true
 }

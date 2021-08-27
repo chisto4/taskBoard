@@ -1,10 +1,11 @@
-import {Router} from "express";
-import {check} from "express-validator";
+import { Router } from "express";
+import { check } from "express-validator";
 import multer from 'multer';
-const upload = multer({ dest: "public/files" });
+const upload = multer({ dest: "static" });
 
-import {tokenModule} from '../middleware/authMiddleware.js';
+import { tokenModule } from '../middleware/authMiddleware.js';
 import userController from '../Controller/userController.js';
+import avatarController from '../Controller/avatarController.js';
 
 const userRouter = new Router();
 
@@ -13,17 +14,17 @@ userRouter.post('/registration/', [
   check('surname', "Input surname, please!").notEmpty(),
   check('login', "Input login please!").notEmpty(),
   check('email', "Input email please!").notEmpty(),
-  check('password', "Minimal length of password 4 maximum 16").isLength({min:4, max:16})
+  check('password', "Minimal length of password 4 maximum 16").isLength({ min: 4, max: 16 })
 ],
-userController.registrationUser);
+  userController.registrationUser);
 
-userRouter.post('/login/', 
-[
-  check('login', "Input login please!").notEmpty(),
-  check('email', "Input email please!").notEmpty(),
-  check('password', "Minimal length of password 4 maximum 16").isLength({min:4, max:16})
-],
-userController.loginUser);
+userRouter.post('/login/',
+  [
+    check('login', "Input login please!").notEmpty(),
+    check('email', "Input email please!").notEmpty(),
+    check('password', "Minimal length of password 4 maximum 16").isLength({ min: 4, max: 16 })
+  ],
+  userController.loginUser);
 
 userRouter.get('/token', tokenModule, userController.tokenUser);
 
@@ -32,6 +33,6 @@ userRouter.get('/user/:id', tokenModule, userController.getOneUser);
 userRouter.put('/user', tokenModule, userController.updateUser);
 userRouter.put('/user/email', tokenModule, userController.updateEmail);
 userRouter.delete('/user/:id', tokenModule, userController.deleteUser);
-userRouter.post('/avatar', tokenModule, upload.single("file"), userController.uploadAvatar);
+userRouter.post('/user', tokenModule, upload.single("file"), avatarController.uploadAvatar);
 
 export default userRouter;
