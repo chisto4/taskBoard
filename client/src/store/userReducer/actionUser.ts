@@ -53,3 +53,21 @@ export const actionsLogOut = () => ({
   type: actions.LOG_OUT,
   // payload:boolean,
 });
+
+
+// UPLOAD IMAGE
+
+export const actionsUploadImage = ( file: any ) => ({
+  type: actions.UPL_IMG,
+  payload: file,
+})
+
+export const actionsUploadAuth = (boolean: boolean) => ({
+  type: actions.UPLOAD_AUTH,
+  payload: boolean,
+});
+
+export const actionsUploadError = (error: string | null) => ({
+  type: actions.UPLOAD_ERROR,
+  payload: error,
+});

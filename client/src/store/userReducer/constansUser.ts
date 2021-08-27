@@ -16,6 +16,9 @@ export enum actions {
   GET_TOKEN = 'GET_TOKEN',
   GET_TOKEN_AUTH = 'GET_TOKEN_AUTH',
   GET_TOKEN_ERROR = 'GET_TOKEN_ERROR',
+  UPL_IMG = 'UPL_IMG',
+  UPLOAD_AUTH = 'UPLOAD_AUTH',
+  UPLOAD_ERROR = 'UPLOAD_ERROR',
 }
 
 export type ActionsSetUser = {
@@ -29,6 +32,19 @@ export type ActionsSetAuth = {
 }
 export type ActionsSetError = {
   type: actions.SET_ERROR,
+  payload: string | null
+}
+export type ActionsUploadImage = {
+  type: actions.UPL_IMG,
+  payload: IUser
+}
+
+export type ActionsUploadAuth = {
+  type: actions.UPLOAD_AUTH,
+  payload: boolean
+}
+export type ActionsUploadError = {
+  type: actions.UPLOAD_ERROR,
   payload: string | null
 }
 
@@ -83,3 +99,6 @@ export type ActionUser =
   | ActionsGetTokenAuth
   | ActionsGetTokenError
   | ActionsLogOut
+  | ActionsUploadImage
+  | ActionsUploadAuth
+  | ActionsUploadError

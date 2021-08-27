@@ -7,6 +7,7 @@ export const USERS = '/users'
 export const ONE_USERS = '/user/:id'
 export const HOME_PAGE = '/'
 export const HELLO_PAGE = '/'
+export const AVATAR = '/avatar'
 
 
 export const URL_HOME_PAGE = 'http://localhost:3005/'

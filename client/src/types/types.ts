@@ -19,6 +19,7 @@ export interface IUser {
   login: string,
   password: string,
   email: string,
+  avatarId: string,
   dob: Date | string,
 }
 
@@ -31,7 +32,9 @@ export interface ILogUser {
 export interface IUserState {
   user: IUser,
   auth: boolean,
+  authAvatar: boolean,
   error: string | null
+  pathImage: string | null
   }
 
 

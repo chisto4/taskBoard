@@ -67,6 +67,7 @@ const UserPage: React.FC = (): JSX.Element => {
       password: userPassword,
       dob: userDob,
       email: stateEmail,
+      avatarId: ''
     };
     console.log('send', user);
 
@@ -75,52 +76,28 @@ const UserPage: React.FC = (): JSX.Element => {
   console.log('text', userName);
   const handlerUpload = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
   }
 
+  // const UploadAvatar: React.FC = () => {
+  //   const iconUrl = useSelector((state: StateReduxType) => state.userState.user?.avatar);
+  //   const [userAvatar, setUserAvatar] = useState<string | Blob>('');
+  //   const dispatch = useDispatch();
+  //   const urlImg = !iconUrl ? 'images.jpeg' : baseURL + '/' + iconUrl;
 
-  //UPLOAD IMAGE
-  // const fileRef = useRef(null);
-  // const [ loading, setLoading ] = useState(false);
-  // const startUploadSumbit = useCallback( event => {
-  //   event.preventDefault();
-
-  //   const fetchData = async (uint8Array: any) => {
-  //     try {
-  //       const response = await axios({
-  //         method: 'post',
-  //         url: '/avatar',
-  //         data: [...uint8Array] // не отправляем в JSON, размер изображения увеличится
-  //       });
-
-  //       setLoading(false);
-  //       console.log(response);
-  //     } catch (e) {
-  //       console.error((e), 'function handleSubmit')
-  //     }
+  //   const submitUserImg = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  //       const formData = new FormData();
+  //       e.preventDefault();
+  //       formData.append('filedata', userAvatar);
+  //       dispatch(uploadAvatar(formData));
   //   };
-  //   fetchData(Uint8Array);
-  // if(!fileRef.current) return void null;
 
-  // const reader = new FileReader();
-  // reader.onloadend = () => {
-  //   const uint8Array = new Uint8Array(reader.result);
-  //   setLoading(true);
-  //   fetchData(uint8Array);
-  // };
-
-  // рекомендованный метод
-  // reader.readAsArrayBuffer(fileRef.current[0]);
-
-  // метод reader.readAsBinaryString(fileRef.current[0])
-  // согласно MDN,
-  // уже был однажды удален из File API specification,
-  // но после его вернули
-  // в использование, но все же рекомендуют
-  // использовать readAsArrayBuffer
-  // https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsBinaryString
-  // }, []);
-
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+//     if (e.currentTarget.files?.length) {
+//         const currentAvatar = e.currentTarget.files[0];
+//         setUserAvatar(currentAvatar);
+//     }
+// }
+//   }
 
   return (
     <Main >
@@ -144,6 +121,7 @@ const UserPage: React.FC = (): JSX.Element => {
           </div>
 
           <form
+            // onChange={handleChange(e)}
             // onSubmit={(e) => handlerUpload(e)}
             className={styles.avatar_form}
             action="/user"
@@ -151,7 +129,7 @@ const UserPage: React.FC = (): JSX.Element => {
             encType="multipart/form-data"
           >
             <label>Change your Avatar</label><br />
-            <input className={styles.avatar_form_input} type="file" name="filedata" /><br />
+            <input className={styles.avatar_form_input} type="file" name="file" /><br />
             <input className={styles.avatar_form_send_button} type="submit" value="Send" />
           </form>
 

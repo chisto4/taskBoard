@@ -9,9 +9,12 @@ const initialState: IUserState = {
         name: '',
         password: '',
         login: '',
+        avatarId: '',
     },
     auth: false,
+    authAvatar: false,
     error: null,
+    pathImage: null,
 }
 
 export const userReducer = (state = initialState, action: ActionUser): IUserState => {
@@ -38,13 +41,14 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
             return { ...state, error: action.payload }
         case actions.LOG_OUT:
             return {
-                ...state, auth: false, error: null, user: {
+                ...state, auth: false, authAvatar: false, error: null, user: {
                     dob: new Date(),
                     email: '',
                     surname: '',
                     name: '',
                     password: '',
                     login: '',
+                    avatarId: '',
                 }
             }
         default:

@@ -32,7 +32,8 @@ const UserLogin: React.FC = (): JSX.Element => {
       password: userPassword,
       name: '',
       surname: '',
-      dob: ''
+      dob: '',
+      avatarId: ''
     };
     dispatch(loginUser(user));
   };

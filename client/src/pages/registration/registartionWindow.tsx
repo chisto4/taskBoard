@@ -36,6 +36,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
       email: userEmail,
       password: userPassword,
       dob: parseDate,
+      avatarId: ''
     };
     dispatch(registrationUsers(user));
   };
