@@ -62,9 +62,9 @@ export const actionsUploadImage = ( file: any ) => ({
   payload: file,
 })
 
-export const actionsUploadAuth = (boolean: boolean) => ({
+export const actionsUploadAuth = (pathImage: string | null) => ({
   type: actions.UPLOAD_AUTH,
-  payload: boolean,
+  payload: pathImage,
 });
 
 export const actionsUploadError = (error: string | null) => ({

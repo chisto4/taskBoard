@@ -1,6 +1,7 @@
+import { getAvatarInfo, uploadImageApi } from "../../api/userApi/uploadFile/uploadImageApi";
 import { editUsers, regUser, logUser, getToken  } from "../../api/userApi/userApi";
 import { IUser } from "../../types/types";
-import { actionsGetTokenAuth, actionsGetTokenError, actionsLogAuth, actionsLogError, actionsLogOut, actionsLogUser, actionsSetAuth, actionsSetError, actionsSetUser, actionsUpdateUser } from './actionUser'
+import { actionsGetTokenAuth, actionsGetTokenError, actionsLogAuth, actionsLogError, actionsLogOut, actionsLogUser, actionsSetAuth, actionsSetError, actionsSetUser, actionsUpdateUser, actionsUploadAuth, actionsUploadError, actionsUploadImage } from './actionUser'
 
 export const registrationUsers = (user: IUser) => async (dispatch: any): Promise<void> => {
   try {
@@ -17,6 +18,7 @@ export const loginUser = (user: IUser) => async (dispatch: any): Promise<void> =
     const data = await logUser(user)
     localStorage.setItem('token', data.token)
     dispatch(actionsUpdateUser(data.userLogin));
+    updateUserInformationToken();
     dispatch(actionsLogAuth(true));
   } catch (error: any) {
     dispatch(actionsLogError(error.message))
@@ -34,22 +36,25 @@ export const updateUser = (user: IUser) => async (dispatch: any): Promise<void> 
 export const updateUserInformationToken = () => async (dispatch: any): Promise<void> => {
   try {
     const user = await getToken();
+    const data = await getAvatarInfo()
+    const pathImage = data.pathImages
     dispatch(actionsUpdateUser(user));
+    dispatch(actionsUploadAuth(pathImage));
     dispatch(actionsSetAuth(true));
-    // const data = await getToken()
-    // if (data) {
-    //   dispatch(actionsUpdateUser(data));
-    // }
-    // console.log('el problema', data)
-    // const isToken = localStorage.getItem('token');
-    // if (isToken) {
-    //   dispatch(actionsSetAuth(true));
-    // }else {
-    //   localStorage.clear();
-    // }
   } catch (error: any) {
     dispatch(actionsGetTokenError(error.message))
     localStorage.clear();
+  }
+};
+export const uploadUserAvatar = (file: any) => async (dispatch: any): Promise<void> => {
+  try {
+    const data = await uploadImageApi(file)
+    const pathImage = data.file.path
+    console.log(pathImage)
+    dispatch(actionsUploadImage(data.avatarImage));
+    dispatch(actionsUploadAuth(pathImage));
+  } catch (error: any) {
+    dispatch(actionsUploadError(error.message))
   }
 };
 export const logOutThunk = () => (dispatch: any) => {

@@ -6,7 +6,8 @@ import styles from './headerStyle.module.scss'
 import { useAppSelector } from '../../../store/reducers';
 import { logOutThunk } from '../../../store/userReducer/userThunk';
 
-import userAvatar from '../../../image/user2.jpg';
+import baseAvatar from '../../../image/user2.jpg';
+import { baseURL } from '../../../api/userApi';
 // import {NavLink} from 'react-router-dom';
 
 interface IHeader {
@@ -24,6 +25,8 @@ const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
     history.push("/");
   }
 
+  const urlPathImage = useAppSelector((state) => state.user.pathImage)
+  const urlAvatar = !urlPathImage? baseAvatar : baseURL + '/' + urlPathImage;
   const isAuth = useAppSelector((state) => state.user.auth)
   const login = useAppSelector((state) => state.user.user.login)
 
@@ -37,7 +40,7 @@ const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
 
         <div className={styles.userAuthWrapper}>
           <div className={styles.user_avatar}>
-            {isAuth && <img src={userAvatar} className={styles.circle_avatar} alt='User Avatar'></img>}
+            {isAuth && <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>}
           </div>
           {isAuth && <span onClick={() => { history.push("/user") }} >{login}</span>}
           {isAuth && <span onClick={() => { history.push("/work") }} >Work Space</span>}

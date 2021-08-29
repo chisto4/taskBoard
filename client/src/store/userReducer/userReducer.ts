@@ -9,18 +9,23 @@ const initialState: IUserState = {
         name: '',
         password: '',
         login: '',
-        avatarId: '',
+        avatarId: null,
     },
     auth: false,
     authAvatar: false,
     error: null,
     pathImage: null,
+    files: [],
 }
 
 export const userReducer = (state = initialState, action: ActionUser): IUserState => {
     switch (action.type) {
         case actions.UPDATE_USER:
             return { ...state, user: action.payload }
+        case actions.UPL_IMG:
+            return { ...state, files: action.payload }
+        case actions.UPLOAD_AUTH:
+            return { ...state, pathImage: action.payload }
         // case actions.SET_USER:
         //     return { ...state, user: action.payload }
         // case actions.LOG_USER:
@@ -41,14 +46,14 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
             return { ...state, error: action.payload }
         case actions.LOG_OUT:
             return {
-                ...state, auth: false, authAvatar: false, error: null, user: {
+                ...state, auth: false, authAvatar: false, error: null, pathImage: null ,user:  {
                     dob: new Date(),
                     email: '',
                     surname: '',
                     name: '',
                     password: '',
                     login: '',
-                    avatarId: '',
+                    avatarId: null,
                 }
             }
         default:

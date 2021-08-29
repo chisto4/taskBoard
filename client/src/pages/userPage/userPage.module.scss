@@ -17,8 +17,8 @@
 }
 .user_avatar{
   margin-bottom: 30px;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border-radius:50%;
   overflow: hidden;//Dimon edition
   img{
@@ -122,55 +122,40 @@ input {
   border: 1px solid rgb(171, 12, 12);
   border-radius: 20px;
 }
-
 .avatar_form{
-  text-align: center;
-  label{
-    text-transform: uppercase;
-  }
+margin-bottom:2rem;
+display: flex;
+flex-direction: column;
+align-items: center;
 }
 
-.avatar_form_input{
-  width: 100%;
-  height: 2rem;
-  margin-bottom: 5px;
-  font-family: 'Cormorant SC';
-  font-size: 12px;
-  font-weight: 100;
-  box-sizing: border-box;
-  border-radius:1rem;
-  padding-left: 1rem;
-  padding-top: 5px;
-  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
-  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
-  5px -5px 25px rgba(116, 115, 115, 0.616);
-  border: 0.1px solid rgba(128, 128, 128, 0.363);
-  input{
-    font-size: 18px;
-  }
-  &:hover{
-    transform: scale(105%);
-    transition: 0.7s;
-  }
+.upload_input_form{
+  display: none;
 }
-.avatar_form_send_button{
-  width: 50%;
-  height: 2rem;
-  margin-bottom: 15px;
+
+.input_label{
+  width: 100%;
+  height: 100%;
   font-family: 'Cormorant SC';
-  font-size: 16px;
+  font-size: 14px;
+  text-align: center;
   text-transform: uppercase;
   font-weight: 100;
-  box-sizing: border-box;
-  border-radius:15px;
+  // box-sizing: border-box;
+  border-radius:1rem;
+  padding-left: 1rem;
+  padding: 10px 20px;
   background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
   box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
   5px -5px 25px rgba(116, 115, 115, 0.616);
   border: 0.1px solid rgba(128, 128, 128, 0.363);
+  cursor: pointer;
   &:hover{
-    transform: scale(102%);
+    color:rgb(55, 89, 241);
+    transform: scale(105%);
+    border: 1px solid rgb(55, 89, 241);
+    box-shadow: -20px 10px 25px rgba(76, 71, 160, 0.644),
+    3px -3px 15px rgba(60, 117, 202, 0.616);
     transition: 0.7s;
-    border: 0.1px solid rgba(224, 15, 15, 0.363);
-
   }
 }

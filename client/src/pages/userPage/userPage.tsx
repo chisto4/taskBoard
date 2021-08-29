@@ -2,59 +2,34 @@ import Main from "../components/main/Main";
 // import {useDispatch, useSelector} from "react-redux";
 // import { FormEvent } from 'react';
 import React, { useState, useRef, useCallback } from 'react';
+import { baseURL } from '../../api/userApi/index';
 
 import styles from './userPage.module.scss';
-import userAvatar from '../../image/user2.jpg';
+import baseAvatar from '../../image/user2.jpg';
 import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
-import { updateUser } from "../../store/userReducer/userThunk";
+import { updateUser, uploadUserAvatar } from "../../store/userReducer/userThunk";
 import { useDispatch } from "react-redux";
 import { format, compareAsc } from 'date-fns';
 import { Card, Form, Button, Figure } from 'react-bootstrap';
 import axios from '../../api/userApi/index';
 
-// import {deleteUsers} from '../..//api/deleteUser'
-// import {editUsers} from '../..//api/updateUser'
-
-// const userInfo = async (event: { preventDefault: () => void; }) => {
-//   const res = await instance.post('/user',      
-//   {
-//     name: name,
-//     surname: surname,
-//     login: login,
-//     email: email,
-//     password: password,
-//     dob: dob
-// })
-//   event.preventDefault();
-
-//   return (
-//       <div className={styles.userRegistrationSucces}>
-//         User Hes registration
-//         console.log('registracia rabotaet');
-//       </div>
-//   );
-// } 
-
 const UserPage: React.FC = (): JSX.Element => {
-  // const dispatch = useDispatch;
-  // cons user = useSelector((state) => state.user)
+    const { name: stateName, dob: stateDob, email: stateEmail, 
+          login: stateLogin, surname: stateSurName, avatarId: stateAvatarId 
+        } = useAppSelector((state) => state.user.user)
 
-  // interface defState {
-
-  // }
-
-
-  const { name: stateName, dob: stateDob, email: stateEmail, login: stateLogin, surname: stateSurName } = useAppSelector((state) => state.user.user)
   const thrueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
+  const dispatch = useDispatch();
+  const urlPathImage = useAppSelector((state) => state.user.pathImage)
+  const urlAvatar = !urlPathImage? baseAvatar : baseURL + '/' + urlPathImage;
 
   const [userName, setUserName] = useState(stateName);
   const [userSurName, setUserSurName] = useState(stateSurName);
   const [userLogin, setUserLogin] = useState(stateLogin);
   const [userPassword, setUserPassword] = useState('');
   const [userDob, setUserDob] = useState(stateDob);
-
-  const dispatch = useDispatch();
+  const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -67,126 +42,97 @@ const UserPage: React.FC = (): JSX.Element => {
       password: userPassword,
       dob: userDob,
       email: stateEmail,
-      avatarId: ''
+      avatarId: userAvatar
     };
     console.log('send', user);
 
     dispatch(updateUser(user));
   };
-  console.log('text', userName);
-  const handlerUpload = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  }
 
-  // const UploadAvatar: React.FC = () => {
-  //   const iconUrl = useSelector((state: StateReduxType) => state.userState.user?.avatar);
-  //   const [userAvatar, setUserAvatar] = useState<string | Blob>('');
-  //   const dispatch = useDispatch();
-  //   const urlImg = !iconUrl ? 'images.jpeg' : baseURL + '/' + iconUrl;
+    const submitUserImg = (e: React.FormEvent<HTMLFormElement>) => {
+        const formData = new FormData();
+        e.preventDefault();
+        formData.append('file', userAvatar);
+        dispatch(uploadUserAvatar(formData));
+    };
 
-  //   const submitUserImg = async (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
-  //       const formData = new FormData();
-  //       e.preventDefault();
-  //       formData.append('filedata', userAvatar);
-  //       dispatch(uploadAvatar(formData));
-  //   };
+    const setUseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.currentTarget.files?.length) {
+          const currentAvatar = e.currentTarget.files[0];
+          setUserAvatar(currentAvatar);
+      }
+  };
 
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     if (e.currentTarget.files?.length) {
-//         const currentAvatar = e.currentTarget.files[0];
-//         setUserAvatar(currentAvatar);
-//     }
-// }
-//   }
+return (
+  <Main >
+    <div className={styles.user_update_information_main_wrapper}>
 
-  return (
-    <Main >
-      <div className={styles.user_update_information_main_wrapper}>
-        <div className={styles.default_user_info_wrapper}>
-          <div className={styles.user_avatar}>
-            <img src={userAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
+    <div className={styles.default_user_info_wrapper}>
 
-            {/* <form onSubmit={startUploadSumbit}>
-              <div>
-                <input
-                  onChange={e => e.target.files}
-                  accept="image/*"
-                  type="file"
-                  id="button-file"
-                />
-              </div>
-              <button type="submit">{loading ? 'Сохраняю...' : 'Сохранить'}</button>
-          </form> */}
-
-          </div>
-
-          <form
-            // onChange={handleChange(e)}
-            // onSubmit={(e) => handlerUpload(e)}
-            className={styles.avatar_form}
-            action="/user"
-            method="post"
-            encType="multipart/form-data"
-          >
-            <label>Change your Avatar</label><br />
-            <input className={styles.avatar_form_input} type="file" name="file" /><br />
-            <input className={styles.avatar_form_send_button} type="submit" value="Send" />
-          </form>
-
-          {/* <Form>
-                        <Form.Group>
-                            <Button
-                                style={{ marginTop: '10px' }}
-                                variant="outline-primary" 
-                                className="mt-2"
-                                as="input"
-                                type="submit"
-                                value="Load"
-                                size="sm"
-                                disabled={!userAvatar}
-                            />
-                        </Form.Group>
-                    </Form> */}
-          <div className={styles.def_string_info}>
-            <h6>Name:</h6><p>{stateName}</p>
-          </div>
-
-          <div className={styles.def_string_info}>
-            <h6>Last Name:</h6><p>{stateSurName}</p>
-          </div>
-
-          <div className={styles.def_string_info}>
-            <h6>Login:</h6><p>{stateLogin}</p>
-          </div>
-
-          <div className={styles.def_string_info}>
-            <h6>Date of born:</h6><p>{thrueDateFormat}</p>
-          </div>
-
-          <div className={styles.link_change_email}>
-            <a href="/email">Change Email@adress</a>
-          </div>
-          {/* <button onSubmit={(deleteUsers)} className={styles.del_user_button}>DELETE USER</button> */}
-          {/* <span onClick={() => deleteUsers({email, })} className={styles.del_user_button}>DELETE USER</span> */}
-        </div>
-
-        <div className={styles.change_user_info_wrapper}>
-          {/* <form className={styles.form} onSubmit={userInfo}> */}
-          <form className={styles.form} onSubmit={userInfo}>
-            <h1>Change user information</h1>
-            <input onChange={(e) => setUserName(e.target.value)} name='name' defaultValue={stateName} type="text" placeholder='Enter your Name' />
-            <input onChange={(e) => setUserSurName(e.target.value)} name='surname' defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
-            <input onChange={(e) => setUserLogin(e.target.value)} name='login' defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
-            {/* <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
-        <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
-            <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='New password' />
-            <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
-            <button type="submit" className={styles.registrationButton}>upadte information</button>
-          </form>
-        </div>
+      <div className={styles.user_avatar}>
+        <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
       </div>
-    </Main>
-  );
+
+      <form
+        onSubmit={(e) => submitUserImg(e)}
+        className={styles.avatar_form}
+      >
+        <div className={styles.upload_wrapper}>
+          <label htmlFor="inp" className={styles.input_label}>upload avatar</label>
+          <input id="inp" className={styles.upload_input_form} 
+          type="file" name="file"
+          onChange={(e) => setUseFile(e)} 
+           />
+        </div>
+        <Button
+          variant="outline-primary"
+          className={styles.input_label}
+          as="input" type="submit" value="Load"
+          disabled={!userAvatar}
+        />
+      </form>
+
+      <div className={styles.def_string_info}>
+        <h6>Name:</h6><p>{stateName}</p>
+      </div>
+
+      <div className={styles.def_string_info}>
+        <h6>Last Name:</h6><p>{stateSurName}</p>
+      </div>
+
+      <div className={styles.def_string_info}>
+        <h6>Login:</h6><p>{stateLogin}</p>
+      </div>
+
+      <div className={styles.def_string_info}>
+        <h6>Date of born:</h6><p>{thrueDateFormat}</p>
+      </div>
+        {/* USER EMAIL */}
+      {/* <div className={styles.link_change_email}>
+        <a href="/email">Change Email@adress</a>
+      </div> */}
+        {/* <button onSubmit={(deleteUsers)} className={styles.del_user_button}>DELETE USER</button> */}
+        {/* <span onClick={() => deleteUsers({email, })} className={styles.del_user_button}>DELETE USER</span> */}
+      </div>
+
+      <div className={styles.change_user_info_wrapper}>
+        {/* <form className={styles.form} onSubmit={userInfo}> */}
+      <form className={styles.form} onSubmit={userInfo}>
+        <h1>Change user information</h1>
+        <input onChange={(e) => setUserName(e.target.value)} name='name' defaultValue={stateName} type="text" placeholder='Enter your Name' />
+        <input onChange={(e) => setUserSurName(e.target.value)} name='surname' defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
+        <input onChange={(e) => setUserLogin(e.target.value)} name='login' defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
+        {/* <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
+        <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
+        <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='New password' />
+        <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
+        <button type="submit" className={styles.registrationButton}>upadte information</button>
+      </form>
+      </div>
+  </div>
+</Main>
+      );
+
 };
 
 export default UserPage;

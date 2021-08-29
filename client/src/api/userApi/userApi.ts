@@ -4,26 +4,27 @@ import { IUser, ILogUser } from "../../types/types";
 import axios from './index';
 
 export const regUser = async (user: IUser) => {
-    const res = await axios.post('/registration', user);
-    console.log('User info registaration', res.data);
-    return res.data
+  const res = await axios.post('/registration', user);
+  console.log('User info registaration', res.data);
+  return res.data
 };
 
 export const logUser = async (user: ILogUser) => {
-    const res = await axios.post('/login', user);
-    return res.data
+  const res = await axios.post('/login', user);
+  console.log('zalupa tutu res.data', res.data)
+  return res.data
 };
 
-export const getToken = async () => {  
-    const res = await axios.get('/token');
-    console.log('User info token update', res.data);
-    return res.data
+export const getToken = async () => {
+  const res = await axios.get('/token');
+  console.log('User info token update', res.data);
+  return res.data
 };
 
 export const editUsers = async (user: IUser) => {
-    const res = await axios.put('/user', user);
-    console.log('User info update', res.data);
-    return res.data
+  const res = await axios.put('/user', user);
+  console.log('User info update', res.data);
+  return res.data
 };
 
 export const logOut = (): void => {
@@ -38,13 +39,14 @@ export const deleteUsers = (user: {
   password: string,
 }, token: string) => {
   return async (dispatch: Dispatch<Action>): Promise<void> => {
-   
+
     const response = await axios.delete(`/users/${user.id}`, {
 
-    headers: { Authorization:localStorage.getItem('token') } })
-    
+      headers: { Authorization: localStorage.getItem('token') }
+    })
+
     const result = await response.data;
-    
+
     if (response.status === 200) {
       console.log(result);
       const users = [{

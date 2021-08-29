@@ -6,7 +6,7 @@ export const genAccessToken = (id, email) => {
       id, email
     }
 
-  return jwt.sign(payload, secretKey, {expiresIn: '5m'})
+  return jwt.sign(payload, secretKey, {expiresIn: '5h'})
 }
 
 export const tokenModule = async (req, res, next) => {

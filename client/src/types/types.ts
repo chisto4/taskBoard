@@ -19,7 +19,7 @@ export interface IUser {
   login: string,
   password: string,
   email: string,
-  avatarId: string,
+  avatarId: string | number | null | Blob,
   dob: Date | string,
 }
 
@@ -35,6 +35,7 @@ export interface IUserState {
   authAvatar: boolean,
   error: string | null
   pathImage: string | null
+  files: any[]
   }
 
 

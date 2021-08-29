@@ -15,12 +15,8 @@ const UserLogin: React.FC = (): JSX.Element => {
   const [userPassword, setUserPassword] = useState('');
 
   const auth = useAppSelector((state) => state.user.auth)
-
   let history = useHistory();
-
-
   const dispatch = useDispatch();
-
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -33,15 +29,14 @@ const UserLogin: React.FC = (): JSX.Element => {
       name: '',
       surname: '',
       dob: '',
-      avatarId: ''
+      avatarId: null
     };
     dispatch(loginUser(user));
   };
 
   useEffect(() => {
-    if (auth) {history.push("/user")}
-    }, [auth, history])
-    
+    if (auth) { history.push("/user") }
+  }, [auth, history])
 
   return (
     <Main>

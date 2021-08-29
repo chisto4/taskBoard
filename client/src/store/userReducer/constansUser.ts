@@ -1,3 +1,4 @@
+import { FilesArgument } from "@testing-library/user-event";
 import { IUser } from "../../types/types";
 
 
@@ -34,14 +35,15 @@ export type ActionsSetError = {
   type: actions.SET_ERROR,
   payload: string | null
 }
+
 export type ActionsUploadImage = {
   type: actions.UPL_IMG,
-  payload: IUser
+  payload: any[]
 }
 
 export type ActionsUploadAuth = {
   type: actions.UPLOAD_AUTH,
-  payload: boolean
+  payload: string | null
 }
 export type ActionsUploadError = {
   type: actions.UPLOAD_ERROR,

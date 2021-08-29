@@ -30,7 +30,6 @@ class AvatarController {
             where: { id }, raw: true,
             attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
         });
-        console.log('avatar id form', getUser.avatarId)
         const avatarInfo = await db.Images.findOne({
           where: {id: getUser.avatarId}, raw: true,
           attributes: ['id', 'pathImages', 'userId']

@@ -10,4 +10,4 @@ export const HELLO_PAGE = '/'
 export const AVATAR = '/avatar'
 
 
-export const URL_HOME_PAGE = 'http://localhost:3005/'
+export const URL_HOME_PAGE = 'http://localhost:3005'
