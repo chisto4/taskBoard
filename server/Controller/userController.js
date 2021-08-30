@@ -2,7 +2,7 @@ import bcrypt from 'bcryptjs'
 import { validationResult } from 'express-validator'
 import { genAccessToken } from '../middleware/authMiddleware.js'
 import db from '../database/models/index.js'
-import {v4} from 'uuid'
+import { v4 } from 'uuid'
 
 import regularEmail from '../middleware/regularConstant.js'
 
@@ -10,7 +10,9 @@ import regularEmail from '../middleware/regularConstant.js'
 // const db = {};
 
 export const secretKey = 'q1w2e3r4'
+
 class UserController {
+
     async registrationUser(req, res) {
         const { name, surname, login, email, password, dob, avatarId } = req.body
         const lowerCaseEmail = email.toLowerCase();
@@ -47,12 +49,19 @@ class UserController {
         }
     }
 
-
     async loginUser(req, res) {
         try {
             const { login, password } = req.body
             const lowerCaseLogin = login.toLowerCase();
-            let userLogin = await db.User.findOne({ where: { login: lowerCaseLogin } })
+            let userLogin = await db.User.findOne({
+                where: { login: lowerCaseLogin },
+                include: [
+                    {
+                        model: db.Images,
+                        attributes: ['pathImages']
+                    }
+                ]
+            })
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
                 return res.status(400).json({ message: "Error Registration", errors })
@@ -66,8 +75,9 @@ class UserController {
             }
             userLogin = userLogin.toJSON();
             delete userLogin.password;
+            // userLogin.pathImage = userLogin['Image.pathImages']
+            // delete userLogin['Image.pathImages']
             const token = genAccessToken(userLogin.id, userLogin.email)
-            console.log('test token content', userLogin.id, userLogin.email)
             return res.json({ token, userLogin })
         } catch (e) {
             console.log(e)
@@ -75,6 +85,31 @@ class UserController {
         }
     }
 
+    async uploadAvatar(req, res) {
+        try {
+            const { id } = req.user
+            if (!id) {
+                return res.status(400).json({ message: "ID not use" })
+            }
+            const file = req.file;
+            const way = req.file.path
+            let [avatarImage, created] = await db.Images.findOrCreate({
+                where: { userId: id },
+                defaults: {
+                    pathImages: way
+                }
+            })
+            if (!created) {
+                avatarImage.pathImages = way;
+                await avatarImage.save();
+            }
+            await db.User.update({ avatarId: avatarImage.id }, { where: { id } })
+            res.json({ message: "Avatar was uploaded", file, avatarImage })
+        } catch (e) {
+            console.log(e);
+            res.json({ message: "Avatar was uploaded", message: e.message })
+        }
+    }
 
     async tokenUser(req, res) {
         try {
@@ -83,17 +118,24 @@ class UserController {
                 return res.status(400).json({ message: "ID not use" })
             }
             const userIdToken = await db.User.findOne({
-                where: { id }, raw: true,
-                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
+                where: { id },
+                include: [
+                    {
+                        model: db.Images,
+                        attributes: ['pathImages']
+                    }
+                ],
+                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
             })
-            console.log(userIdToken)
+            // userIdToken.pathImage = userIdToken['Image.pathImages']
+            // delete userIdToken['Image.pathImages']
             res.status(200).json(userIdToken)
         } catch (e) {
             console.log(e)
             res.status(400).json({ message: 'Token fail error' })
         }
     }
-    
+
     async getUsers(req, res) {
         try {
             const users = await db.User.findAll({
@@ -128,7 +170,6 @@ class UserController {
         }
     }
 
-
     async updateUser(req, res) {
         try {
             console.log(req.body)
@@ -137,18 +178,90 @@ class UserController {
             const userEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
             if (!userEmail) {
                 return res.status(400).json({ message: `Access denide. Not found user E-mail: ${email}` })
+              }
+              const hashPassword = bcrypt.hashSync(password, 5);
+              await db.User.update({ name, surname, login, email, password: hashPassword, dob },
+                  { where: { email } });
+    
+    const { id } = req.user
+    const userIdToken = await db.User.findOne({
+        where: { id },
+        include: [
+            {
+                model: db.Images,
+                attributes: ['pathImages']
             }
-            const hashPassword = bcrypt.hashSync(password, 5);
-            await db.User.update({ name, surname, login, email, password: hashPassword, dob },
-                { where: { email } });
-            res.status(200).json({ name, surname, login, email, dob })
-            console.log('User information updated success! Congratulations!')
-        }
-        catch (e) {
-            console.log(e);
-            console.log('User information not update error')
-        }
-    }
+        ],
+        attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
+    })
+
+              res.status(200).json(userIdToken)
+
+              console.log('User information updated success! Congratulations!')
+          }
+          catch (e) {
+              console.log(e);
+              console.log('User information not update error')
+          }
+      }
+      
+
+
+    // async updateUser(req, res) {
+    //     try {
+    //         const idRequest = req.user.id
+    //         if (!idRequest) {
+    //             return res.status(400).json({ message: "ID not use" })
+    //         } else {
+    //             const inputPassword = req.body.password
+    //             const password = await db.User.findOne({
+    //                 where: { id: idRequest },
+    //                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId', 'password'],
+    //             })
+    //             // console.log('DEBBUGER', inputPassword )
+    //             // console.log('DEBBUGER', id )
+    //             // console.log('DEBBUGER', password )
+    //             // const validPassword = bcrypt.compareSync(password, inputPassword)
+    //             // if (!validPassword) {
+    //             //     return res.status(400).json({ message: "Bad password! Try again" })
+    //             // }
+    //         }
+    //         const { name, surname, login, email, dob } = req.body
+    //         const lowerCaseEmail = email.toLowerCase();
+    //         // const userEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
+
+    //         // if (!userEmail) {
+    //         //     return res.status(400).json({ message: `Access denide. Not found user E-mail: ${email}` })
+    //         // }
+    //         // const hashPassword = bcrypt.hashSync(password, 5); password: hashPassword,
+    //         await db.User.update(
+    //             {
+    //                 name,
+    //                 surname,
+    //                 login,
+    //                 email: lowerCaseEmail,
+    //                 dob
+    //             },
+    //             { where: { email } }
+    //         );
+    //         const userinfo = await db.User.findOne({
+    //             where: { id: idRequest },
+    //             include: [
+    //                 {
+    //                     model: db.Images,
+    //                     attributes: ['pathImages']
+    //                 }
+    //             ],
+    //             attributes: ['name', 'surname', 'login', 'email', 'dob', 'avatarId',],
+    //         })
+    //         res.status(200).json({ message: "Информация обновлена", name, surname, login, email, dob, avatarId })
+    //         console.log('User information updated success! Congratulations!')
+    //     }
+    //     catch (e) {
+    //         console.log(e);
+    //         console.log('User information not update error')
+    //     }
+    // }
 
 
     async updateEmail(req, res) {
@@ -160,8 +273,10 @@ class UserController {
                 return res.status(400).json({ message: `Access denied. Not found user Login: ${login}` })
             }
             const hashPassword = bcrypt.hashSync(password, 5);
-            await db.User.update({ name, surname, login, email, password: hashPassword, dob },
-                { where: { email } });
+            await db.User.update(
+                { name, surname, login, email, password: hashPassword, dob },
+                { where: { email } }
+            );
             res.status(200).json({ name, surname, login, email, password: hashPassword, dob })
             console.log('User Email updated success! Congratulations!')
         }
@@ -179,10 +294,14 @@ class UserController {
             res.json(users)
             console.log('User delete')
         }
-        catch(e) {
+        catch (e) {
             console.log(e);
             console.log('User not found. Try again')
         }
     }
 }
 export default new UserController()
+
+
+
+// static/097c2649d42f5d81f4e955c2039f9154
