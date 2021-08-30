@@ -172,7 +172,6 @@ class UserController {
 
     async updateUser(req, res) {
         try {
-            console.log(req.body)
             const { name, surname, login, email, password, dob } = req.body
             const lowerCaseEmail = email.toLowerCase();
             const userEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
@@ -194,9 +193,7 @@ class UserController {
         ],
         attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
     })
-
               res.status(200).json(userIdToken)
-
               console.log('User information updated success! Congratulations!')
           }
           catch (e) {
@@ -207,61 +204,57 @@ class UserController {
       
 
 
-    // async updateUser(req, res) {
+    //   async updateUser(req, res) {
     //     try {
-    //         const idRequest = req.user.id
-    //         if (!idRequest) {
-    //             return res.status(400).json({ message: "ID not use" })
-    //         } else {
-    //             const inputPassword = req.body.password
-    //             const password = await db.User.findOne({
-    //                 where: { id: idRequest },
-    //                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId', 'password'],
-    //             })
-    //             // console.log('DEBBUGER', inputPassword )
-    //             // console.log('DEBBUGER', id )
-    //             // console.log('DEBBUGER', password )
-    //             // const validPassword = bcrypt.compareSync(password, inputPassword)
-    //             // if (!validPassword) {
-    //             //     return res.status(400).json({ message: "Bad password! Try again" })
-    //             // }
-    //         }
-    //         const { name, surname, login, email, dob } = req.body
-    //         const lowerCaseEmail = email.toLowerCase();
-    //         // const userEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
+            
+    //             const { id: tokenId, email: tokenEmail } = req.user
+    //             // const tokenEmail = email;
+    //             if (!tokenId) {
+    //                 return res.status(400).json({ message: "ID not use" })
+    //             } 
 
-    //         // if (!userEmail) {
-    //         //     return res.status(400).json({ message: `Access denide. Not found user E-mail: ${email}` })
-    //         // }
-    //         // const hashPassword = bcrypt.hashSync(password, 5); password: hashPassword,
-    //         await db.User.update(
-    //             {
-    //                 name,
-    //                 surname,
-    //                 login,
-    //                 email: lowerCaseEmail,
-    //                 dob
-    //             },
-    //             { where: { email } }
-    //         );
-    //         const userinfo = await db.User.findOne({
-    //             where: { id: idRequest },
-    //             include: [
-    //                 {
-    //                     model: db.Images,
-    //                     attributes: ['pathImages']
-    //                 }
-    //             ],
-    //             attributes: ['name', 'surname', 'login', 'email', 'dob', 'avatarId',],
-    //         })
-    //         res.status(200).json({ message: "Информация обновлена", name, surname, login, email, dob, avatarId })
-    //         console.log('User information updated success! Congratulations!')
-    //     }
-    //     catch (e) {
-    //         console.log(e);
-    //         console.log('User information not update error')
-    //     }
-    // }
+    //         const { name: newName, email, surname: newSurname,
+    //              login: newLogin, 
+    //              password, dob: newDob } = req.body
+    //         const lowerCaseEmail = email.toLowerCase();
+    //         if(!tokenEmail === lowerCaseEmail){
+    //             console.log('db.User', db.User)
+    //             const validEmailUser = await db.User.findOne({ where: { email: lowerCaseEmail } })
+    //             console.log('BD USER', bdUser)
+    //             if (validEmailUser) {
+    //                 return res.status(400).json({ message: `Access denide. E-mail used}` })
+    //             }
+    //         }
+
+    //         const bdUser = await db.User.findOne({ where: { email: tokenEmail } })
+    //         const validPassword = bcrypt.compareSync(password, bdUser.password);
+    //         if (!validPassword) {
+    //             return res.status(400).json({ message: "Bad password! Try again" })
+    //         }
+
+    //         await db.User.update({ name: newName, surname: newSurname,
+    //              login: newLogin, email: lowerCaseEmail, dob: newDob },
+    //               { where: { email } });
+    
+    // const { id } = req.user
+    // const userIdToken = await db.User.findOne({
+    //     where: { id },
+    //     include: [
+    //         {
+    //             model: db.Images,
+    //             attributes: ['pathImages']
+    //         }
+    //     ],
+    //     attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
+    // })
+    //           res.status(200).json(userIdToken)
+    //           console.log('User information updated success! Congratulations!')
+    //       }
+    //       catch (e) {
+    //           console.log(e);
+    //           console.log('User information not update error')
+    //       }
+    //   }
 
 
     async updateEmail(req, res) {

@@ -126,10 +126,10 @@ const UserPage: React.FC = (): JSX.Element => {
           {/* <form className={styles.form} onSubmit={userInfo}> */}
           <form className={styles.form} onSubmit={userInfo}>
             <h1>Change user information</h1>
-            <input onChange={(e) => setUserName(e.target.value)} name='name' defaultValue={stateName} type="text" placeholder='Enter your Name' />
-            <input onChange={(e) => setUserSurName(e.target.value)} name='surname' defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
-            <input onChange={(e) => setUserLogin(e.target.value)} name='login' defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
-            <input onChange={(e) => setUserEmail(e.target.value)} name='email' defaultValue={stateEmail} type="text" placeholder='Enter your Email' />
+            <input onChange={(e) => setUserName(e.target.value)} name='name' required defaultValue={stateName} type="text" placeholder='Enter your Name' />
+            <input onChange={(e) => setUserSurName(e.target.value)} name='surname' required defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
+            <input onChange={(e) => setUserLogin(e.target.value)} name='login' required defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
+            <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="text" placeholder='Enter your Email' />
             {/* <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
         <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
             <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='Confirm password' />
