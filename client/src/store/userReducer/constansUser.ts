@@ -1,4 +1,3 @@
-import { FilesArgument } from "@testing-library/user-event";
 import { IUser } from "../../types/types";
 
 
@@ -18,7 +17,6 @@ export enum actions {
   GET_TOKEN_AUTH = 'GET_TOKEN_AUTH',
   GET_TOKEN_ERROR = 'GET_TOKEN_ERROR',
   UPL_IMG = 'UPL_IMG',
-  UPLOAD_AUTH = 'UPLOAD_AUTH',
   UPLOAD_ERROR = 'UPLOAD_ERROR',
 }
 
@@ -38,13 +36,9 @@ export type ActionsSetError = {
 
 export type ActionsUploadImage = {
   type: actions.UPL_IMG,
-  payload: any[]
+  payload: string
 }
 
-export type ActionsUploadAuth = {
-  type: actions.UPLOAD_AUTH,
-  payload: string | null
-}
 export type ActionsUploadError = {
   type: actions.UPLOAD_ERROR,
   payload: string | null
@@ -102,5 +96,4 @@ export type ActionUser =
   | ActionsGetTokenError
   | ActionsLogOut
   | ActionsUploadImage
-  | ActionsUploadAuth
   | ActionsUploadError

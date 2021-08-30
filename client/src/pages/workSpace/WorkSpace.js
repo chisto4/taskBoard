@@ -31,7 +31,6 @@ const WorkSpace = () => {
   }
 
   function dragStartHandler(event, column, item){
-    // debugger
     console.log('Start column', column) 
     console.log('Start item', item) 
     setCurrentColumn(column)

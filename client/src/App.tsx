@@ -16,7 +16,7 @@ function App() {
   const [logForm, setLogForm] = useState(false);
   const [regForm, setRegForm] = useState(false);
 
-  const dispatch: any = useDispatch<any>();
+  const dispatch = useDispatch();
 
   const isAuth = useAppSelector((state) => state.user.auth)
 

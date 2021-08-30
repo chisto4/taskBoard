@@ -29,7 +29,8 @@ const UserLogin: React.FC = (): JSX.Element => {
       name: '',
       surname: '',
       dob: '',
-      avatarId: null
+      avatarId: null,
+      Image: null
     };
     dispatch(loginUser(user));
   };

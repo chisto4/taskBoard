@@ -21,14 +21,14 @@
   height: 200px;
   border-radius:50%;
   overflow: hidden;//Dimon edition
+  // background-image: url(http://localhost:3005/static/75943fd7098c5);
+  // background: url(http://localhost:3005/static/75944fd7098c567a9e7ed44c16666df1);
+  // z-index: 100;
   img{
     width: 100%;
     height: 100%;
     object-fit:cover;//Dimon edition
 }}
-.circle_avatar{
- 
-}
 
 .def_string_info{
   width: 100%;
@@ -123,10 +123,17 @@ input {
   border-radius: 20px;
 }
 .avatar_form{
-margin-bottom:2rem;
 display: flex;
+justify-content: space-evenly;
+height: 100px;
 flex-direction: column;
 align-items: center;
+}
+
+.upload_wrapper{
+  button{
+    margin-top: 10px;
+  }
 }
 
 .upload_input_form{
@@ -134,8 +141,9 @@ align-items: center;
 }
 
 .input_label{
+  transition: 1.8s;
   width: 100%;
-  height: 100%;
+  height: 40%;
   font-family: 'Cormorant SC';
   font-size: 14px;
   text-align: center;

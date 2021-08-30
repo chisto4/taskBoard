@@ -25,13 +25,14 @@ const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
     history.push("/");
   }
 
-  const urlPathImage = useAppSelector((state) => state.user.pathImage)
-  const urlAvatar = !urlPathImage? baseAvatar : baseURL + '/' + urlPathImage;
+  const image = useAppSelector((state) => state.user.user.Image)
+  const urlAvatar = !image ? baseAvatar : baseURL + '/' + image?.pathImages;
+
   const isAuth = useAppSelector((state) => state.user.auth)
   const login = useAppSelector((state) => state.user.user.login)
 
   const testState = useAppSelector((state) => state)
-  console.log(testState)
+  console.log("testState", testState)
 
   return (
     <div className={styles.headerWrapper}>

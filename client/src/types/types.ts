@@ -1,17 +1,18 @@
-export interface usersInterface {
-    id?: number,
-    name?: string,
-    surname?: string,
-    login: string,
-    password: string,
-    email: string,
-    dob?: Date,
-}
+// export interface usersInterface {
+//   id?: number,
+//   name?: string,
+//   surname?: string,
+//   login: string,
+//   password: string,
+//   email: string,
+//   dob?: Date,
+//   Image?: string | number | null | Blob
+// }
 
-export interface actionInterface {
-    type: string,
-    payload: usersInterface[],
-}
+// export interface actionInterface {
+//   type: string,
+//   payload: usersInterface[],
+// }
 
 export interface IUser {
   name: string,
@@ -19,8 +20,13 @@ export interface IUser {
   login: string,
   password: string,
   email: string,
-  avatarId: string | number | null | Blob,
+  avatarId?: string | number | null | Blob,
   dob: Date | string,
+  pathImage?: string | null,
+  Image?: {
+    pathImages: string,
+  } | null,
+  file?: string | Blob,
 }
 
 export interface ILogUser {
@@ -32,14 +38,11 @@ export interface ILogUser {
 export interface IUserState {
   user: IUser,
   auth: boolean,
-  authAvatar: boolean,
-  error: string | null
-  pathImage: string | null
-  files: any[]
-  }
+  error: string | null,
+}
 
 
-  
+
 export enum UserActionTypes {
   GET_ALL_USERS = 'GET_ALL_USERS',
   GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS',

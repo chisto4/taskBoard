@@ -1,5 +1,6 @@
 import { actions, ActionUser } from "./constansUser"
 import { IUserState } from "../../types/types";
+import { string } from "prop-types";
 
 const initialState: IUserState = {
     user: {
@@ -10,12 +11,10 @@ const initialState: IUserState = {
         password: '',
         login: '',
         avatarId: null,
+        Image: null,
     },
     auth: false,
-    authAvatar: false,
     error: null,
-    pathImage: null,
-    files: [],
 }
 
 export const userReducer = (state = initialState, action: ActionUser): IUserState => {
@@ -23,9 +22,9 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
         case actions.UPDATE_USER:
             return { ...state, user: action.payload }
         case actions.UPL_IMG:
-            return { ...state, files: action.payload }
-        case actions.UPLOAD_AUTH:
-            return { ...state, pathImage: action.payload }
+            return {
+                ...state, user: { ...state.user, Image: { pathImages: action.payload } }
+            }
         // case actions.SET_USER:
         //     return { ...state, user: action.payload }
         // case actions.LOG_USER:
@@ -46,7 +45,7 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
             return { ...state, error: action.payload }
         case actions.LOG_OUT:
             return {
-                ...state, auth: false, authAvatar: false, error: null, pathImage: null ,user:  {
+                ...state, auth: false, error: null, user: {
                     dob: new Date(),
                     email: '',
                     surname: '',
@@ -54,6 +53,7 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
                     password: '',
                     login: '',
                     avatarId: null,
+                    Image: null
                 }
             }
         default:

@@ -24,6 +24,9 @@ export const getToken = async () => {
 export const editUsers = async (user: IUser) => {
   const res = await axios.put('/user', user);
   console.log('User info update', res.data);
+  if(res.status === 200){
+    console.log('User info update2', res.data);
+  }
   return res.data
 };
 
