@@ -15,8 +15,8 @@
 // }
 
 export interface IUser {
-  name: string,
-  surname: string,
+  name?: string,
+  surname?: string,
   login: string,
   password: string,
   email: string,
@@ -29,10 +29,26 @@ export interface IUser {
   file?: string | Blob,
 }
 
+export interface IUserUpdate {
+  name: string,
+  surname: string,
+  login: string,
+  dob: Date | string,
+}
+
 export interface ILogUser {
+  name?: string,
+  surname?: string,
   login: string,
   password: string,
   email: string,
+  avatarId?: string | number | null | Blob,
+  dob?: Date | string,
+  pathImage?: string | null,
+  Image?: {
+    pathImages: string,
+  } | null,
+  file?: string | Blob,
 }
 
 export interface IUserState {

@@ -33,10 +33,15 @@ const UserPage: React.FC = (): JSX.Element => {
   const [userName, setUserName] = useState(stateName);
   const [userSurName, setUserSurName] = useState(stateSurName);
   const [userLogin, setUserLogin] = useState(stateLogin);
+  const [userDob, setUserDob] = useState(stateDob);
+  
   const [userEmail, setUserEmail] = useState(stateEmail);
   const [userPassword, setUserPassword] = useState('');
-  const [userDob, setUserDob] = useState(stateDob);
+  const [newPassword, setNewPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+
   const [formSwitch, setFormSwitch] = useState(false);
+  const [valuePassword, setValuePassword] = useState(false);
   const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -56,12 +61,35 @@ const UserPage: React.FC = (): JSX.Element => {
     dispatch(updateUser(user));
  };
 
+  const userInfoPassEmail: React.FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    console.log('Password and Email event', event);
+
+    const validNewPassword = (newPassword === confirmPassword);
+    if(!validNewPassword){
+      setValuePassword(true)
+    } else {
+      setUserPassword(newPassword)
+    const user: IUser = {
+      name: userName,
+      surname: userSurName,
+      login: userLogin,
+      password: userPassword,
+      dob: userDob,
+      email: userEmail,
+    };
+    console.log('send', user);
+
+    dispatch(updateUser(user));
+ }};
+
   const submitUserImg = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData();
     e.preventDefault();
     formData.append('file', userAvatar);
     // console.log("FORM DATA DLYA DIMY", formData)
     dispatch(uploadUserAvatar(formData));
+    setUserAvatar('')
   };
 
   const setUseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -97,6 +125,7 @@ const UserPage: React.FC = (): JSX.Element => {
               className={styles.input_label}
               as="input" type="submit" value="Load"
               hidden={!userAvatar}
+              // onClick={(e) => setUserAvatar('')}
             />
           </form>
 
@@ -124,27 +153,33 @@ const UserPage: React.FC = (): JSX.Element => {
         </div>
 
         <div className={styles.change_user_info_wrapper}>
-          {/* <form className={styles.form} onSubmit={userInfo}> */}
-          {!formSwitch && <form className={styles.form} onSubmit={userInfo}>
-            <h1>Change user information</h1>
+        {formSwitch && <h1>Change user information</h1>}
+        {!formSwitch && <h1>Change E-mail and password</h1>}
+
+          <div className={styles.change_update_form_window}>
+            <button className={styles.change_user_form_window_left} onClick={() => setFormSwitch(true)} >USER INFO</button>
+            <button className={styles.change_user_form_window_right} onClick={() => setFormSwitch(false)}>EMAIL & PASSWORD</button>
+          </div>
+
+          {formSwitch && <form className={styles.form} onSubmit={userInfo}>
             <input onChange={(e) => setUserName(e.target.value)} name='name' required defaultValue={stateName} type="text" placeholder='Enter your Name' />
             <input onChange={(e) => setUserSurName(e.target.value)} name='surname' required defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' required defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
-            <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="text" placeholder='Enter your Email' />
+            {/* <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="text" placeholder='Enter your Email' /> */}
             {/* <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
         <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
-            <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='Confirm password' />
+            {/* <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='Confirm password' /> */}
             <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
             <button type="submit" className={styles.registrationButton}>upadte information</button>
           </form>}
 
-          {formSwitch && <form className={styles.form} onSubmit={userInfo}>
-            <h1>Change E-mail and password</h1>
-            <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="text" placeholder='Enter New Email' />
-            <input onChange={(e) => setUserName(e.target.value)} name='oldPassword' required defaultValue={stateName} type="text" placeholder='Enter Old Password' />
-            <input onChange={(e) => setUserSurName(e.target.value)} name='newPassword' required defaultValue={stateSurName} type="text" placeholder='Enter your New Password' />
-            <input onChange={(e) => setUserLogin(e.target.value)} name='confirmPassword' required defaultValue={stateLogin} type="text" placeholder='Confirm New Password' />
-            <button type="submit" className={styles.registrationButton}>Upadte information</button>
+          {!formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>
+            <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="email" placeholder='Enter New Email' />
+            <input onChange={(e) => setUserPassword(e.target.value)} name='Password' required type="password" placeholder='Enter Old Password' />
+            <input onChange={(e) => setNewPassword(e.target.value)} name='newPassword' required type="password" placeholder='Enter your New Password' />
+            <input onChange={(e) => setConfirmPassword(e.target.value)} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
+              {valuePassword && <p className={styles.password_valid_message}>Password mismatch</p>}
+            <button type="submit" className={styles.registrationButton}>upadte email nad password</button>
           </form>}
         </div>
       </div>
