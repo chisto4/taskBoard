@@ -1,5 +1,5 @@
 import { getAvatarInfo, uploadImageApi } from "../../api/userApi/uploadFile/uploadImageApi";
-import { editUsers, regUser, logUser, getToken } from "../../api/userApi/userApi";
+import { editUsers, regUser, logUser, getToken, editUsersEmailPassword} from "../../api/userApi/userApi";
 import { IUser } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import {
@@ -37,6 +37,15 @@ export const loginUser = (user: IUser) => async (dispatch: AppDispatch): Promise
 export const updateUser = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await editUsers(user)
+    dispatch(actionsUpdateUser(data));
+    dispatch(actionsLogAuth(true));
+  } catch (error: any) {
+    dispatch(actionsLogError(error.message))
+  }
+};
+export const editUsersEmail = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const data = await editUsersEmailPassword(user)
     dispatch(actionsUpdateUser(data));
     dispatch(actionsLogAuth(true));
   } catch (error: any) {

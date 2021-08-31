@@ -5,13 +5,13 @@ import axios from './index';
 
 export const regUser = async (user: IUser) => {
   const res = await axios.post('/registration', user);
-  console.log('User info registaration', res.data);
+  console.log('User info registration', res.data);
   return res.data
 };
 
 export const logUser = async (user: ILogUser) => {
   const res = await axios.post('/login', user);
-  console.log('zalupa tutu res.data', res.data)
+  console.log('res.data when login user', res.data)
   return res.data
 };
 
@@ -23,9 +23,16 @@ export const getToken = async () => {
 
 export const editUsers = async (user: IUser) => {
   const res = await axios.put('/user', user);
-  console.log('User info update', res.data);
   if(res.status === 200){
     console.log('User info update2', res.data);
+  }
+  return res.data
+};
+
+export const editUsersEmailPassword = async (user: IUser) => {
+  const res = await axios.put('/user/email', user);
+  if(res.status === 200){
+    console.log('Update user email and password', res.data);
   }
   return res.data
 };

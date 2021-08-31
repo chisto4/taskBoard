@@ -8,7 +8,7 @@ import styles from './userPage.module.scss';
 import baseAvatar from '../../image/user2.jpg';
 import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
-import { updateUser, updateUserInformationToken, uploadUserAvatar } from "../../store/userReducer/userThunk";
+import { editUsersEmail, updateUser, updateUserInformationToken, uploadUserAvatar } from "../../store/userReducer/userThunk";
 import { useDispatch } from "react-redux";
 import { format, compareAsc } from 'date-fns';
 import { Card, Form, Button, Figure } from 'react-bootstrap';
@@ -69,18 +69,20 @@ const UserPage: React.FC = (): JSX.Element => {
     if(!validNewPassword){
       setValuePassword(true)
     } else {
-      setUserPassword(newPassword)
+      const updatePassword = newPassword
     const user: IUser = {
       name: userName,
       surname: userSurName,
       login: userLogin,
-      password: userPassword,
+      password: updatePassword,
       dob: userDob,
       email: userEmail,
     };
     console.log('send', user);
 
-    dispatch(updateUser(user));
+    dispatch(editUsersEmail(user));
+    setValuePassword(false)
+
  }};
 
   const submitUserImg = (e: React.FormEvent<HTMLFormElement>) => {
@@ -153,15 +155,15 @@ const UserPage: React.FC = (): JSX.Element => {
         </div>
 
         <div className={styles.change_user_info_wrapper}>
-        {formSwitch && <h1>Change user information</h1>}
-        {!formSwitch && <h1>Change E-mail and password</h1>}
+        {!formSwitch && <h1>Change user information</h1>}
+        {formSwitch && <h1>Change E-mail and password</h1>}
 
           <div className={styles.change_update_form_window}>
-            <button className={styles.change_user_form_window_left} onClick={() => setFormSwitch(true)} >USER INFO</button>
-            <button className={styles.change_user_form_window_right} onClick={() => setFormSwitch(false)}>EMAIL & PASSWORD</button>
+            <button className={styles.change_user_form_window_left} onClick={() => setFormSwitch(false)} >USER INFO</button>
+            <button className={styles.change_user_form_window_right} onClick={() => setFormSwitch(true)}>EMAIL & PASSWORD</button>
           </div>
 
-          {formSwitch && <form className={styles.form} onSubmit={userInfo}>
+          {!formSwitch && <form className={styles.form} onSubmit={userInfo}>
             <input onChange={(e) => setUserName(e.target.value)} name='name' required defaultValue={stateName} type="text" placeholder='Enter your Name' />
             <input onChange={(e) => setUserSurName(e.target.value)} name='surname' required defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' required defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
@@ -170,16 +172,16 @@ const UserPage: React.FC = (): JSX.Element => {
         <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
             {/* <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='Confirm password' /> */}
             <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
-            <button type="submit" className={styles.registrationButton}>upadte information</button>
+            <button type="submit" className={styles.registrationButton}>update information</button>
           </form>}
 
-          {!formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>
+          {formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>
             <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="email" placeholder='Enter New Email' />
             <input onChange={(e) => setUserPassword(e.target.value)} name='Password' required type="password" placeholder='Enter Old Password' />
             <input onChange={(e) => setNewPassword(e.target.value)} name='newPassword' required type="password" placeholder='Enter your New Password' />
             <input onChange={(e) => setConfirmPassword(e.target.value)} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
               {valuePassword && <p className={styles.password_valid_message}>Password mismatch</p>}
-            <button type="submit" className={styles.registrationButton}>upadte email nad password</button>
+            <button type="submit" className={styles.registrationButton}>update email and password</button>
           </form>}
         </div>
       </div>
