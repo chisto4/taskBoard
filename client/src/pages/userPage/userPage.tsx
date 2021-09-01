@@ -49,9 +49,9 @@ const UserPage: React.FC = (): JSX.Element => {
   const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
   const [moadlMessage, setMoadlMessage] = useState('');
-const uploadAvatar = "Your avatar hsa been update"
-const updaitUserInfo = "Your user information hsa been update"
-const updaitEmailPassword = "Update sacces"
+const uploadAvatar = "Your avatar has been update"
+const updaitUserInfo = "Your user information has been update"
+const updaitEmailPassword = "Update success"
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
