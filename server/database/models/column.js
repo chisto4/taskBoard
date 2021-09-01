@@ -6,6 +6,7 @@ module.exports = (sequelize, DataTypes) => {
   class Column extends Model {
     static associate(models) {
       Column.hasMany(models.Task, {
+        foreignKey: 'columnId',
         onDelete: 'CASCADE',
       });
       Column.belongsTo(models.Board, {
