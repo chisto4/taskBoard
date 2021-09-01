@@ -6,7 +6,7 @@ import styles from './headerStyle.module.scss'
 import { useAppSelector } from '../../../store/reducers';
 import { logOutThunk } from '../../../store/userReducer/userThunk';
 
-import baseAvatar from '../../../image/user2.jpg';
+import baseAvatar from '../../../image/wtf.jpeg';
 import { baseURL } from '../../../api/userApi';
 // import {NavLink} from 'react-router-dom';
 

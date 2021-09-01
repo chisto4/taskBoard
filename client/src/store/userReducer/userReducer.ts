@@ -1,6 +1,5 @@
 import { actions, ActionUser } from "./constansUser"
 import { IUserState } from "../../types/types";
-import { string } from "prop-types";
 
 const initialState: IUserState = {
     user: {
@@ -15,6 +14,7 @@ const initialState: IUserState = {
     },
     auth: false,
     error: null,
+    message: null,
 }
 
 export const userReducer = (state = initialState, action: ActionUser): IUserState => {
@@ -23,7 +23,7 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
             return { ...state, user: action.payload }
         case actions.UPL_IMG:
             return {
-                ...state, user: { ...state.user, Image: { pathImages: action.payload } }
+                ...state, user: { ...state.user, Image: { pathImages: action.payload }}
             }
         // case actions.SET_USER:
         //     return { ...state, user: action.payload }

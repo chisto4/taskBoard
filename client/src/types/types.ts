@@ -55,6 +55,7 @@ export interface IUserState {
   user: IUser,
   auth: boolean,
   error: string | null,
+  message: string | null,
 }
 
 

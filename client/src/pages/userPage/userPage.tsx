@@ -5,7 +5,7 @@ import React, { useState, useRef, useCallback, useEffect } from 'react';
 import { baseURL } from '../../api/userApi/index';
 
 import styles from './userPage.module.scss';
-import baseAvatar from '../../image/user2.jpg';
+import baseAvatar from '../../image/wtf.jpeg';
 import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
 import { editUsersEmail, updateUser, updateUserInformationToken, uploadUserAvatar } from "../../store/userReducer/userThunk";
