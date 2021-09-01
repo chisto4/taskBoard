@@ -6,6 +6,7 @@ import { baseURL } from '../../api/userApi/index';
 
 import styles from './userPage.module.scss';
 import baseAvatar from '../../image/wtf.jpeg';
+import closeButton  from '../../icon/close.png';
 import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
 import { editUsersEmail, updateUser, updateUserInformationToken, uploadUserAvatar } from "../../store/userReducer/userThunk";
@@ -18,6 +19,9 @@ const UserPage: React.FC = (): JSX.Element => {
   const { name: stateName, dob: stateDob, email: stateEmail,
     login: stateLogin, surname: stateSurName, avatarId: stateAvatarId
   } = useAppSelector((state) => state.user.user)
+
+  const error = useAppSelector((state) => state.user.error)
+  console.log('ERRRROR', error)
 
   const thrueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
   const dispatch = useDispatch();
@@ -44,6 +48,11 @@ const UserPage: React.FC = (): JSX.Element => {
   const [valuePassword, setValuePassword] = useState(false);
   const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
+  const [moadlMessage, setMoadlMessage] = useState('');
+const uploadAvatar = "Your avatar hsa been update"
+const updaitUserInfo = "Your user information hsa been update"
+const updaitEmailPassword = "Update sacces"
+
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     console.log('event', event);
@@ -59,6 +68,8 @@ const UserPage: React.FC = (): JSX.Element => {
     console.log('send', user);
 
     dispatch(updateUser(user));
+    setMoadlMessage(updaitUserInfo)
+
  };
 
   const userInfoPassEmail: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -82,6 +93,7 @@ const UserPage: React.FC = (): JSX.Element => {
 
     dispatch(editUsersEmail(user));
     setValuePassword(false)
+    setMoadlMessage(updaitEmailPassword)
 
  }};
 
@@ -92,6 +104,7 @@ const UserPage: React.FC = (): JSX.Element => {
     // console.log("FORM DATA DLYA DIMY", formData)
     dispatch(uploadUserAvatar(formData));
     setUserAvatar('')
+    setMoadlMessage(uploadAvatar)
   };
 
   const setUseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -103,6 +116,18 @@ const UserPage: React.FC = (): JSX.Element => {
 
   return (
     <Main >
+
+    {moadlMessage && <div className={styles.modal_Inform_Window}>
+      <div className={styles.modal_Inform_Window_h4}>
+        <h4>{moadlMessage}test</h4>
+      </div>
+      <div className={styles.modal_Inform_Window_link}>
+      <a onClick={() => setMoadlMessage('')}>
+      <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
+      </a>
+      </div>
+    </div>}
+
       <div className={styles.user_update_information_main_wrapper}>
 
         <div className={styles.default_user_info_wrapper}>
