@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './loginPage.module.scss';
 import Main from "../components/main/Main";
+import closeButton  from '../../icon/close.png';
+
 import { useSelector, useDispatch } from 'react-redux';
 import { IUser } from '../../types/types';
 import { loginUser } from "../../store/userReducer/userThunk";
@@ -17,6 +19,9 @@ const UserLogin: React.FC = (): JSX.Element => {
   const auth = useAppSelector((state) => state.user.auth)
   let history = useHistory();
   const dispatch = useDispatch();
+
+  const errorWrapper = useAppSelector((state) => state.user.error)
+  const [moadlMessage, setMoadlMessage] = useState<string | null>('');
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -33,6 +38,7 @@ const UserLogin: React.FC = (): JSX.Element => {
       Image: null
     };
     dispatch(loginUser(user));
+    setMoadlMessage(errorWrapper)
   };
 
   useEffect(() => {
@@ -41,6 +47,19 @@ const UserLogin: React.FC = (): JSX.Element => {
 
   return (
     <Main>
+
+{moadlMessage && <div className={styles.modal_Inform_Window}>
+      <div className={styles.modal_Inform_Window_h4}>
+        <h4>Sorry, but something went wrong:</h4>
+        <h6>{moadlMessage}</h6>
+      </div>
+      <div className={styles.modal_Inform_Window_link}>
+      <a onClick={() => setMoadlMessage('')}>
+      <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
+      </a>
+      </div>
+    </div>}
+
       <form className={styles.form} onSubmit={userInfo}>
         <h1>LOGIN</h1>
         <input onChange={(e) => setUserLogin(e.target.value)} name='login' type="text" placeholder='Enter your Login' />
