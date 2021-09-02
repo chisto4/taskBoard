@@ -6,12 +6,13 @@ module.exports = (sequelize, DataTypes) => {
   class Board extends Model {
     static associate(models) {
       Board.hasMany(models.Column, {
-        foreignKey: 'columnId',
+        foreignKey: 'boardId',
         onDelete: 'CASCADE',
       });
       Board.belongsToMany(models.User, {
         through: 'UserBoard',
-        foreignKey: 'userId'
+        foreignKey: 'boardId',
+        as: 'Users'
       });
     }
   };

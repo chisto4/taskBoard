@@ -23,7 +23,7 @@ export const getToken = async () => {
 
 export const editUsers = async (user: IUser) => {
   const res = await axios.put('/user', user);
-  if(res.status === 200){
+  if (res.status === 200) {
     console.log('User info update2', res.data);
   }
   return res.data
@@ -31,7 +31,7 @@ export const editUsers = async (user: IUser) => {
 
 export const editUsersEmailPassword = async (user: IUser) => {
   const res = await axios.put('/user/email', user);
-  if(res.status === 200){
+  if (res.status === 200) {
     console.log('Update user email and password', res.data);
   }
   return res.data
@@ -70,6 +70,16 @@ export const deleteUsers = (user: {
     }
   };
 };
+
+// const getOne = async ({ one, two }) => {
+//   const res = await axios.get('zalupa', {
+//     params: {
+//       id: 1,
+//       one,
+//       two
+//     }
+//   })
+// }
 // export const editUsers = async (user: IUser) => {
 //   try {
 //     const res = await axios.put('/user', user);

@@ -1,15 +1,14 @@
-const { Router } = require("express")
 const { check } = require("express-validator")
 const multer = require('multer')
 const upload = multer({ dest: "static" });
 
 const  auth  = require('../middleware/authMiddleware')
 const userController = require('../Controller/userController')
-// const avatarController = require('../Controller/avatarController')
 
-// const userRouter = new Router();
 const express = require("express");
 const userRouter = express.Router();
+
+
 
 userRouter.post('/registration/', [
   check('name', "Input name, please!").notEmpty(),

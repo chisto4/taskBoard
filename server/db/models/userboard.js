@@ -1,4 +1,4 @@
-
+// const db = require('../models')
 'use strict';
 const {
   Model
@@ -9,8 +9,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   UserBoard.init({
-    userId: DataTypes.INTEGER,
-    boardId: DataTypes.INTEGER
+    userId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'User',
+        key: 'id'
+      }
+    },
+    boardId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Board',
+        key: 'id'
+      }
+    },
   }, {
     sequelize,
     modelName: 'UserBoard',

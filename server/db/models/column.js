@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'CASCADE',
       });
       Column.belongsTo(models.Board, {
+        foreignKey: "boardId"
       });
     }
   };

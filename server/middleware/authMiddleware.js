@@ -21,6 +21,7 @@ exports.tokenModule = async (req, res, next) => {
       return res.status(403).json({ message: 'Users not  authorization first Falls' })
     }
     let decodedData = jwt.verify(token, key)
+    
     try {
       decodedData = jwt.verify(token, key);
     } catch (err) {

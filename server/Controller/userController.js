@@ -142,7 +142,7 @@ class UserController {
 
     async getOneUser(req, res) {
         try {
-            const id = req.params.id
+            const {id} = req.params
             if (!id) {
                 throw res.status(400).json('Not found user ID')
             }
