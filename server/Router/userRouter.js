@@ -1,13 +1,15 @@
-import { Router } from "express";
-import { check } from "express-validator";
-import multer from 'multer';
+const { Router } = require("express")
+const { check } = require("express-validator")
+const multer = require('multer')
 const upload = multer({ dest: "static" });
 
-import { tokenModule } from '../middleware/authMiddleware.js';
-import userController from '../Controller/userController.js';
-import avatarController from '../Controller/avatarController.js';
+const  auth  = require('../middleware/authMiddleware')
+const userController = require('../Controller/userController')
+// const avatarController = require('../Controller/avatarController')
 
-const userRouter = new Router();
+// const userRouter = new Router();
+const express = require("express");
+const userRouter = express.Router();
 
 userRouter.post('/registration/', [
   check('name', "Input name, please!").notEmpty(),
@@ -26,14 +28,15 @@ userRouter.post('/login/',
   ],
   userController.loginUser);
 
-userRouter.get('/token', tokenModule, userController.tokenUser);
+userRouter.get('/token', auth.tokenModule, userController.tokenUser);
 
-userRouter.get('/users', tokenModule, userController.getUsers);
-userRouter.get('/user/:id', tokenModule, userController.getOneUser);
-userRouter.put('/user', tokenModule, userController.updateUser);
-userRouter.put('/user/email', tokenModule, userController.updateEmail);
-userRouter.delete('/user/:id', tokenModule, userController.deleteUser);
-userRouter.post('/user', tokenModule, upload.single("file"), userController.uploadAvatar);
-userRouter.get('/avatar', tokenModule, avatarController.getAvatarInfo);
+userRouter.get('/users', auth.tokenModule, userController.getUsers);
+userRouter.get('/user/:id', auth.tokenModule, userController.getOneUser);
+userRouter.put('/user', auth.tokenModule, userController.updateUser);
+userRouter.put('/user/email', auth.tokenModule, userController.updateEmail);
+userRouter.delete('/user/:id', auth.tokenModule, userController.deleteUser);
+userRouter.post('/user', auth.tokenModule, upload.single("file"), userController.uploadAvatar);
+// userRouter.get('/avatar', auth.tokenModule, avatarController.getAvatarInfo);
 
-export default userRouter;
+// export default userRouter;
+module.exports = userRouter;

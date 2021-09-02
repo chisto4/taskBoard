@@ -1,8 +1,8 @@
-import express from "express";
-import cors from 'cors';
-import multer from "multer";
+const express = require("express")
+const cors = require('cors')
+const multer = require("multer")
 
-import userRouter from './Router/userRouter.js';
+const userRouter = require('./Router/userRouter')
 
 const PORT = process.env.PORT || 3005;
 

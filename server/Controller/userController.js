@@ -1,11 +1,9 @@
-import bcrypt from 'bcryptjs'
-import { validationResult } from 'express-validator'
-import { genAccessToken } from '../middleware/authMiddleware.js'
-import db from '../database/models/index.js'
+const bcrypt = require('bcryptjs');
+const { validationResult } = require('express-validator')
+const authToken = require('../middleware/authMiddleware')
+const db = require('../db/models/index')
 
-import regularEmail from '../middleware/regularConstant.js'
-
-export const secretKey = 'q1w2e3r4'
+const regularEmail = require('../middleware/regularConstant')
 
 class UserController {
 
@@ -33,9 +31,7 @@ class UserController {
             )
             newUser = newUser.toJSON();
             delete newUser.password;
-            const token = genAccessToken(newUser.id, newUser.email)
-            // console.log('test token content', userLogin.id, userLogin.email)
-            // return res.json({token})
+            const token = authToken.genAccessToken(newUser.id, newUser.email)
             console.log({ token, newUser })
             return res.status(200).json({ token, newUser })
         }
@@ -73,7 +69,7 @@ class UserController {
             delete userLogin.password;
             // userLogin.pathImage = userLogin['Image.pathImages']
             // delete userLogin['Image.pathImages']
-            const token = genAccessToken(userLogin.id, userLogin.email)
+            const token = authToken.genAccessToken(userLogin.id, userLogin.email)
             return res.json({ token, userLogin })
         } catch (e) {
             console.log(e)
@@ -123,8 +119,6 @@ class UserController {
                 ],
                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
             })
-            // userIdToken.pathImage = userIdToken['Image.pathImages']
-            // delete userIdToken['Image.pathImages']
             res.status(200).json(userIdToken)
         } catch (e) {
             console.log(e)
@@ -171,32 +165,32 @@ class UserController {
             if (!tokenId) {
                 return res.status(400).json({ message: "ID not use" })
             }
-            const { name, surname, login, dob} = req.body
+            const { name, surname, login, dob } = req.body
 
             await db.User.update({ name, surname, login, dob, email },
                 { where: { email } });
 
-        const { id } = req.user
+            const { id } = req.user
             const userIdToken = await db.User.findOne({
                 where: { id },
                 include: [
-                        {
+                    {
                         model: db.Images,
                         attributes: ['pathImages']
-                        }
-                    ],
-            attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
+                    }
+                ],
+                attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
             })
 
             res.status(200).json(userIdToken)
             console.log('User information updated success! Congratulations!')
         }
-        
+
         catch (e) {
             console.log(e);
             console.log('User information not update error')
-            }
         }
+    }
 
 
     async updateEmail(req, res) {
@@ -205,42 +199,40 @@ class UserController {
         const lowerCaseEmail = email.toLowerCase();
 
         try {
-
+            const validEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
             if (!id) {
                 return res.status(400).json({ message: "ID token not use" })
-            }
+            } else
 
-            const validEmail = await db.User.findOne({ where: { email:  lowerCaseEmail} })
             if (!validEmail) {
                 const hashPassword = bcrypt.hashSync(password, 5);
-                await db.User.update({ login, email:lowerCaseEmail , password: hashPassword },
-                { where: { login } })
+                await db.User.update({ login, email: lowerCaseEmail, password: hashPassword },
+                    { where: { login } })
             }
             else {
                 const hashPassword = bcrypt.hashSync(password, 5);
                 await db.User.update({ email, password: hashPassword },
-                { where: { email } })
+                    { where: { email } })
             }
 
-        const userIdToken = await db.User.findOne({
+            const userIdToken = await db.User.findOne({
                 where: { id },
                 include: [
-                            {
-                            model: db.Images,
-                            attributes: ['pathImages']
-                            }
-                        ],
+                    {
+                        model: db.Images,
+                        attributes: ['pathImages']
+                    }
+                ],
                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
-                })
-                res.status(200).json(userIdToken)
-                console.log('User Email updated success! Congratulations!')
+            })
+            res.status(200).json(userIdToken)
+            console.log('User Email updated success! Congratulations!')
         }
         catch (e) {
             console.log(e);
             console.log('User Email not update error')
         }
     }
-
 
     async deleteUser(req, res) {
         try {
@@ -255,5 +247,6 @@ class UserController {
         }
     }
 }
-export default new UserController()
+// export default new UserController()
+module.exports = new UserController()
 

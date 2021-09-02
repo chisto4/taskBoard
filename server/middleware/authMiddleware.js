@@ -1,37 +1,43 @@
-import jwt from 'jsonwebtoken'
-import {secretKey} from '../Controller/userController.js'
+const jwt = require('jsonwebtoken');
+const { key } = require('../utils/constants')
 
-export const genAccessToken = (id, email) => {
+exports.genAccessToken = (id, email) => {
+  console.log('!!asd')
   const payload = {
-      id, email
-    }
+    id, email
+  }
 
-  return jwt.sign(payload, secretKey, {expiresIn: '5h'})
+  return jwt.sign(payload, key, { expiresIn: '5h' })
 }
 
-export const tokenModule = async (req, res, next) => {
-  if(req.method === "OPTION") {
+exports.tokenModule = async (req, res, next) => {
+  if (req.method === "OPTION") {
     next();
   }
-try {
-console.log(req.headers);
-  const token = req.headers.authorization.split(' ')[1]
-  if(!token){
-      return res.status(403).json({message:'Users not  authorization first Falls'})
-  }
-  let decodedData = jwt.verify(token, secretKey)
   try {
-    decodedData = jwt.verify(token, secretKey);
-  } catch(err) {
-    if (err.name ===  'TokenExpiredError') return res.status(401).json({message: 'Live time token end'});
-    if (err.name ===  'JsonWebTokenError') return res.status(401).json({message: 'Incorrect token'});
+    console.log(req.headers);
+    const token = req.headers.authorization.split(' ')[1]
+    if (!token) {
+      return res.status(403).json({ message: 'Users not  authorization first Falls' })
+    }
+    let decodedData = jwt.verify(token, key)
+    try {
+      decodedData = jwt.verify(token, key);
+    } catch (err) {
+      if (err.name === 'TokenExpiredError') return res.status(401).json({ message: 'Live time token end' });
+      if (err.name === 'JsonWebTokenError') return res.status(401).json({ message: 'Incorrect token' });
+    }
+    req.user = decodedData
+    console.log('decodata', decodedData)
+    next()
+  } catch (e) {
+    console.log(e)
+    return res.status(403).json({ message: 'Users not  authorization second Falls' })
   }
-  req.user = decodedData
-  console.log('decodata', decodedData)
-  next()
-} catch(e) {
-  console.log(e)
-  return res.status(403).json({message:'Users not  authorization second Falls'})
-}
 }
 
+// const authJwt = {
+//   genAccessToken,
+//   tokenModule,
+// };
+// module.exports = authJwt;
