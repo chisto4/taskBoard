@@ -3,6 +3,8 @@ import Main from "../components/main/Main";
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './userRegistrationFormStyle.module.scss';
+import closeButton  from '../../icon/close.png';
+
 
 import { registrationUsers } from "../../store/userReducer/userThunk";
 import { IUser } from "../../types/types";
@@ -17,7 +19,10 @@ const UserRegistration: React.FC = (): JSX.Element => {
   const [userPassword, setUserPassword] = useState('');
   const [userDob, setUserDob] = useState('');
 
-  const auth = useAppSelector((state) => state.user.auth)  
+  const auth = useAppSelector((state) => state.user.auth)
+
+  const errorWrapper = useAppSelector((state) => state.user.error)
+  const [moadlMessage, setMoadlMessage] = useState<string | null>('');
 
   const dispatch = useDispatch();
 
@@ -40,6 +45,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
       Image: null
     };
     dispatch(registrationUsers(user));
+    setMoadlMessage(errorWrapper)
   };
 
   useEffect(() => {
@@ -48,6 +54,19 @@ const UserRegistration: React.FC = (): JSX.Element => {
 
   return (
     <Main>
+
+    {moadlMessage && <div className={styles.modal_Inform_Window}>
+      <div className={styles.modal_Inform_Window_h4}>
+        <h4>Sorry, but something went wrong:</h4>
+        <h6>{moadlMessage}</h6>
+      </div>
+      <div className={styles.modal_Inform_Window_link}>
+      <a onClick={() => setMoadlMessage('')}>
+      <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
+      </a>
+      </div>
+    </div>}
+    
       <form className={styles.form} onSubmit={userInfo}>
         <h1>REGISTRATION</h1>
         <input onChange={(e) => setUserName(e.target.value)} name='name' type="text" placeholder='Enter your Name' />
