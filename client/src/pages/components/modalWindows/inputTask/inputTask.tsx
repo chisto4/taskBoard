@@ -25,9 +25,9 @@ const InputTask: React.FC<IUserLoginForm> = ({onClickLog}) => {
   };
 
   return (
-    <>
       <form onSubmit={(e) => submitUserImg(e)}
-            className={styles.avatar_form}>
+            // className={styles.avatar_form}
+            >
         <h1>Header text</h1>
         <button onClick={onClickLog} className="closeButton" >
           <img src={closeButton} className="icon" alt="closeButton" />
@@ -38,7 +38,6 @@ const InputTask: React.FC<IUserLoginForm> = ({onClickLog}) => {
         <input name='description' type="text" placeholder='Enter description task' />
         <button type="submit" className="loginButton">save</button>
       </form>
-    </>
   );
 }
 

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './workSpaceStyled.css';
 
-import InputTask from '../components/modalWindows/inputTask'
+// import InputTask from '../components/modalWindows/inputTask'
 // import deleteButton  from '../../../icon/delete.png';
 // import closeButton  from '../../../icon/close.png';
 
@@ -79,7 +79,7 @@ if (!currentId.includes(currentItem.id)) {
 
   return (
     <Main>
-      <InputTask/>
+      {/* <InputTask/> */}
     <div className="workSpace">
       {columns.map(column =>
         <div className="column"
