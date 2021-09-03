@@ -1,4 +1,4 @@
-import axios from '../index';
+import axios from '../../index';
 
 export const uploadImageApi = async (file: FormData) => {
     const res = await axios.post('/user', file);

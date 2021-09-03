@@ -2,7 +2,7 @@ import Main from "../components/main/Main";
 // import {useDispatch, useSelector} from "react-redux";
 // import { FormEvent } from 'react';
 import React, { useState, useRef, useCallback, useEffect } from 'react';
-import { baseURL } from '../../api/userApi/index';
+import { baseURL } from '../../api/index';
 
 import styles from './userPage.module.scss';
 import baseAvatar from '../../image/wtf.jpeg';
@@ -13,7 +13,7 @@ import { editUsersEmail, updateUser, updateUserInformationToken, uploadUserAvata
 import { useDispatch } from "react-redux";
 import { format, compareAsc } from 'date-fns';
 import { Card, Form, Button, Figure } from 'react-bootstrap';
-import axios from '../../api/userApi/index';
+import axios from '../../api/index';
 
 const UserPage: React.FC = (): JSX.Element => {
   const { name: stateName, dob: stateDob, email: stateEmail,

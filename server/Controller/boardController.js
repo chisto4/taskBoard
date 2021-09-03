@@ -119,7 +119,7 @@ class BoardController {
 
   async getAllColumns(req, res) {
     try {
-      const { boardId } = req.body
+      const { id: boardId } = req.params
       const { id } = req.user
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })

@@ -1,10 +1,10 @@
 
 import { actions, ActionsGetTokenAuth, ActionsGetTokenError, ActionsLogAuth,
          ActionsLogError, ActionsLogOut, ActionsLogUser, ActionsSetAuth, ActionsSetError, 
-         ActionsSetUser, ActionsUploadError, ActionsUploadImage 
+         ActionsSetUser, ActionsUploadError, ActionsUploadImage, ActionsUpdateUser 
         } from './constansUser';
 import { IUser } from "../../types/types";
-import {ActionsUpdateUser} from "../../store/userReducer/constansUser"
+// import {} from "../../store/userReducer/constansUser"
 
 
 export const actionsSetUser = (user: IUser): ActionsSetUser => ({

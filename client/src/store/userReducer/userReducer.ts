@@ -10,7 +10,6 @@ const initialState: IUserState = {
         password: '',
         login: '',
         avatarId: null,
-        Image: null,
     },
     auth: false,
     error: null,
@@ -53,7 +52,6 @@ export const userReducer = (state = initialState, action: ActionUser): IUserStat
                     password: '',
                     login: '',
                     avatarId: null,
-                    Image: null
                 }
             }
         default:

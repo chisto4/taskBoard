@@ -41,8 +41,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
       email: userEmail,
       password: userPassword,
       dob: parseDate,
-      avatarId: null,
-      Image: null
+      avatarId: null
     };
     dispatch(registrationUsers(user));
     setMoadlMessage(errorWrapper)

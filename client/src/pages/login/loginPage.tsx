@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './loginPage.module.scss';
 import Main from "../components/main/Main";
-import closeButton  from '../../icon/close.png';
+import closeButton from '../../icon/close.png';
 
 import { useSelector, useDispatch } from 'react-redux';
 import { IUser } from '../../types/types';
@@ -34,8 +34,7 @@ const UserLogin: React.FC = (): JSX.Element => {
       name: '',
       surname: '',
       dob: '',
-      avatarId: null,
-      Image: null
+      avatarId: null
     };
     dispatch(loginUser(user));
     setMoadlMessage(errorWrapper)
@@ -48,17 +47,17 @@ const UserLogin: React.FC = (): JSX.Element => {
   return (
     <Main>
 
-{moadlMessage && <div className={styles.modal_Inform_Window}>
-      <div className={styles.modal_Inform_Window_h4}>
-        <h4>Sorry, but something went wrong:</h4>
-        <h6>{moadlMessage}</h6>
-      </div>
-      <div className={styles.modal_Inform_Window_link}>
-      <a onClick={() => setMoadlMessage('')}>
-      <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
-      </a>
-      </div>
-    </div>}
+      {moadlMessage && <div className={styles.modal_Inform_Window}>
+        <div className={styles.modal_Inform_Window_h4}>
+          <h4>Sorry, but something went wrong:</h4>
+          <h6>{moadlMessage}</h6>
+        </div>
+        <div className={styles.modal_Inform_Window_link}>
+          <a onClick={() => setMoadlMessage('')}>
+            <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
+          </a>
+        </div>
+      </div>}
 
       <form className={styles.form} onSubmit={userInfo}>
         <h1>LOGIN</h1>

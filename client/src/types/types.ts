@@ -1,32 +1,15 @@
-// export interface usersInterface {
-//   id?: number,
-//   name?: string,
-//   surname?: string,
-//   login: string,
-//   password: string,
-//   email: string,
-//   dob?: Date,
-//   Image?: string | number | null | Blob
-// }
-
-// export interface actionInterface {
-//   type: string,
-//   payload: usersInterface[],
-// }
-
+//USER
 export interface IUser {
-  name?: string,
-  surname?: string,
   login: string,
   password: string,
   email: string,
-  avatarId?: string | number | null | Blob,
   dob: Date | string,
-  pathImage?: string | null,
+  surname?: string,
+  name?: string,
+  avatarId?: string | number | null | Blob,
   Image?: {
     pathImages: string,
-  } | null,
-  file?: string | Blob,
+  },
 }
 
 export interface IUserUpdate {
@@ -58,24 +41,62 @@ export interface IUserState {
   message: string | null,
 }
 
+//BOARD
 
-
-export enum UserActionTypes {
-  GET_ALL_USERS = 'GET_ALL_USERS',
-  GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS',
-  GET_ALL_USERS_FALSE = 'GET_ALL_USERS_FALSE',
+export interface IBoard {
+  title: string | null,
+  id: number,
+}
+export interface IBoardRequest {
+  id: number,
+}
+export interface IColumn {
+  id: number | null,
+  title: string | null,
+  position: number | null,
+  boardId: number | null,
+}
+export interface IColumnRequest {
+  id: number | null,
+  boardId?: number | null,
+}
+export interface ITask {
+  id: number | null,
+  title: string | null,
+  position: number | null,
+  description: string | null,
+  columnId: number | null,
+  prioriti: number | null,
+}
+export interface ITaskRequest {
+    id: number | null,
+    columnId?: number | null,
 }
 
-interface GetAllUsersAction {
-  type: UserActionTypes.GET_ALL_USERS;
-}
-interface GetAllUsersSuccessAction {
-  type: UserActionTypes.GET_ALL_USERS_SUCCESS;
-  payload: any[];
-}
-interface GetAllUsersFalseAction {
-  type: UserActionTypes.GET_ALL_USERS_FALSE;
-  payload: string;
+export interface IBoardState {
+  board: IBoard[],
+  column: IColumn[],
+  task: ITask[],
 }
 
-export type UserAction = GetAllUsersAction | GetAllUsersSuccessAction | GetAllUsersFalseAction
+
+
+// export enum UserActionTypes {
+//   GET_ALL_USERS = 'GET_ALL_USERS',
+//   GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS',
+//   GET_ALL_USERS_FALSE = 'GET_ALL_USERS_FALSE',
+// }
+
+// interface GetAllUsersAction {
+//   type: UserActionTypes.GET_ALL_USERS;
+// }
+// interface GetAllUsersSuccessAction {
+//   type: UserActionTypes.GET_ALL_USERS_SUCCESS;
+//   payload: any[];
+// }
+// interface GetAllUsersFalseAction {
+//   type: UserActionTypes.GET_ALL_USERS_FALSE;
+//   payload: string;
+// }
+
+// export type UserAction = GetAllUsersAction | GetAllUsersSuccessAction | GetAllUsersFalseAction

@@ -7,7 +7,7 @@ import { useAppSelector } from '../../../store/reducers';
 import { logOutThunk } from '../../../store/userReducer/userThunk';
 
 import baseAvatar from '../../../image/wtf.jpeg';
-import { baseURL } from '../../../api/userApi';
+import { baseURL } from '../../../api';
 // import {NavLink} from 'react-router-dom';
 
 interface IHeader {

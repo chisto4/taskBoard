@@ -1,7 +1,7 @@
 import { Dispatch } from 'react';
 import { Action } from 'redux';
 import { IUser, ILogUser } from "../../types/types";
-import axios from './index';
+import axios from '../index';
 
 export const regUser = async (user: IUser) => {
   const res = await axios.post('/registration', user);
