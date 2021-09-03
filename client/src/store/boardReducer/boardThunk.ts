@@ -15,7 +15,7 @@ export const creatBord = (board: IBoard) => async (dispatch: AppDispatch): Promi
     dispatch(actionsSetError(error.message))
   }
 };
-export const getAllBoards = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
+export const getAllBoards = () => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await getAllBoardsApi()
     dispatch(actionsGetAllBoard(data));

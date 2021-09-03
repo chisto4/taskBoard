@@ -7,7 +7,7 @@ import Main from '../components/main/Main';
 import { useAppSelector } from '../../store/reducers';
 import { IBoard } from '../../types/types';
 import { useDispatch } from 'react-redux';
-import { creatBord, deleteBord } from '../../store/boardReducer/boardThunk';
+import { creatBord, deleteBord, getAllBoards } from '../../store/boardReducer/boardThunk';
 import { getAllBoardsApi, updateBoardApi } from '../../api/boardApi/boardApi';
 
 const WorkSpace = () => {
@@ -110,8 +110,8 @@ const WorkSpace = () => {
   //       }
   //   }
   useEffect(() => {
-    dispatch(getAllBoardsApi());
-  }, [])
+    dispatch(getAllBoards());
+  }, [dispatch])
 
   return (
     <Main>
