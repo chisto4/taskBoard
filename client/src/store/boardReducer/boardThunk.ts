@@ -34,7 +34,7 @@ export const updateBord = (board: IBoard) => async (dispatch: AppDispatch): Prom
 export const deleteBord = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await deleteBoardApi(board)
-    dispatch(actionsDeleteBoard(data));
+    dispatch(actionsDeleteBoard(board));
     } catch (error: any) {
     dispatch(actionsSetError(error.message))
   }

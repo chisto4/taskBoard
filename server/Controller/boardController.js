@@ -86,13 +86,14 @@ class BoardController {
 
   async deleteBoard(req, res) {
     try {
-      const { id } = req.user
-      const { boardId } = req.body
-      if (!id) {
+      const { id: tokenId } = req.user
+      const { id } = req.query
+      console.log("MESSAGE ID", req.params)
+      if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      await db.Board.destroy({where: { id: boardId }})
-        res.status(200).json('User Board delete')
+      await db.Board.destroy({where: { id }})
+        res.status(200).json(id)
     }
     catch (e) {
       console.log(e);

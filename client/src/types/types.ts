@@ -44,8 +44,8 @@ export interface IUserState {
 //BOARD
 
 export interface IBoard {
-  title: string | null,
-  id: number,
+  title?: string | null,
+  id?: number | null,
 }
 export interface IBoardRequest {
   id: number,

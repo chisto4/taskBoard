@@ -123,7 +123,7 @@ const UserPage: React.FC = (): JSX.Element => {
       </div>
       <div className={styles.modal_Inform_Window_link}>
       <a onClick={() => setMoadlMessage('')}>
-      <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
+      <img src={closeButton} className={styles.close_button} alt='close'></img>
       </a>
       </div>
     </div>}

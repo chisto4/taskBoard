@@ -23,7 +23,7 @@ export const getAllBoardsApi = async () => {
 };
 
 export const deleteBoardApi = async (board: IBoard) => {
-  const res = await axios.delete(`workspace/board/${id}`, { params: board });
+  const res = await axios.delete('workspace/board', { params: board });
   console.log('res.data delete board', res.data)
   return res.data
 };

@@ -2,7 +2,10 @@ import { actions, ActionBoard } from "./constansBoard"
 import { IBoardState } from "../../types/types";
 
 const initialState: IBoardState = {
-    board: [],
+    board: [
+        {title:'test', id: 1},
+        {title:'test', id: 2}
+    ],
     column: [],
     task: []
 }
@@ -49,11 +52,11 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
         case actions.GET_ALL_COLUMN:
             return { ...state, column:  action.payload }
 
-        case actions.DELETE_BOARD:
-            return {
-                ...state,
-                board: state.board.filter(i => i.id !== action.payload.id)
-                }
+        // case actions.DELETE_BOARD:
+        //     return {
+        //         ...state,
+        //         board: state.board.filter(i => i.id !== action.payload.id)
+        //         }
 
 
         case actions.CREATE_TASK:

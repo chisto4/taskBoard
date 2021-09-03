@@ -15,6 +15,9 @@ import { useAppSelector } from './store/reducers';
 function App() {
   const [logForm, setLogForm] = useState(false);
   const [regForm, setRegForm] = useState(false);
+  // const urlParams = useHistory();
+
+  // useEffect(() => getUsersByPage(urlParams), [urlParams])
 
   const dispatch = useDispatch();
 
