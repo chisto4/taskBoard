@@ -5,25 +5,25 @@ import axios from '../index';
 //BOARDS
 
 export const createBoardApi = async (board: IBoard) => {
-  const res = await axios.post('/board', board);
+  const res = await axios.post('workspace/board', board);
   console.log('Board info creating', res.data);
   return res.data
 };
 
 export const updateBoardApi = async (board: IBoard) => {
-  const res = await axios.put('/board', board);
+  const res = await axios.put('workspace/board', board);
   console.log('Board info updating', res.data);
   return res.data
 };
 
 export const getAllBoardsApi = async () => {
-  const res = await axios.get('/boards');
+  const res = await axios.get('workspace/boards');
   console.log('res.data All boards', res.data)
   return res.data
 };
 
 export const deleteBoardApi = async (board: IBoard) => {
-  const res = await axios.delete('/board', { params: board });
+  const res = await axios.delete(`workspace/board/${id}`, { params: board });
   console.log('res.data delete board', res.data)
   return res.data
 };
