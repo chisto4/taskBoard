@@ -1,8 +1,9 @@
 import helloWindow from "../../pages/homePage/homePage";
+import boardWindow from "../../pages/boardspace/boardSpace";
 import UserLogin from "../../pages/login/loginPage";
 import UserRegistration from "../../pages/registration/registartionWindow";
 import WorkSpace from "../../pages/workSpace/WorkSpace";
-import { HELLO_PAGE, LOGIN, REGISTRATION, USER, WORK_SPACE } from "../const/const";
+import { HELLO_PAGE, LOGIN, REGISTRATION, USER, WORK_SPACE, BOARD_WINDOW } from "../const/const";
 import UserPage from "../../pages/userPage/userPage";
 // const path = require('path');
 
@@ -10,6 +11,10 @@ export const authRoutes = [
  { 
     path: WORK_SPACE,
     Component: WorkSpace
+},
+ { 
+    path: BOARD_WINDOW,
+    Component: boardWindow
 },
 {
   path: USER,

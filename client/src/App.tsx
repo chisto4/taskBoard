@@ -37,7 +37,6 @@ function App() {
   }
 
   useEffect(() => {
-    // if (!isAuth) return;
     dispatch(updateUserInformationToken());
   }, [])
 

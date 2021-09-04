@@ -1,5 +1,5 @@
-import { createBoardApi, deleteBoardApi, getAllBoardsApi, updateBoardApi } from "../../api/boardApi/boardApi";
-import { IBoard } from "../../types/types";
+import { createBoardApi, createColumnApi, createTaskApi, deleteBoardApi, deleteColumnApi, deleteTaskApi, getAllBoardsApi, getAllColumnsApi, getAllTaskApi, updateBoardApi, updateColumnApi, updateTaskApi } from "../../api/boardApi/boardApi";
+import { IBoard, IColumn, ITask } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import { actionsSetError } from "../userReducer/actionUser";
 import { actionsCreateBoard, actionsUpdateBoard, actionsGetAllBoard, actionsDeleteBoard,
@@ -7,7 +7,9 @@ import { actionsCreateBoard, actionsUpdateBoard, actionsGetAllBoard, actionsDele
         actionsCreateTask, actionsUpdateTask, actionsGetAllTask, actionsDeleteTask
 } from './actionBoard'
 
-export const creatBord = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
+//BOARD
+
+export const creatBoard = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await createBoardApi(board)
     dispatch(actionsCreateBoard(data));
@@ -23,7 +25,7 @@ export const getAllBoards = () => async (dispatch: AppDispatch): Promise<void> =
     dispatch(actionsSetError(error.message))
   }
 };
-export const updateBord = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
+export const updateBoard = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await updateBoardApi(board)
     dispatch(actionsUpdateBoard(data));
@@ -31,10 +33,79 @@ export const updateBord = (board: IBoard) => async (dispatch: AppDispatch): Prom
     dispatch(actionsSetError(error.message))
   }
 };
-export const deleteBord = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
+export const deleteBoard = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
   try {
-    const data = await deleteBoardApi(board)
+    await deleteBoardApi(board)
     dispatch(actionsDeleteBoard(board));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+
+// COLUMN 
+
+export const creatColumn = (column: IColumn) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const data = await createColumnApi(column)
+    dispatch(actionsCreateColumn(data));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+export const getAllColumns = (column: IColumn) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const data = await getAllColumnsApi(column)
+    dispatch(actionsGetAllColumn(data));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+export const updateColumn = (column: IColumn) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const data = await updateColumnApi(column)
+    dispatch(actionsUpdateColumn(data));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+export const deleteColumn = (column: IColumn) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    await deleteColumnApi(column)
+    dispatch(actionsDeleteColumn(column));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+// TASK
+
+export const creatTask = (task: ITask) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const data = await createTaskApi(task)
+    dispatch(actionsCreateTask(data));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+export const getAllTasks = (task: ITask) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const data = await getAllTaskApi(task)
+    dispatch(actionsGetAllTask(data));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+export const updateTask = (task: ITask) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const data = await updateTaskApi(task)
+    dispatch(actionsUpdateTask(data));
+    } catch (error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+export const deleteTask = (task: ITask) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    await deleteTaskApi(task)
+    dispatch(actionsDeleteTask(task));
     } catch (error: any) {
     dispatch(actionsSetError(error.message))
   }

@@ -88,7 +88,6 @@ class BoardController {
     try {
       const { id: tokenId } = req.user
       const { id } = req.query
-      console.log("MESSAGE ID", req.params)
       if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
@@ -120,13 +119,13 @@ class BoardController {
 
   async getAllColumns(req, res) {
     try {
-      const { id: boardId } = req.params
-      const { id } = req.user
-      if (!id) {
+      const { id } = req.query
+      const { id: tokenId } = req.user
+      if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       const boardColumns = await db.Column.findAll({
-        where: { boardId },
+        where: { id },
       })
       res.status(200).json(boardColumns)
     }
@@ -178,12 +177,12 @@ class BoardController {
 
   async deleteColumn(req, res) {
     try {
-      const { id } = req.user
-      const { columnId } = req.body
-      if (!id) {
+      const { id: tokenId } = req.user
+      const { id } = req.query
+      if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      await db.Column.destroy({where: { id: columnId }})
+      await db.Column.destroy({where: { id }})
         res.status(200).json('User Column delete')
     }
     catch (e) {
@@ -210,13 +209,13 @@ class BoardController {
 
   async getAllTasks(req, res) {
     try {
-      const { columnId } = req.body
-      const { id } = req.user
-      if (!id) {
+      const { id } = req.query
+      const { id: tokenId } = req.user
+      if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       const сolumnTasks = await db.Task.findAll({
-        where: { columnId },
+        where: { id },
       })
       res.status(200).json(сolumnTasks)
     }
@@ -267,12 +266,12 @@ class BoardController {
 
   async deleteTask(req, res) {
     try {
-      const { id } = req.user
-      const { taskId } = req.body
-      if (!id) {
+      const { id: tokenId } = req.user
+      const { id } = req.query
+      if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      await db.Task.destroy({where: { id: taskId }})
+      await db.Task.destroy({where: { id }})
         res.status(200).json('Column Task delete')
     }
     catch (e) {

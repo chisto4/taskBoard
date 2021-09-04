@@ -8,6 +8,7 @@ import { logOutThunk } from '../../../store/userReducer/userThunk';
 
 import baseAvatar from '../../../image/wtf.jpeg';
 import { baseURL } from '../../../api';
+import { LOGIN, REGISTRATION, USER, WORK_SPACE } from '../../../api/const/const';
 // import {NavLink} from 'react-router-dom';
 
 interface IHeader {
@@ -43,11 +44,11 @@ const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
           <div className={styles.user_avatar}>
             {isAuth && <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>}
           </div>
-          {isAuth && <span onClick={() => { history.push("/user") }} >{login}</span>}
-          {isAuth && <span onClick={() => { history.push("/work") }} >Work Space</span>}
-          {!isAuth && <span onClick={() => { history.push("/login") }} >Login</span>}
+          {isAuth && <span onClick={() => { history.push(USER) }} >{login}</span>}
+          {isAuth && <span onClick={() => { history.push(WORK_SPACE) }} >Work Space</span>}
+          {!isAuth && <span onClick={() => { history.push(LOGIN) }} >Login</span>}
           {isAuth && <span onClick={(logOuting)} className={styles.log_out}>Log Out</span>}
-          {!isAuth && <span onClick={() => { history.push("/registration") }}>Registration</span>}
+          {!isAuth && <span onClick={() => { history.push(REGISTRATION) }}>Registration</span>}
 
           {/* <NavLink className={styles.RegLogLink} to="/registration"><a>Login</a></NavLink>
               <NavLink className={styles.RegLogLink} onClick={onClickReg} to="/registration">Registration</NavLink> */}

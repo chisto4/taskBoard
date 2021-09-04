@@ -45,15 +45,15 @@ export interface IUserState {
 
 export interface IBoard {
   title?: string | null,
-  id?: number | null,
+  id?: number | undefined,
 }
 export interface IBoardRequest {
   id: number,
 }
 export interface IColumn {
-  id: number | null,
+  id?: number | null,
   title: string | null,
-  position: number | null,
+  position?: number | null,
   boardId: number | null,
 }
 export interface IColumnRequest {
@@ -66,10 +66,10 @@ export interface ITask {
   position: number | null,
   description: string | null,
   columnId: number | null,
-  prioriti: number | null,
+  priority: number | null,
 }
 export interface ITaskRequest {
-    id: number | null,
+    id?: number | null,
     columnId?: number | null,
 }
 
@@ -77,6 +77,7 @@ export interface IBoardState {
   board: IBoard[],
   column: IColumn[],
   task: ITask[],
+  clickBoardId?: number | null | string,
 }
 
 

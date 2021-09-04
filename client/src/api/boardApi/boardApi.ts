@@ -28,55 +28,55 @@ export const deleteBoardApi = async (board: IBoard) => {
   return res.data
 };
 
-// //COLUMN
+//COLUMN
 
-// export const createColumnApi = async (column: IColumn) => {
-//   const res = await axios.post('/board/column', column);
-//   console.log('column info creating', res.data);
-//   return res.data
-// };
+export const createColumnApi = async (column: IColumn) => {
+  const res = await axios.post('/board/column', column);
+  console.log('column info creating', res.data);
+  return res.data
+};
 
-// export const updateColumnApi = async (column: IColumn) => {
-//   const res = await axios.put('/board/column', column);
-//   console.log('Board info updating', res.data);
-//   return res.data
-// };
+export const updateColumnApi = async (column: IColumn) => {
+  const res = await axios.put('/board/column', column);
+  console.log('Board info updating', res.data);
+  return res.data
+};
 
-// export const getAllColumnsApi = async (column: IColumn) => {
-//   const res = await axios.get('/board/columns', column);
-//   console.log('res.data All boards', res.data)
-//   return res.data
-// };
+export const getAllColumnsApi = async (column: IColumn) => {
+  const res = await axios.get('/board/columns', {params: column});
+  console.log('res.data All boards', res.data)
+  return res.data
+};
 
-// export const deleteColumnApi = async (column: IColumn) => {
-//   const res = await axios.delete('/board/column', column);
-//   console.log('res.data delete board', res.data)
-//   return res.data
-// };
+export const deleteColumnApi = async (column: IColumn) => {
+  const res = await axios.delete('/board/column', {params: column});
+  console.log('res.data delete board', res.data)
+  return res.data
+};
 
-// //TASK
+//TASK
 
-// export const createTaskApi = async (task: ITask) => {
-//   const res = await axios.post('/board/column/task', task);
-//   console.log('Board info creating', res.data);
-//   return res.data
-// };
+export const createTaskApi = async (task: ITask) => {
+  const res = await axios.post('/board/column/task', task);
+  console.log('Board info creating', res.data);
+  return res.data
+};
 
-// export const updateTaskApi = async (task: ITask) => {
-//   const res = await axios.put('/board/column/task', task);
-//   console.log('Board info updating', res.data);
-//   return res.data
-// };
+export const updateTaskApi = async (task: ITask) => {
+  const res = await axios.put('/board/column/task', task);
+  console.log('Board info updating', res.data);
+  return res.data
+};
 
-// export const getAllTaskApi = async (task: ITask) => {
-//   const res = await axios.get('/board/board/columns', task);
-//   console.log('res.data All boards', res.data)
-//   return res.data
-// };
+export const getAllTaskApi = async (task: ITask) => {
+  const res = await axios.get('/board/board/columns', {params: task});
+  console.log('res.data All boards', res.data)
+  return res.data
+};
 
-// export const deleteTaskApi = async (task: ITask) => {
-//   const res = await axios.delete('/board/column/task', task);
-//   console.log('res.data delete board', res.data)
-//   return res.data
-// };
+export const deleteTaskApi = async (task: ITask) => {
+  const res = await axios.delete('/board/column/task', {params: task});
+  console.log('res.data delete board', res.data)
+  return res.data
+};
 
