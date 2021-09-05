@@ -17,7 +17,7 @@ boardRouter.put('/board', auth.tokenModule, boardController.updateBoard);
 boardRouter.delete('/board', auth.tokenModule, boardController.deleteBoard);
 
 boardRouter.post('/board/column', auth.tokenModule, boardController.createColumn);
-boardRouter.get('/board/columns', auth.tokenModule, boardController.getAllColumns);
+boardRouter.get('/board/columns/:id', auth.tokenModule, boardController.getAllColumns);
 boardRouter.get('/board/column', auth.tokenModule, boardController.getOneColumn);
 boardRouter.put('/board/column', auth.tokenModule, boardController.updateColumn);
 boardRouter.delete('/board/column', auth.tokenModule, boardController.deleteColumn);

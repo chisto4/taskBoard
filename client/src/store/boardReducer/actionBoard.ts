@@ -2,7 +2,7 @@
 import { actions, ActionsCreateBoard, ActionsUpdateBoard, ActionsGetAllBoard,
 ActionsGetOneBoard, ActionsDeleteBoard, ActionsCreateColumn, ActionsUpdateColumn,
 ActionsGetAllColumn, ActionsGetOneColumn, ActionsDeleteColumn, ActionsCreateTask,
-ActionsUpdateTask, ActionsGetAllTask, ActionsGetOneTask, ActionsDeleteTask
+ActionsUpdateTask, ActionsGetAllTask, ActionsGetOneTask, ActionsDeleteTask, ActionsChoiceBoard
         } from './constansBoard';
 import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest } from "../../types/types";
 
@@ -26,6 +26,10 @@ export const actionsDeleteBoard = (board: IBoard): ActionsDeleteBoard => ({
   type: actions.DELETE_BOARD,
   payload: board,
 })
+export const actionsChoiceBoard = (column: IColumn): ActionsChoiceBoard => ({
+  type: actions.CHOICE_BOARD,
+  payload: column,
+})
 
 export const actionsCreateColumn = (column: IColumn): ActionsCreateColumn => ({
   type: actions.CREATE_COLUMN,
@@ -43,7 +47,7 @@ export const actionsGetOneColumn = (column: IColumnRequest): ActionsGetOneColumn
   type: actions.GET_ONE_COLUMN,
   payload: column,
 })
-export const actionsDeleteColumn = (column: IColumnRequest): ActionsDeleteColumn => ({
+export const actionsDeleteColumn = (column: IColumn): ActionsDeleteColumn => ({
   type: actions.DELETE_COLUMN,
   payload: column,
 })

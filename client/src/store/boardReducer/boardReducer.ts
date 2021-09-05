@@ -24,7 +24,7 @@ const initialState: IBoardState = {
         {id: 2, title: 'test 2', position: 2, description:'text', columnId: 3, priority: 1},
         {id: 3, title: 'test 3', position: 3, description:'text', columnId: 3, priority: 1},
     ],
-    clickBoardId: null,
+    clickBoardId: undefined,
 }
 
 
@@ -51,9 +51,12 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
                 board: state.board.filter(i => i.id !== action.payload.id)
                 }
 
-                
+                //COLUMN
         case actions.CREATE_COLUMN:
             return { ...state, column: [...state.column, action.payload] }
+
+        case actions.CHOICE_BOARD:
+            return { ...state, clickBoardId: [...state.clickBoardId, action.payload] }
 
         case actions.UPDATE_COLUMN:
             return {
@@ -69,13 +72,13 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
         case actions.GET_ALL_COLUMN:
             return { ...state, column:  action.payload }
 
-        // case actions.DELETE_BOARD:
-        //     return {
-        //         ...state,
-        //         board: state.board.filter(i => i.id !== action.payload.id)
-        //         }
+        case actions.DELETE_COLUMN:
+            return {
+                ...state,
+                column: state.column.filter(i => i.id !== action.payload.id)
+                }
 
-
+                //TASK
         case actions.CREATE_TASK:
             return { ...state, task: [...state.task, action.payload] }
 

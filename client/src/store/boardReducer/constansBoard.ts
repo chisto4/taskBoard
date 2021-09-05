@@ -7,6 +7,7 @@ export enum actions {
   GET_ALL_BOARD = 'GET_ALL_BOARD',
   GET_ONE_BOARD = 'GET_ONE_BOARD',
   DELETE_BOARD = 'DELETE_BOARD',
+  CHOICE_BOARD = 'CHOICE_BOARD',
 
   CREATE_COLUMN = 'CREATE_COLUMN',
   UPDATE_COLUMN = 'UPDATE_COLUMN',
@@ -41,6 +42,10 @@ export type ActionsDeleteBoard = {
   type: actions.DELETE_BOARD,
   payload: IBoard
 }
+export type ActionsChoiceBoard = {
+  type: actions.CHOICE_BOARD,
+  payload: IColumn
+}
 
 export type ActionsCreateColumn = {
   type: actions.CREATE_COLUMN,
@@ -60,7 +65,7 @@ export type ActionsGetOneColumn = {
 }
 export type ActionsDeleteColumn = {
   type: actions.DELETE_COLUMN,
-  payload: IColumnRequest
+  payload: IColumn
 }
 
 export type ActionsCreateTask = {

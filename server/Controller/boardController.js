@@ -119,13 +119,13 @@ class BoardController {
 
   async getAllColumns(req, res) {
     try {
-      const { id } = req.query
+      const { id } = req.params
       const { id: tokenId } = req.user
       if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       const boardColumns = await db.Column.findAll({
-        where: { id },
+        where: { boardId: id },
       })
       res.status(200).json(boardColumns)
     }
@@ -139,6 +139,7 @@ class BoardController {
   async getOneColumn(req, res) {
     try {
       const { id } = req.user
+      console.log('query IDDD', id)
       const { columnId } = req.body
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })

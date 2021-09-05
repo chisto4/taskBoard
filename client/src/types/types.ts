@@ -52,9 +52,10 @@ export interface IBoardRequest {
 }
 export interface IColumn {
   id?: number | null,
-  title: string | null,
+  title?: string | null,
   position?: number | null,
-  boardId: number | null,
+  boardId?: number | null,
+  clickBoardId?: number | null | string,
 }
 export interface IColumnRequest {
   id: number | null,
@@ -77,7 +78,7 @@ export interface IBoardState {
   board: IBoard[],
   column: IColumn[],
   task: ITask[],
-  clickBoardId?: number | null | string,
+  clickBoardId?: number | undefined,
 }
 
 

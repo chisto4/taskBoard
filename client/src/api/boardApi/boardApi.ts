@@ -43,8 +43,9 @@ export const updateColumnApi = async (column: IColumn) => {
 };
 
 export const getAllColumnsApi = async (column: IColumn) => {
-  const res = await axios.get('/board/columns', {params: column});
-  console.log('res.data All boards', res.data)
+  // const res = await axios.get('/board/columns/', {params: column.id});
+  const res = await axios.get(`/board/columns/${column.id}`)
+  console.log('res.data All COLUMNS', res.data)
   return res.data
 };
 

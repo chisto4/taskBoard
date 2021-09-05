@@ -7,9 +7,9 @@ import closeButton from '../../icon/close.png';
 
 import Main from '../components/main/Main';
 import { useAppSelector } from '../../store/reducers';
-import { IBoard } from '../../types/types';
+import { IBoard, IColumn } from '../../types/types';
 import { useDispatch } from 'react-redux';
-import { creatBoard, deleteBoard, getAllBoards } from '../../store/boardReducer/boardThunk';
+import { creatBoard, deleteBoard, getAllBoards, getAllColumns } from '../../store/boardReducer/boardThunk';
 import { BOARD_WINDOW } from '../../api/const/const';
 
 const WorkSpace = () => {
@@ -39,8 +39,18 @@ const WorkSpace = () => {
     const board: IBoard = {
       id: id,
     };
-    console.log('BOARD ID',board)
+    console.log('BdfgsdgsD ID',board)
     dispatch(deleteBoard(board));
+   }
+
+   const getAllColumnsClick = (id: number | undefined) => {
+    const column: IColumn = {
+      id,
+    };
+    console.log('BOARD ID',column)
+    dispatch(getAllColumns(column));
+    dispatch(deleteBoard(column));
+    history.push(BOARD_WINDOW)
    }
 
   useEffect(() => {
@@ -74,7 +84,8 @@ const WorkSpace = () => {
               </a>
             </div>
             <p className={styles.board__title}
-              onClick={() => { history.push(BOARD_WINDOW) }}
+              // onClick={() => (getAllColumnsClick(board.id), { history.push(BOARD_WINDOW) })}
+              onClick={() => getAllColumnsClick(board.id)}
             >
               {board.title}
               </p>
