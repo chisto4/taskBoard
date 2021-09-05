@@ -55,8 +55,8 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
         case actions.CREATE_COLUMN:
             return { ...state, column: [...state.column, action.payload] }
 
-        case actions.CHOICE_BOARD:
-            return { ...state, clickBoardId: [...state.clickBoardId, action.payload] }
+        // case actions.CHOICE_BOARD:
+        //     return { ...state, clickBoardId: [...state.clickBoardId, action.payload] }
 
         case actions.UPDATE_COLUMN:
             return {

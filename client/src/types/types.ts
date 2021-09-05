@@ -51,7 +51,7 @@ export interface IBoardRequest {
   id: number,
 }
 export interface IColumn {
-  id?: number | null,
+  id?: number | undefined,
   title?: string | null,
   position?: number | null,
   boardId?: number | null,
@@ -62,11 +62,11 @@ export interface IColumnRequest {
   boardId?: number | null,
 }
 export interface ITask {
-  id: number | null,
+  id?: number | null,
   title: string | null,
   position: number | null,
   description: string | null,
-  columnId: number | null,
+  columnId: number | undefined,
   priority: number | null,
 }
 export interface ITaskRequest {

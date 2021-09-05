@@ -49,8 +49,8 @@ const WorkSpace = () => {
     };
     console.log('BOARD ID',column)
     dispatch(getAllColumns(column));
-    dispatch(deleteBoard(column));
-    history.push(BOARD_WINDOW)
+    // dispatch(deleteBoard(column));
+    history.push(BOARD_WINDOW.replace(':id', `${column?.id}`))
    }
 
   useEffect(() => {

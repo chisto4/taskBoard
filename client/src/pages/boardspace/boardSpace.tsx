@@ -1,33 +1,74 @@
 import React, {useState} from 'react';
 import styles from './boardSpace.module.scss';
+import deleteButton from '../../icon/deleteAll.png';
+
 
 import Main from '../components/main/Main';
 import { useAppSelector } from '../../store/reducers';
-import { IColumn } from '../../types/types';
+import { IColumn, ITask } from '../../types/types';
+import { useLocation, useParams } from 'react-router';
+import { useDispatch } from 'react-redux';
+import { creatColumn, creatTask, deleteColumn } from '../../store/boardReducer/boardThunk';
+
+
 
 const BoardSpace = () => {
+// const location = useLocation()
+//@ts-ignore
+const {id} = useParams()
+const useBoardId = useParams()
+//@ts-ignore
+const boardIdNumber = +useBoardId.id
+console.log('laction', id)
+console.log('FIND ID', boardIdNumber)
+
+const dispatch = useDispatch();
 
   const userColumnArray = useAppSelector((state) => state.board.column)
   const userTaskArray = useAppSelector((state) => state.board.task)
   const activeBoard = useAppSelector((state) => state.board.clickBoardId)
 
   const [titleColumn, setTitleColumn] = useState('');
-  const [positionColumn, setPositionColumn] = useState('');
+  const [positionColumn, setPositionColumn] = useState(null);
   const [boardIdColumn, setIdColumn] = useState('');
 
   const [titleTask, setTitleTask] = useState('');
-  const [positionTask, setPositionTask] = useState('');
-  const [priorityTask, setPriorityTask] = useState('');
+  const [positionTask, setPositionTask] = useState(null);
+  const [priorityTask, setPriorityTask] = useState(null);
   const [taskColumnId, setColumnId] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
 
   const craetNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
     const column: IColumn = {
       title: titleColumn,
-      boardId: 1,
+      position: positionColumn,
+      boardId: boardIdNumber,
     }
+    dispatch(creatColumn(column));
+    setTitleColumn("");
     event.preventDefault();
   }
+  const craetNewTaskForm = (event: React.FormEvent<HTMLFormElement>) => {
+  // const craetNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number | undefined) => {
+    const task: ITask = {
+      title: titleTask,
+      position: positionTask,
+      priority: priorityTask,
+      description: taskDescription,
+      columnId: 1,
+    }
+    dispatch(creatTask(task));
+    setTitleTask("");
+    event.preventDefault();
+  }
+
+  const deleteOneColumn = (id: number | undefined) => {
+    const column: IColumn = {
+      id: id,
+    };
+    console.log('BdfgsdgsD ID', column)
+    dispatch(deleteColumn(column));
+   }
 
 //   const [columns, setColumns] = useState([
 //     {id:1, title:"What need", items:[{id:1, title:"Develpometn"},{id:2, title:'Create desigen Todo'},
@@ -107,7 +148,7 @@ const BoardSpace = () => {
               onChange={(e) => setTitleColumn(e.target.value)}
               name='board' required
               // defaultValue="New Board" 
-              // value={setTitleColumn}
+              value={titleColumn}
               type="text"
               placeholder='New column'
             />
@@ -129,34 +170,56 @@ const BoardSpace = () => {
           </div>
 
         <div className={styles.task_wrapper}>
-        {userTaskArray.filter(x => x.columnId === column.id).map(task =>  
+        {userTaskArray.filter(x => x.columnId === column.id).map(task => 
+              //  <myComponent task={task} />
+              //  const myComponent = ({task}) => {
+              //   const [search, setSearch] = useState('')
+              
+              //     return <p>{task.title}</p>
+              //  }
+              
+
                 <div 
                 // onDragOver={(event)=> dragOverHandler(event)}
                 // onDragLeave={(event)=> dragLeaveHandler(event)}
                 // onDragStart={(event)=> dragStartHandler(event, column, item)}
                 // onDragEnd={(event)=> dragEndHandler(event)}
                 // onDrop={(event)=> dragDropHandler(event, column, item)}
-                className={styles.task}
-                draggable={true}
+                // className={styles.task}
+                // draggable={true}
                 >
-                  {task.title}
+                   {task.title}
                 </div>
               )}
         </div>
 
-<form 
-      // onSubmit={boardInfo} 
+        {/* array.map(item => <myComponent item={item} />
+
+        const myComponent = ({item}) => {
+        const [search, setSearch] = useState('')
+
+          return <p>something</p>
+        } */}
+
+    <form 
+
+      onSubmit={craetNewTaskForm} 
       className={styles.new_task_input_form}>
         <input
-          // onChange={(e) => setTitleColumn(e.target.value)}
+          onChange={(e) => setTitleTask(e.target.value)}
           name='name' required
-          // value={titleColumn}
+          value={titleTask}
           type="text"
           placeholder='`New task'
         />
           {/* <button type="submit" className={styles.create_button}>CREATE</button> */}
-      </form >
+    </form >
 
+    <div className={styles.close_button_wrapper}>
+      <a onClick={() => deleteOneColumn(column.id)}>
+        <img src={deleteButton} className={styles.delete_column_button} alt='delete'></img>
+      </a>
+    </div>
 
         </div>
         )}
