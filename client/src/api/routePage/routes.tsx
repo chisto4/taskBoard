@@ -1,5 +1,5 @@
 import helloWindow from "../../pages/homePage/homePage";
-import boardWindow from "../../pages/boardspace/boardSpace";
+import boardWindow from "../../pages/boardspace/BoardSpace";
 import UserLogin from "../../pages/login/loginPage";
 import UserRegistration from "../../pages/registration/registartionWindow";
 import WorkSpace from "../../pages/workSpace/WorkSpace";

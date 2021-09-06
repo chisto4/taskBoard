@@ -56,6 +56,7 @@ export interface IColumn {
   position?: number | null,
   boardId?: number | null,
   clickBoardId?: number | null | string,
+  Tasks?: ITask[]
 }
 export interface IColumnRequest {
   id: number | null,

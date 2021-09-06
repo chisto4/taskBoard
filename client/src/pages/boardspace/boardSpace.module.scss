@@ -2,7 +2,7 @@
 .columnSpace{
 position: absolute;
 width: 92%;
-height: 78vh;
+// height: 78vh;
 top: 14%;
 display: flex;
 flex-direction: column;
@@ -50,11 +50,13 @@ z-index: 10;
   display: flex;
   justify-content: flex-start;
   width: 88vw;
-  height: 80vh;
-  margin-top: 1%;
+  height: 70vh;
+  border-radius: 2%;
+  position: absolute;
+  top: 23vh;
 }
 
-.column {
+.OneColumn {
   min-width: 300px;
   height:  auto;
   box-shadow: -80px 50px 100px rgba(116, 114, 114, 0.644),
@@ -97,7 +99,7 @@ z-index: 10;
   flex:auto;
 }
 
-.task {
+.task_style {
   display: flex;
   align-items: center;
   justify-content:space-between;

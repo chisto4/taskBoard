@@ -4,12 +4,13 @@ import deleteButton from '../../icon/deleteAll.png';
 import deleteTaskButton from '../../icon/close.png';
 
 import Main from '../components/main/Main';
-import DescriptionTask from './descriptionTask/descriptionTaskModal'
+import DescriptionTask from './DescriptionTask/DescriptionTaskModal'
 import { useAppSelector } from '../../store/reducers';
 import { IColumn, ITask } from '../../types/types';
 import { useLocation, useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { creatColumn, creatTask, deleteColumn, deleteTask, getAllTasks } from '../../store/boardReducer/boardThunk';
+import Boarditem from './BoardItem/BoardItem';
 
 const BoardSpace = () => {
   // const location = useLocation()
@@ -27,13 +28,9 @@ const BoardSpace = () => {
 
   const [titleColumn, setTitleColumn] = useState('');
   const [positionColumn, setPositionColumn] = useState(null);
-  const [boardIdColumn, setIdColumn] = useState('');
 
-  const [titleTask, setTitleTask] = useState('');
-  const [positionTask, setPositionTask] = useState(null);
-  const [priorityTask, setPriorityTask] = useState(null);
-  const [taskColumnId, setColumnId] = useState('');
-  const [taskDescription, setTaskDescription] = useState('');
+  const [visionDescription, setVisionDescription] = useState(false);
+
 
   const craetNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
     const column: IColumn = {
@@ -46,40 +43,11 @@ const BoardSpace = () => {
     event.preventDefault();
   }
 
-  const craetNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number | undefined) => {
-    const task: ITask = {
-      title: titleTask,
-      position: positionTask,
-      priority: priorityTask,
-      description: taskDescription,
-      columnId: id,
-    }
-    dispatch(creatTask(task));
-    setTitleTask("");
-    event.preventDefault();
-  }
-
-  const deleteOneColumn = (id: number | undefined) => {
-    const column: IColumn = {
-      id: id,
-    };
-    console.log('BdfgsdgsD ID', column)
-    dispatch(deleteColumn(column));
-  }
-
   const getAllTask = (id: number | undefined) => {
     const task: ITask = {
       id: id
     };
     dispatch(getAllTasks(task))
-  }
-
-  const deleteOneTask = (id: number | undefined) => {
-    const task: ITask = {
-      id: id,
-    };
-    console.log('BdfgsdgsD ID', task)
-    dispatch(deleteTask(task));
   }
 
   return (
@@ -98,58 +66,12 @@ const BoardSpace = () => {
             <button type="submit" className={styles.create_button}>CREATE</button>
           </form >
         </div>
-
-
-        <div className={styles.column_wrapper}>
-
-          {userColumnArray.map((column => 
-            <div className={styles.column}>
-              <div className={styles.column__title}>
-                {column.title}
-              </div>
-
-              <div className={styles.task_wrapper}>
-                {userTaskArray.filter(x => x.columnId === column.id).map(task =>
-                  <div
-                    className={styles.task}
-                    draggable={true}
-                  >
-                    {task.title}
-
-                    <div className={styles.close_button_wrapper}>
-                      <a onClick={() => deleteOneTask(task.id)}>
-                        <img src={deleteTaskButton} className={styles.delete_task_button} alt='delete'></img>
-                      </a>
-                    </div>
-                  </div>
-                )}
-
-              </div>
-
-              <form
-                onSubmit={(e) => craetNewTaskForm(e, column.id)}
-                className={styles.new_task_input_form}>
-                <input
-                  onChange={(e) => setTitleTask(e.target.value)}
-                  name='name' required
-                  value={titleTask}
-                  type="text"
-                  placeholder='`New task'
-                />
-              </form >
-
-              <div className={styles.close_button_wrapper}>
-                <a onClick={() => deleteOneColumn(column.id)}>
-                  <img src={deleteButton} className={styles.delete_column_button} alt='delete'></img>
-                </a>
-              </div>
-
-            </div>)
-          
-          )}
-        </div>
       </div>
-      {/* <DescriptionTask /> */}
+      <Boarditem  />
+      {visionDescription && <DescriptionTask 
+        // visionDescription = {visionDescription}
+      />}
+      
     </Main>
   );
 };

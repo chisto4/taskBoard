@@ -6,7 +6,6 @@ import deleteTaskButton from '../../../icon/close.png';
 const DescriptionTask = () => {
 
 const [taskDescription, setTaskDescription] = useState('');
-const [visionDescription, setVisionDescription] = useState(false);
 
 return (
     <div className={styles.description_wrapper}>
@@ -23,7 +22,7 @@ return (
 
       <div className={styles.close_button_wrapper}>
         <a 
-        onClick={() => setVisionDescription(false)}
+        // onClick={() => setVisionDescription(false)}
         >
           <img src={deleteTaskButton} className={styles.close_description_button} alt='close'></img>
         </a>

@@ -126,6 +126,13 @@ class BoardController {
       }
       const boardColumns = await db.Column.findAll({
         where: { boardId: id },
+        include: [
+          {
+              model: db.Task,
+              // attributes: ['id', 'boardId', 'position', 'title']
+          }
+      ],
+      // attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
       })
       res.status(200).json(boardColumns)
     }
