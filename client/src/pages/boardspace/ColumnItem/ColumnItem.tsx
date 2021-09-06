@@ -3,13 +3,12 @@ import { useDispatch } from 'react-redux';
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
 import { IColumn, ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
-import TaskItem from '../TasksItem/TasksItem';
+import TaskList from '../TaskList/TaskList';
 import deleteButton from '../../../icon/deleteAll.png';
 
 
 interface Props{
   column: IColumn;
-  Tasks:ITask[]
 } 
 
 const ColumnItem: React.FC<Props> = ({column}) => {
@@ -40,14 +39,15 @@ const ColumnItem: React.FC<Props> = ({column}) => {
   const deleteOneColumn = (id: number | undefined) => {
     const column: IColumn = {
       id: id,
+      Tasks:[]
     };
     console.log('BdfgsdgsD ID', column)
     dispatch(deleteColumn(column));
   }
 
-  {userColumnArray.map(
-    (column => <ColumnItem column={column} />)
-  )}
+  // {userColumnArray.map(
+  //   (column => <ColumnItem column={column} />)
+  // )}
 
 
   return (
@@ -56,9 +56,9 @@ const ColumnItem: React.FC<Props> = ({column}) => {
     {column.title}
   </div>
 
-    <TaskItem
-      Tasks={column.Tasks}
-    />
+
+
+    <TaskList Tasks={column.Tasks}/>
 
   <form
     onSubmit={(e) => craetNewTaskForm(e, column.id)}

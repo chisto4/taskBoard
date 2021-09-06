@@ -46,6 +46,7 @@ const WorkSpace = () => {
    const getAllColumnsClick = (id: number | undefined) => {
     const column: IColumn = {
       id,
+      Tasks:[]
     };
     console.log('BOARD ID',column)
     dispatch(getAllColumns(column));

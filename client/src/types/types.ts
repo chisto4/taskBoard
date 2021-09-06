@@ -56,7 +56,7 @@ export interface IColumn {
   position?: number | null,
   boardId?: number | null,
   clickBoardId?: number | null | string,
-  Tasks?: ITask[]
+  Tasks: ITask[]
 }
 export interface IColumnRequest {
   id: number | null,
@@ -81,25 +81,3 @@ export interface IBoardState {
   task: ITask[],
   clickBoardId?: number | undefined,
 }
-
-
-
-// export enum UserActionTypes {
-//   GET_ALL_USERS = 'GET_ALL_USERS',
-//   GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS',
-//   GET_ALL_USERS_FALSE = 'GET_ALL_USERS_FALSE',
-// }
-
-// interface GetAllUsersAction {
-//   type: UserActionTypes.GET_ALL_USERS;
-// }
-// interface GetAllUsersSuccessAction {
-//   type: UserActionTypes.GET_ALL_USERS_SUCCESS;
-//   payload: any[];
-// }
-// interface GetAllUsersFalseAction {
-//   type: UserActionTypes.GET_ALL_USERS_FALSE;
-//   payload: string;
-// }
-
-// export type UserAction = GetAllUsersAction | GetAllUsersSuccessAction | GetAllUsersFalseAction

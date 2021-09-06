@@ -1,20 +1,19 @@
 import { useAppSelector } from '../../../store/reducers';
+import { ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 import TaskItem from '../TaskItem/TaskItem';
 
 interface Props {
-  id: number | undefined
+Tasks: ITask[]
 }
 
-const Tasks: React.FC<Props> = ({id}) => {
+const TaskList: React.FC<Props> = ({Tasks}) => {
 
-  const userTaskArray = useAppSelector((state) => state.board.column)
 
   return(
     <div className={styles.task_wrapper}>
       {/* {userTaskArray.filter(x => x.columnId === column.id).map(task => */}
-      {userTaskArray.map(task =>
-      task.Tasks.map => 
+      {Tasks.map(task =>
         <TaskItem task={task}/>
       )}
 
@@ -22,6 +21,6 @@ const Tasks: React.FC<Props> = ({id}) => {
   )
 }
 
-export default Tasks
+export default TaskList
 
     

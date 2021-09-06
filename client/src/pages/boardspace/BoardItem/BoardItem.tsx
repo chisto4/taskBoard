@@ -3,7 +3,7 @@ import { useAppSelector } from '../../../store/reducers';
 import styles from '../boardSpace.module.scss';
 import ColumnItem from '../ColumnItem/ColumnItem';
 
-const BoarвItem = () => {
+const BoardItem = () => {
 
   const userColumnArray = useAppSelector((state) => state.board.column)
 
@@ -16,4 +16,4 @@ const BoarвItem = () => {
   )
 }
 
-export default BoarвItem
+export default BoardItem
