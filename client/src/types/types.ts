@@ -62,12 +62,12 @@ export interface IColumnRequest {
   boardId?: number | null,
 }
 export interface ITask {
-  id?: number | null,
-  title: string | null,
-  position: number | null,
-  description: string | null,
-  columnId: number | undefined,
-  priority: number | null,
+  id?: number | undefined,
+  title?: string | null,
+  position?: number | null,
+  description?: string | null,
+  columnId?: number | undefined,
+  priority?: number | null,
 }
 export interface ITaskRequest {
     id?: number | null,

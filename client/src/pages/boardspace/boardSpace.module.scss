@@ -85,6 +85,11 @@ z-index: 10;
 
 .delete_column_button{
   width:20px;
+  cursor: pointer;
+}
+.delete_task_button{
+  width:10px;
+  cursor: pointer;
 }
 
 .task_wrapper{
@@ -133,14 +138,4 @@ z-index: 10;
 
   box-shadow: -8px 5px 10px rgba(116, 114, 114, 0.644), 2px -2px 5px rgba(116, 115, 115, 0.616);
   border-radius:50%;
-}
-
-.closeButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  background: rgba(255, 255, 255, 0);
-  border-radius:50%;
-  margin-left:1rem;
 }

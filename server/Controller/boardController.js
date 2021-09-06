@@ -210,13 +210,14 @@ class BoardController {
 
   async getAllTasks(req, res) {
     try {
-      const { id } = req.query
+      const { id } = req.params
+      console.log('zalupa ne raboataetTUT', req.query)
       const { id: tokenId } = req.user
       if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       const сolumnTasks = await db.Task.findAll({
-        where: { id },
+        where: { columnId: id },
       })
       res.status(200).json(сolumnTasks)
     }

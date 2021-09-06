@@ -2,28 +2,9 @@ import { actions, ActionBoard } from "./constansBoard"
 import { IBoardState } from "../../types/types";
 
 const initialState: IBoardState = {
-    board: [
-        {title:'test', id: 1},
-        {title:'test', id: 2}
-    ],
-    column: [
-        {id: 1, title: 'test 1', position: 1, boardId: 1},
-        {id: 2, title: 'test 2', position: 2, boardId: 1},
-        {id: 3, title: 'test 3', position: 3, boardId: 1}
-    ],
-    task: [
-        {id: 1, title: 'test 1', position: 1, description:'text', columnId: 1, priority: 1},
-        {id: 2, title: 'test 2', position: 2, description:'text', columnId: 1, priority: 1},
-        {id: 3, title: 'test 3', position: 3, description:'text', columnId: 1, priority: 1},
-
-        {id: 1, title: 'test 1', position: 1, description:'text', columnId: 2, priority: 1},
-        {id: 2, title: 'test 2', position: 2, description:'text', columnId: 2, priority: 1},
-        {id: 3, title: 'test 3', position: 3, description:'text', columnId: 2, priority: 1},
-
-        {id: 1, title: 'test 1', position: 1, description:'text', columnId: 3, priority: 1},
-        {id: 2, title: 'test 2', position: 2, description:'text', columnId: 3, priority: 1},
-        {id: 3, title: 'test 3', position: 3, description:'text', columnId: 3, priority: 1},
-    ],
+    board: [],
+    column: [],
+    task: [],
     clickBoardId: undefined,
 }
 
@@ -95,6 +76,8 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
 
         case actions.GET_ALL_TASK:
             return { ...state, task:  action.payload }
+            // return { ...state, task: [...state.task, action.payload] }
+
 
         case actions.DELETE_TASK:
             return {

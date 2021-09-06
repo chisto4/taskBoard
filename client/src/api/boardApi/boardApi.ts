@@ -70,7 +70,8 @@ export const updateTaskApi = async (task: ITask) => {
 };
 
 export const getAllTaskApi = async (task: ITask) => {
-  const res = await axios.get('/workspace/board/board/columns', {params: task});
+  // const res = await axios.get('/workspace/board/column/tasks', {params: task});
+  const res = await axios.get(`/workspace/board/column/tasks/${task.id}`);
   console.log('res.data All boards', res.data)
   return res.data
 };
