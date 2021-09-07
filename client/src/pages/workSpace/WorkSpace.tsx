@@ -48,7 +48,6 @@ const WorkSpace = () => {
       id,
       Tasks:[]
     };
-    console.log('BOARD ID',column)
     dispatch(getAllColumns(column));
     // dispatch(deleteBoard(column));
     history.push(BOARD_WINDOW.replace(':id', `${column?.id}`))
@@ -78,18 +77,20 @@ const WorkSpace = () => {
         <div className={styles.board_wrapper}
         // onClick={() => { history.push("/user") }}
         >
-          {userBoardArray.map(board => <div className={styles.board}>
+          {userBoardArray.map(board => <div className={styles.board} key={board.id}>
             <div className={styles.close_button_wrapper}>
               <a onClick={() => deleteOneBoard(board.id)}>
                 <img src={closeButton} className={styles.close_button} alt='delete'></img>
               </a>
             </div>
+
             <p className={styles.board__title}
               // onClick={() => (getAllColumnsClick(board.id), { history.push(BOARD_WINDOW) })}
               onClick={() => getAllColumnsClick(board.id)}
             >
               {board.title}
               </p>
+              
           </div>
           )}
         </div>

@@ -34,6 +34,19 @@ export interface ILogUser {
   file?: string | Blob,
 }
 
+export interface IColumnIndex {
+  columnIndex: number 
+}
+export interface ITaskIndex {
+  taskIndex: number
+}
+
+export interface ITaskUpdate {
+  columnIndex: IColumnIndex,
+  taskIndex: ITaskIndex,
+  task: ITask
+}
+
 export interface IUserState {
   user: IUser,
   auth: boolean,
@@ -56,7 +69,7 @@ export interface IColumn {
   position?: number | null,
   boardId?: number | null,
   clickBoardId?: number | null | string,
-  Tasks: ITask[]
+  Tasks?: ITask[]
 }
 export interface IColumnRequest {
   id: number | null,
@@ -66,7 +79,7 @@ export interface ITask {
   id?: number | undefined,
   title?: string | null,
   position?: number | null,
-  description?: string | null,
+  description?: string | undefined,
   columnId?: number | undefined,
   priority?: number | null,
 }

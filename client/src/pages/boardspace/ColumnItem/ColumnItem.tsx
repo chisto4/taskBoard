@@ -1,17 +1,18 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
-import { IColumn, ITask } from '../../../types/types';
+import { IColumn, IColumnIndex, ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 import TaskList from '../TaskList/TaskList';
 import deleteButton from '../../../icon/deleteAll.png';
 
 
-interface Props{
+interface Props {
   column: IColumn;
-} 
+  columnIndex: IColumnIndex
+}
 
-const ColumnItem: React.FC<Props> = ({column}) => {
+const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
 
   const [titleTask, setTitleTask] = useState('');
   const [positionTask, setPositionTask] = useState(null);
@@ -39,7 +40,6 @@ const ColumnItem: React.FC<Props> = ({column}) => {
   const deleteOneColumn = (id: number | undefined) => {
     const column: IColumn = {
       id: id,
-      Tasks:[]
     };
     console.log('BdfgsdgsD ID', column)
     dispatch(deleteColumn(column));
@@ -52,33 +52,31 @@ const ColumnItem: React.FC<Props> = ({column}) => {
 
   return (
     <div className={styles.OneColumn}>
-    <div className={styles.column__title}>
-    {column.title}
-  </div>
+      <div className={styles.column__title}>
+        {column.title}
+      </div>
 
+      {column.Tasks && <TaskList  tasks={column.Tasks} columnIndex={columnIndex}/>}
 
+      <form
+        onSubmit={(e) => craetNewTaskForm(e, column.id)}
+        className={styles.new_task_input_form}>
+        <input
+          onChange={(e) => setTitleTask(e.target.value)}
+          name='name' required
+          value={titleTask}
+          type="text"
+          placeholder='`New task'
+        />
+      </form >
 
-    <TaskList Tasks={column.Tasks}/>
+      <div className={styles.delete_oneColumn_button_wrapper}>
+        <a onClick={() => deleteOneColumn(column.id)}>
+          <img src={deleteButton} className={styles.delete_column_button} alt='delete'></img>
+        </a>
+      </div>
 
-  <form
-    onSubmit={(e) => craetNewTaskForm(e, column.id)}
-    className={styles.new_task_input_form}>
-    <input
-      onChange={(e) => setTitleTask(e.target.value)}
-      name='name' required
-      value={titleTask}
-      type="text"
-      placeholder='`New task'
-    />
-  </form >
-
-  <div className={styles.close_button_wrapper}>
-    <a onClick={() => deleteOneColumn(column.id)}>
-      <img src={deleteButton} className={styles.delete_column_button} alt='delete'></img>
-    </a>
-  </div>
-
-</div>  )
+    </div>)
 }
 
 export default ColumnItem

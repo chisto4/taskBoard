@@ -1,4 +1,4 @@
-import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest } from "../../types/types";
+import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest, ITaskUpdate } from "../../types/types";
 
 
 export enum actions {
@@ -70,11 +70,11 @@ export type ActionsDeleteColumn = {
 
 export type ActionsCreateTask = {
   type: actions.CREATE_TASK,
-  payload: ITask
+  payload: any
 }
 export type ActionsUpdateTask = {
   type: actions.UPDATE_TASK,
-  payload: ITask
+  payload: ITaskUpdate
 }
 export type ActionsGetAllTask = {
   type: actions.GET_ALL_TASK,

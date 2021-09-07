@@ -4,7 +4,7 @@ ActionsGetOneBoard, ActionsDeleteBoard, ActionsCreateColumn, ActionsUpdateColumn
 ActionsGetAllColumn, ActionsGetOneColumn, ActionsDeleteColumn, ActionsCreateTask,
 ActionsUpdateTask, ActionsGetAllTask, ActionsGetOneTask, ActionsDeleteTask, ActionsChoiceBoard
         } from './constansBoard';
-import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest } from "../../types/types";
+import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest, ITaskIndex, IColumnIndex } from "../../types/types";
 
 export const actionsCreateBoard = (board: IBoard): ActionsCreateBoard => ({
   type: actions.CREATE_BOARD,
@@ -54,11 +54,12 @@ export const actionsDeleteColumn = (column: IColumn): ActionsDeleteColumn => ({
 
 export const actionsCreateTask = (task: ITask): ActionsCreateTask => ({
   type: actions.CREATE_TASK,
-  payload: task,
+  payload: task, 
 })
-export const actionsUpdateTask = (task: ITask): ActionsUpdateTask => ({
+export const actionsUpdateTask = (task: ITask, taskIndex: ITaskIndex, columnIndex: IColumnIndex): ActionsUpdateTask => ({
   type: actions.UPDATE_TASK,
-  payload: task,
+          //@ts-ignore
+  payload: task, taskIndex, columnIndex,
 })
 export const actionsGetAllTask = (task: ITask[]): ActionsGetAllTask => ({
   type: actions.GET_ALL_TASK,

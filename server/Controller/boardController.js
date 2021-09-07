@@ -255,7 +255,7 @@ class BoardController {
   async updateTask(req, res) {
     try {
       const { id } = req.user
-      const { taskId, title, position, columnId, description, priority } = req.body
+      const { id: taskId, title, position, columnId, description, priority } = req.body
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })
       }

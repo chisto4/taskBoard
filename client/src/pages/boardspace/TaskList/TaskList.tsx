@@ -1,20 +1,22 @@
+import { useEffect } from 'react';
 import { useAppSelector } from '../../../store/reducers';
-import { ITask } from '../../../types/types';
+import { IColumnIndex, ITask, ITaskIndex } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 import TaskItem from '../TaskItem/TaskItem';
 
 interface Props {
-Tasks: ITask[]
+tasks?: ITask[],
+columnIndex: IColumnIndex
 }
 
-const TaskList: React.FC<Props> = ({Tasks}) => {
-
-
+const TaskList: React.FC<Props> = ({tasks, columnIndex}) => {
   return(
     <div className={styles.task_wrapper}>
-      {/* {userTaskArray.filter(x => x.columnId === column.id).map(task => */}
-      {Tasks.map(task =>
-        <TaskItem task={task}/>
+      {/* {tasks?.map((task) => */}
+      {tasks?.map((task, index) =>
+        // <TaskItem task={task} />
+                //@ts-ignore
+        <TaskItem task={task} taskIndex={index} key={task.id} columnIndex={columnIndex}/>
       )}
 
     </div>

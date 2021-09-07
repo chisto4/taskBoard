@@ -10,8 +10,9 @@ const BoardItem = () => {
   return (
     <div className={styles.column_wrapper}>
       {userColumnArray.map(
-        (column => <ColumnItem column={column} />)
-      )}
+        //@ts-ignore
+        (column, index) => <ColumnItem key={column.id} column={column} columnIndex={index}/>)
+      }
     </div>
   )
 }

@@ -32,13 +32,13 @@ export const deleteBoardApi = async (board: IBoard) => {
 
 export const createColumnApi = async (column: IColumn) => {
   const res = await axios.post('/workspace/board/column', column);
-  console.log('column info creating', res.data);
+  console.log('Column info creating', res.data);
   return res.data
 };
 
 export const updateColumnApi = async (column: IColumn) => {
   const res = await axios.put('/workspace/board/column', column);
-  console.log('Board info updating', res.data);
+  console.log('Column info updating', res.data);
   return res.data
 };
 
@@ -59,13 +59,13 @@ export const deleteColumnApi = async (column: IColumn) => {
 
 export const createTaskApi = async (task: ITask) => {
   const res = await axios.post('/workspace/board/column/task', task);
-  console.log('Board info creating', res.data);
+  console.log('Task info creating', res.data);
   return res.data
 };
 
 export const updateTaskApi = async (task: ITask) => {
   const res = await axios.put('/workspace/board/column/task', task);
-  console.log('Board info updating', res.data);
+  console.log('Description info updating', res.data);
   return res.data
 };
 
