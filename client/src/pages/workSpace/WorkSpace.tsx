@@ -9,8 +9,9 @@ import Main from '../components/main/Main';
 import { useAppSelector } from '../../store/reducers';
 import { IBoard, IColumn } from '../../types/types';
 import { useDispatch } from 'react-redux';
-import { creatBoard, deleteBoard, getAllBoards, getAllColumns } from '../../store/boardReducer/boardThunk';
+import { clearAllColumns, creatBoard, deleteBoard, getAllBoards, getAllColumns } from '../../store/boardReducer/boardThunk';
 import { BOARD_WINDOW } from '../../api/const/const';
+import { actionsGetAllColumn } from '../../store/boardReducer/actionBoard';
 
 const WorkSpace = () => {
 
@@ -19,6 +20,8 @@ const WorkSpace = () => {
 
 
   const userBoardArray = useAppSelector((state) => state.board.board)
+  const loadedStateIdBoard = useAppSelector((state)=> state.board.column[0]?.boardId)
+  console.log("BOARD ID FROM COLUMN STATE", loadedStateIdBoard)
   const [titleBoard, setTitleBoard] = useState('');
 
 
@@ -36,25 +39,25 @@ const WorkSpace = () => {
    };
 
    const deleteOneBoard = (id: number | undefined) => {
-    const board: IBoard = {
+         const board: IBoard = {
       id: id,
     };
     console.log('BdfgsdgsD ID',board)
     dispatch(deleteBoard(board));
    }
-
+ 
    const getAllColumnsClick = (id: number | undefined) => {
-    const column: IColumn = {
-      id,
-      Tasks:[]
-    };
-    dispatch(getAllColumns(column));
-    // dispatch(deleteBoard(column));
-    history.push(BOARD_WINDOW.replace(':id', `${column?.id}`))
-   }
+      const column: IColumn = {
+        id,
+        Tasks:[]
+      };
+      dispatch(getAllColumns(column));
+      history.push(BOARD_WINDOW.replace(':id', `${column?.id}`))
+    }
 
   useEffect(() => {
     dispatch(getAllBoards());
+    dispatch(clearAllColumns());
   }, [dispatch])
 
   return (

@@ -35,6 +35,7 @@ const BoardSpace = () => {
       title: titleColumn,
       position: positionColumn,
       boardId: boardIdNumber,
+      Tasks: []
     }
     dispatch(creatColumn(column));
     setTitleColumn("");

@@ -54,6 +54,9 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
         case actions.GET_ALL_COLUMN:
             return { ...state, column: action.payload }
 
+        case actions.CLEARE_CASH_COLUMN:
+            return { ...state, column: [] }
+
         case actions.DELETE_COLUMN:
             return {
                 ...state,
@@ -82,13 +85,32 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
 
 
         case actions.UPDATE_TASK:
+            const newColState = state.column.slice();
+            const newTasks = newColState[action.payload.columnIndex].Tasks.slice();
+            newTasks[action.payload.taskIndex] = action.payload.task;
+            newColState[action.payload.columnIndex].Tasks = newTasks;
+
             return {
                 ...state,
-                column: {
-                    ...state.column,
-                            //@ts-ignore
-                    column,[action.payload.columnIndex]:Tasks[action.payload.taskIndex]
-                  = action.payload.task}
+                column: newColState
+                // column: [
+                //     ...state.column,
+                //     state.column[action.payload.columnIndex] = {
+                //         ...state.column[action.payload.columnIndex].Tasks,
+                //         Tasks[action.payload.taskIndex]: action.payload.task
+                //     }
+                // ]
+
+                // column: state.column.map((col, idx) => {
+                //     if (idx !== action.payload.columnIndex) return col;
+                //     return {
+                //         ...col,
+                //         Tasks: col.Tasks.map((task, index) => {
+                //             if (index !== action.payload.taskIndex) return task;
+                //             return action.payload.task
+                //         })
+                //     } 
+                // })
             }
 
         case actions.GET_ALL_TASK:

@@ -1,10 +1,10 @@
 import { createBoardApi, createColumnApi, createTaskApi, deleteBoardApi, deleteColumnApi, deleteTaskApi, getAllBoardsApi, getAllColumnsApi, getAllTaskApi, updateBoardApi, updateColumnApi, updateTaskApi } from "../../api/boardApi/boardApi";
-import { IBoard, IColumn, IColumnIndex, ITask, ITaskIndex } from "../../types/types";
+import { IBoard, IColumn, ITask } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import { actionsSetError } from "../userReducer/actionUser";
 import { actionsCreateBoard, actionsUpdateBoard, actionsGetAllBoard, actionsDeleteBoard,
         actionsCreateColumn, actionsUpdateColumn, actionsGetAllColumn, actionsDeleteColumn,
-        actionsCreateTask, actionsUpdateTask, actionsGetAllTask, actionsDeleteTask
+        actionsCreateTask, actionsUpdateTask, actionsGetAllTask, actionsDeleteTask, actionsClearColumn
 } from './actionBoard'
 
 //BOARD
@@ -60,6 +60,9 @@ export const getAllColumns = (column: IColumn) => async (dispatch: AppDispatch):
     dispatch(actionsSetError(error.message))
   }
 };
+export const clearAllColumns = () => (dispatch: AppDispatch) => {
+    dispatch(actionsClearColumn());
+};
 export const updateColumn = (column: IColumn) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await updateColumnApi(column)
@@ -96,12 +99,10 @@ export const getAllTasks = (task: ITask) => async (dispatch: AppDispatch): Promi
     dispatch(actionsSetError(error.message))
   }
 };
-export const updateTask = (task: ITask, columnIndex: IColumnIndex, taskIndex: ITaskIndex) => async (dispatch: AppDispatch): Promise<void> => {
+export const updateTask = (task: ITask, columnIndex: number, taskIndex: number) => async (dispatch: AppDispatch): Promise<void> => {
   try {
-            //@ts-ignore
     const data = await updateTaskApi(task)
-            //@ts-ignore
-    dispatch(actionsUpdateTask(data, columnIndex, taskIndex));
+    dispatch(actionsUpdateTask({task: data, columnIndex, taskIndex}));
     } catch (error: any) {
     dispatch(actionsSetError(error.message))
   }

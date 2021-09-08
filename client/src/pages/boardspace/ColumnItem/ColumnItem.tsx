@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
-import { IColumn, IColumnIndex, ITask } from '../../../types/types';
+import { IColumn, ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 import TaskList from '../TaskList/TaskList';
 import deleteButton from '../../../icon/deleteAll.png';
@@ -9,7 +9,7 @@ import deleteButton from '../../../icon/deleteAll.png';
 
 interface Props {
   column: IColumn;
-  columnIndex: IColumnIndex
+  columnIndex: number
 }
 
 const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
@@ -21,8 +21,6 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   const [taskDescription, setTaskDescription] = useState('');
 
   const dispatch = useDispatch();
-
-  // const [positionTask, setPositionTask] = useState(null);
 
   const craetNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number | undefined) => {
     const task: ITask = {
@@ -40,15 +38,11 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   const deleteOneColumn = (id: number | undefined) => {
     const column: IColumn = {
       id: id,
+      Tasks: []
     };
     console.log('BdfgsdgsD ID', column)
     dispatch(deleteColumn(column));
   }
-
-  // {userColumnArray.map(
-  //   (column => <ColumnItem column={column} />)
-  // )}
-
 
   return (
     <div className={styles.OneColumn}>

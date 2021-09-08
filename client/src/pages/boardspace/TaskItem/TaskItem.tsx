@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 
-import { IColumnIndex, ITask, ITaskIndex } from '../../../types/types';
+import { ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 import deleteTaskButton from '../../../icon/close.png';
 import descriptionTaskButton from '../../../icon/description.png';
@@ -10,8 +10,8 @@ import DescriptionTask from '../DescriptionTask/DescriptionTaskModal'
 
 interface Props {
   task:ITask,
-  taskIndex: ITaskIndex,
-  columnIndex: IColumnIndex
+  taskIndex: number,
+  columnIndex: number
 }
 
 const TaskItem: React.FC<Props> = ({task, taskIndex, columnIndex}) => {
@@ -26,9 +26,6 @@ const TaskItem: React.FC<Props> = ({task, taskIndex, columnIndex}) => {
     };
     console.log('BdfgsdgsD ID', task)
     dispatch(deleteTask(task));
-  }
-    const updateDescriptionTask = () => {
-
   }
 
   return(
@@ -55,6 +52,7 @@ const TaskItem: React.FC<Props> = ({task, taskIndex, columnIndex}) => {
             taskIndex={taskIndex}
             columnIndex={columnIndex}
             taskDescriptionValue={task.description}
+            taskTitleValue={task.title}
           />}
   </div>
 

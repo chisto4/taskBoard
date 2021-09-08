@@ -14,6 +14,7 @@ export enum actions {
   GET_ALL_COLUMN = 'GET_ALL_COLUMN',
   GET_ONE_COLUMN = 'GET_ONE_COLUMN',
   DELETE_COLUMN = 'DELETE_COLUMN',
+  CLEARE_CASH_COLUMN = 'CLEARE_CASH_COLUMN',
 
   CREATE_TASK = 'CREATE_TASK',
   UPDATE_TASK = 'UPDATE_TASK',
@@ -67,6 +68,9 @@ export type ActionsDeleteColumn = {
   type: actions.DELETE_COLUMN,
   payload: IColumn
 }
+export type ActionsClearColumnState = {
+  type: actions.CLEARE_CASH_COLUMN,
+}
 
 export type ActionsCreateTask = {
   type: actions.CREATE_TASK,
@@ -106,3 +110,4 @@ export type ActionBoard =
   | ActionsGetAllTask
   | ActionsGetOneTask
   | ActionsDeleteTask
+  | ActionsClearColumnState

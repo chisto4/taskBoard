@@ -42,8 +42,8 @@ export interface ITaskIndex {
 }
 
 export interface ITaskUpdate {
-  columnIndex: IColumnIndex,
-  taskIndex: ITaskIndex,
+  columnIndex: number,
+  taskIndex: number,
   task: ITask
 }
 
@@ -69,7 +69,7 @@ export interface IColumn {
   position?: number | null,
   boardId?: number | null,
   clickBoardId?: number | null | string,
-  Tasks?: ITask[]
+  Tasks: ITask[]
 }
 export interface IColumnRequest {
   id: number | null,
@@ -77,7 +77,7 @@ export interface IColumnRequest {
 }
 export interface ITask {
   id?: number | undefined,
-  title?: string | null,
+  title?: string | undefined,
   position?: number | null,
   description?: string | undefined,
   columnId?: number | undefined,
