@@ -272,6 +272,30 @@ class BoardController {
       console.log('Column Task not update error')
     }
   }
+  async updateTaskPosition(req, res) {
+    try {
+      const { id: tokenId } = req.user
+      const taskArr = req.body
+      if (!tokenId) {
+        return res.status(400).json({ message: "ID not found in user data" })
+      }
+      taskArr.forEach(el => 
+        
+        await db.Task.update({id, position },
+          { where: { id }})
+        )
+
+    //   const columnTask = await db.Task.findAll({
+    //     where: { columnId }
+    //   })
+    // res.status(200).json(columnTask)
+    res.status(200).json('Array was Update')
+    }
+    catch (e) {
+      console.log(e);
+      console.log('Column Task not update error')
+    }
+  }
 
   async deleteTask(req, res) {
     try {
