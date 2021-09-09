@@ -112,6 +112,24 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
                 //     } 
                 // })
             }
+            
+        case actions.REORDER_TASK:
+            const newColumnState = state.column.slice();
+            const newTaskState = newColumnState[action.payload.columnIndex].Tasks;
+            const [removed] = newTaskState.splice(action.payload.taskIndexStart, 1);
+            newTaskState.splice(action.payload.taskIndexEnd, 0, removed);
+            newColumnState[action.payload.columnIndex].Tasks = newTaskState;
+                return {
+                    ...state,
+                        column: newColumnState
+            }
+            // const reorder = (list, startIndex, endIndex) => {
+            //     const result = Array.from(list);
+            //     const [removed] = result.splice(startIndex, 1);
+            //     result.splice(endIndex, 0, removed);
+              
+            //     return result;
+            //   };
 
         case actions.GET_ALL_TASK:
             return { ...state, task: action.payload }

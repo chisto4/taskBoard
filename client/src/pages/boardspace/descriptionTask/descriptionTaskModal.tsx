@@ -5,6 +5,7 @@ import deleteTaskButton from '../../../icon/close.png';
 import { ITask } from '../../../types/types';
 import { useDispatch } from 'react-redux';
 import { updateTask } from '../../../store/boardReducer/boardThunk';
+import { useAppSelector } from '../../../store/reducers';
 
 
 interface Props {
@@ -19,6 +20,7 @@ interface Props {
 const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIndex,
   columnIndex, taskDescriptionValue, taskTitleValue}) => {
 
+
   const dispatch = useDispatch();
 
   const [taskDescription, setTaskDescription] = useState(taskDescriptionValue);
@@ -27,7 +29,7 @@ const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIn
     const task: ITask = {
       id: taskId,
       description: taskDescription,
-      title: taskTitle
+      title: taskTitle,
     }
     dispatch(updateTask( task, columnIndex, taskIndex ))
     setVisionDescription(false)

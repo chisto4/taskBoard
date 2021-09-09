@@ -23,9 +23,7 @@ const BoardSpace = () => {
 
   const dispatch = useDispatch();
 
-  const activeBoard = useAppSelector((state) => state.board.clickBoardId)
-
-  const [titleColumn, setTitleColumn] = useState('');
+ const [titleColumn, setTitleColumn] = useState('');
   const [positionColumn, setPositionColumn] = useState(null);
 
 

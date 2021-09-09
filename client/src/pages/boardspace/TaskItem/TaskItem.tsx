@@ -9,6 +9,7 @@ import deleteTaskButton from '../../../icon/close.png';
 import descriptionTaskButton from '../../../icon/description.png';
 import { deleteTask } from '../../../store/boardReducer/boardThunk';
 import DescriptionTask from '../DescriptionTask/DescriptionTaskModal'
+import { useAppSelector } from '../../../store/reducers';
 
 interface Props {
   task: ITask,
@@ -18,14 +19,10 @@ interface Props {
 
 const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
 
+  // const taskPosiotion = useAppSelector((state) => state.board.column[taskIndex].Tasks[taskIndex].position)
+
   const dispatch = useDispatch();
   const [visionDescription, setVisionDescription] = useState(false);
-
-  const [currentColumn, setCurrentColumn] = useState(null)
-  const [currentTask, setCurrentTask] = useState(null)
-  const [currentColumnIndex, setCurentColumnIndex] = useState(null)
-  const [currentTaskIndex, setCurentTaskIndex] = useState(null)
-
 
   const deleteOneTask = (id: number | undefined) => {
     const task: ITask = {
@@ -34,14 +31,6 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
     console.log('BdfgsdgsD ID', task)
     dispatch(deleteTask(task));
   }
-
-  // const dragStartHeandler = (event, task.id, task.columnId, columnIndex, taskIndex ) => {
-  //   setCurrentColumn(task.columnId)
-  //   setCurrentTask(task.id)
-  //   setCurentColumnIndex(columnIndex)
-  //   setCurentTaskIndex(taskIndex)
-  //   event.prevent.Default()
-  // }
 
   return (
     <Draggable key={task.id} draggableId={`${task.id}`} index={taskIndex}>
@@ -53,7 +42,6 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             ref={provided.innerRef}
-
             style={{ ...provided.draggableProps.style }}
 
           // onDragStart={(event) => dragStartHeandler(event, task.id, task.columnId)}

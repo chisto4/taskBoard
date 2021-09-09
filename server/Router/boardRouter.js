@@ -26,6 +26,7 @@ boardRouter.post('/board/column/task', auth.tokenModule, boardController.createT
 boardRouter.get('/board/column/tasks/:id', auth.tokenModule, boardController.getAllTasks);
 boardRouter.get('/board/column/task', auth.tokenModule, boardController.getOneTask);
 boardRouter.put('/board/column/task', auth.tokenModule, boardController.updateTask);
+boardRouter.put('/board/column/tasks', auth.tokenModule, boardController.updateTaskPosition);
 boardRouter.delete('/board/column/task', auth.tokenModule, boardController.deleteTask);
 
 // userRouter.post('/login/',

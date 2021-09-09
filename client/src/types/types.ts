@@ -34,6 +34,13 @@ export interface ILogUser {
   file?: string | Blob,
 }
 
+export interface IUpdateTaskIndex {
+  taskIndexStart: number, 
+  taskIndexEnd: number, 
+  columnIndex: number,
+  task: ITask
+
+}
 export interface IColumnIndex {
   columnIndex: number 
 }
@@ -76,11 +83,11 @@ export interface IColumnRequest {
   boardId?: number | null,
 }
 export interface ITask {
-  id?: number | undefined,
-  title?: string | undefined,
-  position?: number | null,
-  description?: string | undefined,
-  columnId?: number | undefined,
+  id?: number,
+  title?: string,
+  position?: number,
+  description?: string,
+  columnId?: number,
   priority?: number | null,
 }
 export interface ITaskRequest {

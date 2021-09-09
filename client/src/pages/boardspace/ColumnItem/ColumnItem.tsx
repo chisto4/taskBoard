@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import {  Droppable } from 'react-beautiful-dnd';
+import { Droppable } from 'react-beautiful-dnd';
 
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
 import { IColumn, ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 import TaskList from '../TaskList/TaskList';
 import deleteButton from '../../../icon/deleteAll.png';
+import { useAppSelector } from '../../../store/reducers';
 
 
 interface Props {
@@ -17,8 +18,16 @@ interface Props {
 
 const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
 
+  const columnArr = useAppSelector((state) => state.board.column[columnIndex].Tasks?.length)
+  const arrLenth = () => {
+    if (!columnArr) {
+      return 0
+    }
+    return columnArr
+  }
+
+
   const [titleTask, setTitleTask] = useState('');
-  const [positionTask, setPositionTask] = useState(null);
   const [priorityTask, setPriorityTask] = useState(null);
   const [taskColumnId, setColumnId] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
@@ -28,7 +37,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   const craetNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number | undefined) => {
     const task: ITask = {
       title: titleTask,
-      position: positionTask,
+      position: arrLenth(),
       priority: priorityTask,
       description: taskDescription,
       columnId: id,
@@ -48,7 +57,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   }
 
   return (
-    <Droppable key={columnIndex} droppableId={`${columnIndex}`} type='column'>
+    <Droppable key={columnIndex} droppableId={`${columnIndex} ${column.id}`} type='column'>
       {(provided) => (
         <div className={styles.OneColumn}
           // draggable={true}
@@ -59,7 +68,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
             {column.title}
           </div>
 
-          {column.Tasks && <TaskList  tasks={column.Tasks} columnIndex={columnIndex}/>}
+          {column.Tasks && <TaskList tasks={column.Tasks} columnIndex={columnIndex} />}
 
           <form
             onSubmit={(e) => craetNewTaskForm(e, column.id)}
@@ -82,7 +91,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
         </div>
       )}
     </Droppable>
-    )
+  )
 }
 
 export default ColumnItem

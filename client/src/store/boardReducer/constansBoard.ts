@@ -1,4 +1,4 @@
-import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest, ITaskUpdate } from "../../types/types";
+import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest, ITaskUpdate, IUpdateTaskIndex } from "../../types/types";
 
 
 export enum actions {
@@ -18,6 +18,7 @@ export enum actions {
 
   CREATE_TASK = 'CREATE_TASK',
   UPDATE_TASK = 'UPDATE_TASK',
+  REORDER_TASK = 'REORDER_TASK',
   GET_ALL_TASK = 'GET_ALL_TASK',
   GET_ONE_TASK = 'GET_ONE_TASK',
   DELETE_TASK = 'DELETE_TASK',
@@ -80,6 +81,10 @@ export type ActionsUpdateTask = {
   type: actions.UPDATE_TASK,
   payload: ITaskUpdate
 }
+export type ActionsReorderTask = {
+  type: actions.REORDER_TASK,
+  payload: IUpdateTaskIndex
+}
 export type ActionsGetAllTask = {
   type: actions.GET_ALL_TASK,
   payload: ITask[]
@@ -111,3 +116,4 @@ export type ActionBoard =
   | ActionsGetOneTask
   | ActionsDeleteTask
   | ActionsClearColumnState
+  | ActionsReorderTask

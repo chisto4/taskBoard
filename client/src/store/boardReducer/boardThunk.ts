@@ -4,7 +4,7 @@ import { AppDispatch } from "../reducers";
 import { actionsSetError } from "../userReducer/actionUser";
 import { actionsCreateBoard, actionsUpdateBoard, actionsGetAllBoard, actionsDeleteBoard,
         actionsCreateColumn, actionsUpdateColumn, actionsGetAllColumn, actionsDeleteColumn,
-        actionsCreateTask, actionsUpdateTask, actionsGetAllTask, actionsDeleteTask, actionsClearColumn
+        actionsCreateTask, actionsUpdateTask, actionsGetAllTask, actionsDeleteTask, actionsClearColumn, actionsReorderTaskIndex
 } from './actionBoard'
 
 //BOARD
@@ -84,7 +84,6 @@ export const deleteColumn = (column: IColumn) => async (dispatch: AppDispatch): 
 export const creatTask = (task: ITask) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data: ITask = await createTaskApi(task)
-    console.log('PISUN1', data);
     
     dispatch(actionsCreateTask(data));
     } catch (error: any) {
@@ -107,6 +106,15 @@ export const updateTask = (task: ITask, columnIndex: number, taskIndex: number) 
     dispatch(actionsSetError(error.message))
   }
 };
+export const reorderTask = (task:ITask, taskIndexStart: number, taskIndexEnd: number, columnIndex: number) => async (dispatch: AppDispatch): Promise<void> => {
+try {
+    await updateTaskApi(task)  
+    dispatch(actionsReorderTaskIndex({task, taskIndexStart, taskIndexEnd, columnIndex}));
+  } catch(error: any) {
+    dispatch(actionsSetError(error.message))
+  }
+};
+
 export const deleteTask = (task: ITask) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     await deleteTaskApi(task)

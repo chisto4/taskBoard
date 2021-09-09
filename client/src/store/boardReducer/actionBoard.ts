@@ -2,9 +2,11 @@
 import { actions, ActionsCreateBoard, ActionsUpdateBoard, ActionsGetAllBoard,
 ActionsGetOneBoard, ActionsDeleteBoard, ActionsCreateColumn, ActionsUpdateColumn,
 ActionsGetAllColumn, ActionsGetOneColumn, ActionsDeleteColumn, ActionsCreateTask,
-ActionsUpdateTask, ActionsGetAllTask, ActionsGetOneTask, ActionsDeleteTask, ActionsChoiceBoard, ActionsClearColumnState
+ActionsUpdateTask, ActionsGetAllTask, ActionsGetOneTask, ActionsDeleteTask, 
+ActionsChoiceBoard, ActionsClearColumnState, ActionsReorderTask
         } from './constansBoard';
-import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest, ITaskUpdate } from "../../types/types";
+import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest,
+   ITaskRequest, ITaskUpdate, IUpdateTaskIndex } from "../../types/types";
 
 export const actionsCreateBoard = (board: IBoard): ActionsCreateBoard => ({
   type: actions.CREATE_BOARD,
@@ -63,6 +65,13 @@ export const actionsUpdateTask = ({task, taskIndex, columnIndex}: ITaskUpdate): 
   type: actions.UPDATE_TASK,
   payload: {task, taskIndex, columnIndex},
 })
+
+
+export const actionsReorderTaskIndex = ({task, taskIndexStart, taskIndexEnd, columnIndex}: IUpdateTaskIndex): ActionsReorderTask => ({
+  type: actions.REORDER_TASK,
+  payload: {task, taskIndexStart, taskIndexEnd, columnIndex},
+})
+
 export const actionsGetAllTask = (task: ITask[]): ActionsGetAllTask => ({
   type: actions.GET_ALL_TASK,
   payload: task,
