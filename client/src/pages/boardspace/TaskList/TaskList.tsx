@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 import { useAppSelector } from '../../../store/reducers';
 import { ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
@@ -6,10 +7,11 @@ import TaskItem from '../TaskItem/TaskItem';
 
 interface Props {
   tasks?: ITask[],
-  columnIndex: number
+  columnIndex: number,
+  columnID?: number
 }
 
-const TaskList: React.FC<Props> = ({ tasks, columnIndex }) => {
+const TaskList: React.FC<Props> = ({ tasks, columnIndex, columnID }) => {
   const sortArr = tasks?.sort((a, b) => {
     if(!a.position || !b.position) return 0
     if (a.position > b.position) return 1
@@ -24,9 +26,18 @@ const TaskList: React.FC<Props> = ({ tasks, columnIndex }) => {
 
 
   return (
-    <div className={styles.task_wrapper}>
-      {content}
-    </div>
+    <Droppable key={columnIndex} droppableId={`${columnIndex} ${columnID}`} >
+      {(provided) => (
+      <div className={styles.task_wrapper}
+      {...provided.droppableProps}
+      ref={provided.innerRef}
+      >
+        {content}
+        {provided.placeholder}
+      </div>
+      )}
+    </Droppable>
+
   )
 }
 

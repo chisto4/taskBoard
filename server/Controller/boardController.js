@@ -132,6 +132,7 @@ class BoardController {
               // attributes: ['id', 'boardId', 'position', 'title']
           }
       ],
+      order:[[db.Task, 'position', 'ASC']  ]
       // attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
       })
       res.status(200).json(boardColumns)
@@ -164,16 +165,22 @@ class BoardController {
 
   async updateColumn(req, res) {
     try {
-      const { id } = req.user
-      const { columnId, title, position } = req.body
-      if (!id) {
+      const { id: tokenId } = req.user
+      const { id, title, position } = req.body
+      if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       await db.Column.update({ title, position },
-        { where: { id: columnId } });
+        { where: { id } });
 
       const userColumn = await db.Column.findOne({
-        where: { id: columnId }
+        where: { id }, 
+        include: [
+          {
+              model: db.Task,
+          }
+      ],
+      order:[[db.Task, 'position', 'ASC']  ]
       })
     res.status(200).json(userColumn)
     }
@@ -272,19 +279,21 @@ class BoardController {
       console.log('Column Task not update error')
     }
   }
+
+
   async updateTaskPosition(req, res) {
     try {
       const { id: tokenId } = req.user
-      const taskArr = req.body
+      const task = req.body
+      console.log('body', req.body)
       if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      taskArr.forEach(el => 
-        
-        await db.Task.update({id, position },
-          { where: { id }})
+      task.forEach(async(el) => {
+        await db.Task.update({ position: el.position, columnId: el.columnId },
+          { where: { id: el.id }})
+        }
         )
-
     //   const columnTask = await db.Task.findAll({
     //     where: { columnId }
     //   })
@@ -296,6 +305,7 @@ class BoardController {
       console.log('Column Task not update error')
     }
   }
+
 
   async deleteTask(req, res) {
     try {

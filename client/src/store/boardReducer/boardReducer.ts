@@ -51,6 +51,8 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
                 })
             }
 
+        // case action.UPDATE_COLUMN_ARR
+
         case actions.GET_ALL_COLUMN:
             return { ...state, column: action.payload }
 
@@ -115,9 +117,9 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
             
         case actions.REORDER_TASK:
             const newColumnState = state.column.slice();
-            const newTaskState = newColumnState[action.payload.columnIndex].Tasks;
-            const [removed] = newTaskState.splice(action.payload.taskIndexStart, 1);
-            newTaskState.splice(action.payload.taskIndexEnd, 0, removed);
+            const newTaskState = newColumnState[action.payload.columnIndex].Tasks = action.payload.task;
+            // const [removed] = newTaskState.splice(action.payload.taskIndexStart, 1);
+            // newTaskState.splice(action.payload.taskIndexEnd, 0, removed);
             newColumnState[action.payload.columnIndex].Tasks = newTaskState;
                 return {
                     ...state,

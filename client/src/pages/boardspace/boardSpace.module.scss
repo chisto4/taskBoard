@@ -101,12 +101,15 @@ z-index: 10;
   height:10px;
   cursor: pointer;
 }
-
+.task_list_drop{
+  height:100%;
+}
 .task_wrapper{
   // overflow-y: auto;
   overflow: scroll;
   flex:auto;
   height: 100%;
+  width: 100%;
 }
 
 .task_style {

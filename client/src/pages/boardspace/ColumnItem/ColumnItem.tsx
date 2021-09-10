@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
 
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
 import { IColumn, ITask } from '../../../types/types';
@@ -57,40 +57,47 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   }
 
   return (
-    <Droppable key={columnIndex} droppableId={`${columnIndex} ${column.id}`} type='column'>
+    <Draggable key={columnIndex} draggableId={`${column.id}`} index={columnIndex}>
       {(provided) => (
         <div className={styles.OneColumn}
-          // draggable={true}
-          {...provided.droppableProps}
-          ref={provided.innerRef}
+        {...provided.draggableProps}
+        {...provided.dragHandleProps}
+        style={{ ...provided.draggableProps.style }}
+        ref={provided.innerRef}
         >
-          <div className={styles.column__title}>
+          <div className={styles.column__title}
+          >
             {column.title}
           </div>
 
-          {column.Tasks && <TaskList tasks={column.Tasks} columnIndex={columnIndex} />}
 
-          <form
-            onSubmit={(e) => craetNewTaskForm(e, column.id)}
-            className={styles.new_task_input_form}>
-            <input
-              onChange={(e) => setTitleTask(e.target.value)}
-              name='name' required
-              value={titleTask}
-              type="text"
-              placeholder='`New task'
-            />
-          </form >
+          {/* <div
+          className={styles.task_list_drop}
+        > */}
+            {column.Tasks && <TaskList tasks={column.Tasks} columnIndex={columnIndex} columnID={column.id} />}
+          {/* </div> */}
 
-          <div className={styles.delete_oneColumn_button_wrapper}>
-            <a onClick={() => deleteOneColumn(column.id)}>
-              <img src={deleteButton} className={styles.delete_column_button} alt='delete'></img>
-            </a>
+            <form
+              onSubmit={(e) => craetNewTaskForm(e, column.id)}
+              className={styles.new_task_input_form}>
+              <input
+                onChange={(e) => setTitleTask(e.target.value)}
+                name='name' required
+                value={titleTask}
+                type="text"
+                placeholder='`New task'
+              />
+            </form >
+
+            <div className={styles.delete_oneColumn_button_wrapper}>
+              <a onClick={() => deleteOneColumn(column.id)}>
+                <img src={deleteButton} className={styles.delete_column_button} alt='delete'></img>
+              </a>
+            </div>
           </div>
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
+
+        )}
+          </Draggable >
   )
 }
 

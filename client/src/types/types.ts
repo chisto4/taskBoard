@@ -38,7 +38,7 @@ export interface IUpdateTaskIndex {
   taskIndexStart: number, 
   taskIndexEnd: number, 
   columnIndex: number,
-  task: ITask
+  task: ITask[]
 
 }
 export interface IColumnIndex {

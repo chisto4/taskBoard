@@ -1,4 +1,4 @@
-import { createBoardApi, createColumnApi, createTaskApi, deleteBoardApi, deleteColumnApi, deleteTaskApi, getAllBoardsApi, getAllColumnsApi, getAllTaskApi, updateBoardApi, updateColumnApi, updateTaskApi } from "../../api/boardApi/boardApi";
+import { createBoardApi, createColumnApi, createTaskApi, deleteBoardApi, deleteColumnApi, deleteTaskApi, getAllBoardsApi, getAllColumnsApi, getAllTaskApi, updateBoardApi, updateColumnApi, updateTaskApi, updateTaskPositionApi } from "../../api/boardApi/boardApi";
 import { IBoard, IColumn, ITask } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import { actionsSetError } from "../userReducer/actionUser";
@@ -98,7 +98,8 @@ export const getAllTasks = (task: ITask) => async (dispatch: AppDispatch): Promi
     dispatch(actionsSetError(error.message))
   }
 };
-export const updateTask = (task: ITask, columnIndex: number, taskIndex: number) => async (dispatch: AppDispatch): Promise<void> => {
+export const updateTask = (task: ITask, columnIndex: number, 
+  taskIndex: number) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await updateTaskApi(task)
     dispatch(actionsUpdateTask({task: data, columnIndex, taskIndex}));
@@ -106,10 +107,11 @@ export const updateTask = (task: ITask, columnIndex: number, taskIndex: number) 
     dispatch(actionsSetError(error.message))
   }
 };
-export const reorderTask = (task:ITask, taskIndexStart: number, taskIndexEnd: number, columnIndex: number) => async (dispatch: AppDispatch): Promise<void> => {
-try {
-    await updateTaskApi(task)  
+export const reorderTask = (task:ITask[], taskIndexStart: number, taskIndexEnd: number, columnIndex: number) => 
+  async (dispatch: AppDispatch): Promise<void> => {
     dispatch(actionsReorderTaskIndex({task, taskIndexStart, taskIndexEnd, columnIndex}));
+try {
+    await updateTaskPositionApi(task)  
   } catch(error: any) {
     dispatch(actionsSetError(error.message))
   }
