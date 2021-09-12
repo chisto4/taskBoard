@@ -12,6 +12,13 @@ interface Props {
 }
 
 const TaskList: React.FC<Props> = ({ tasks, columnIndex, columnID }) => {
+  // let content: JSX.Element[] = []
+  // if(!tasks){
+  //   const createArrTask: ITask[] = []
+  //     content = createArrTask.map((task, index) =>
+  //   // <TaskItem task={task} />
+  //   <TaskItem task={task} taskIndex={index} key={task.id} columnIndex={columnIndex} />
+  //   )}
   const sortArr = tasks?.sort((a, b) => {
     if(!a.position || !b.position) return 0
     if (a.position > b.position) return 1
@@ -19,7 +26,7 @@ const TaskList: React.FC<Props> = ({ tasks, columnIndex, columnID }) => {
     return 0
   })
 
-  const content = sortArr?.map((task, index) =>
+   const content = sortArr?.map((task, index) =>
     // <TaskItem task={task} />
     <TaskItem task={task} taskIndex={index} key={task.id} columnIndex={columnIndex} />
   )

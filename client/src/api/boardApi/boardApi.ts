@@ -38,8 +38,14 @@ export const createColumnApi = async (column: IColumn) => {
 
 export const updateColumnApi = async (column: IColumn) => {
   const res = await axios.put('/workspace/board/column', column);
-  console.log('UPDAITE COLUMN INFO', res.data);
+  console.log('UPDATE COLUMN INFO', res.data);
   return column
+};
+
+export const updateIndexColumnApi = async (column: IColumn[]) => {
+  const res = await axios.put('/workspace/board/columns', column);
+  console.log('UPDATE INDEX COLUMN INFO', res.data);
+  return res.data
 };
 
 export const getAllColumnsApi = async (column: IColumn) => {

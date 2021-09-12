@@ -20,6 +20,7 @@ boardRouter.post('/board/column', auth.tokenModule, boardController.createColumn
 boardRouter.get('/board/columns/:id', auth.tokenModule, boardController.getAllColumns);
 boardRouter.get('/board/column', auth.tokenModule, boardController.getOneColumn);
 boardRouter.put('/board/column', auth.tokenModule, boardController.updateColumn);
+boardRouter.put('/board/columns', auth.tokenModule, boardController.updateColumnPosition);
 boardRouter.delete('/board/column', auth.tokenModule, boardController.deleteColumn);
 
 boardRouter.post('/board/column/task', auth.tokenModule, boardController.createTask);

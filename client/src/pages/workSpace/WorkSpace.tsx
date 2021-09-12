@@ -20,8 +20,8 @@ const WorkSpace = () => {
 
 
   const userBoardArray = useAppSelector((state) => state.board.board)
-  const loadedStateIdBoard = useAppSelector((state)=> state.board.column[0]?.boardId)
-  console.log("BOARD ID FROM COLUMN STATE", loadedStateIdBoard)
+  // const loadedStateIdBoard = useAppSelector((state)=> state.board.column[0]?.boardId)
+  // console.log("BOARD ID FROM COLUMN STATE", loadedStateIdBoard)
   const [titleBoard, setTitleBoard] = useState('');
 
 
@@ -42,7 +42,6 @@ const WorkSpace = () => {
          const board: IBoard = {
       id: id,
     };
-    console.log('BdfgsdgsD ID',board)
     dispatch(deleteBoard(board));
    }
  

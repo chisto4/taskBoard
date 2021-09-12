@@ -73,7 +73,7 @@ export interface IBoardRequest {
 export interface IColumn {
   id?: number | undefined,
   title?: string | null,
-  position?: number | null,
+  position: number,
   boardId?: number | null,
   clickBoardId?: number | null | string,
   Tasks: ITask[]
@@ -100,4 +100,8 @@ export interface IBoardState {
   column: IColumn[],
   task: ITask[],
   clickBoardId?: number | undefined,
+}
+
+export interface IUseParams {
+  id: string;
 }

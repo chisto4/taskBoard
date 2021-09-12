@@ -51,6 +51,12 @@ export const boardReducer = (state = initialState, action: ActionBoard): IBoardS
                 })
             }
 
+        case actions.UPDATE_INDEX_COLUMN:
+            return {
+                ...state,
+                column: action.payload
+            }
+
         // case action.UPDATE_COLUMN_ARR
 
         case actions.GET_ALL_COLUMN:

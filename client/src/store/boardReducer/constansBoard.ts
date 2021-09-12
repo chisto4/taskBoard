@@ -11,6 +11,7 @@ export enum actions {
 
   CREATE_COLUMN = 'CREATE_COLUMN',
   UPDATE_COLUMN = 'UPDATE_COLUMN',
+  UPDATE_INDEX_COLUMN = 'UPDATE_INDEX_COLUMN',
   GET_ALL_COLUMN = 'GET_ALL_COLUMN',
   GET_ONE_COLUMN = 'GET_ONE_COLUMN',
   DELETE_COLUMN = 'DELETE_COLUMN',
@@ -56,6 +57,10 @@ export type ActionsCreateColumn = {
 export type ActionsUpdateColumn = {
   type: actions.UPDATE_COLUMN,
   payload: IColumn
+}
+export type ActionsUpdateIndexColumn = {
+  type: actions.UPDATE_INDEX_COLUMN,
+  payload: IColumn[]
 }
 export type ActionsGetAllColumn = {
   type: actions.GET_ALL_COLUMN,
@@ -117,3 +122,4 @@ export type ActionBoard =
   | ActionsDeleteTask
   | ActionsClearColumnState
   | ActionsReorderTask
+  | ActionsUpdateIndexColumn

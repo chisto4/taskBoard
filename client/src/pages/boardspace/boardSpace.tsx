@@ -1,26 +1,18 @@
 import React, { useState } from 'react';
-import styles from './boardSpace.module.scss';
-import deleteButton from '../../icon/deleteAll.png';
-import deleteTaskButton from '../../icon/close.png';
-
-import { useEffect } from 'react';
-
-import Main from '../components/main/Main';
-import { useAppSelector } from '../../store/reducers';
-import { IColumn, ITask } from '../../types/types';
-import { useLocation, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { creatColumn, creatTask, deleteColumn, deleteTask, getAllColumns, getAllTasks, reorderTask } from '../../store/boardReducer/boardThunk';
-import BoardItem from './BoardItem/BoardItem';
 import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
+import styles from './boardSpace.module.scss';
+import { IColumn, ITask, IUseParams } from '../../types/types';
+import { useAppSelector } from '../../store/reducers';
+import { creatColumn, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
 
-interface IUseParams {
-  id: string;
-}
+import Main from '../components/main/Main';
+import BoardItem from './BoardItem/BoardItem';
 
 const BoardSpace = () => {
-  const useBoardId = useParams<IUseParams>()
+  const useBoardId:IUseParams  = useParams()
   const boardIdNumber = Number(useBoardId.id)
 
   const dispatch = useDispatch();
@@ -28,13 +20,19 @@ const BoardSpace = () => {
  const [titleColumn, setTitleColumn] = useState('');
   const [positionColumn, setPositionColumn] = useState(null);
   const userColumnArray = useAppSelector((state) => state.board.column)
+  const arrLenth = () => {
+    if (!userColumnArray) {
+      return 0
+    }
+    return userColumnArray.length
+  }
 
 
 
-  const craetNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
+  const creatNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
     const column: IColumn = {
       title: titleColumn,
-      position: positionColumn,
+      position: arrLenth(),
       boardId: boardIdNumber,
       Tasks: []
     }
@@ -121,8 +119,29 @@ const BoardSpace = () => {
         // dispatch(reorderColumn(column))
       }
     } else     if(type === 'column'){
-      console.log('VOT TUT', result)
+      const boardID = Number((destination.droppableId));
+      const columnID = Number(draggableId);
+      const startColumnIndex = source.index;
+      const endColumnIndex = destination.index;
+      // console.log('VOT TUT', result, boardID, columnID, startColumnIndex, endColumnIndex);
 
+      const allColumnState = userColumnArray.slice();
+      // const newTaskState = allColumnState[columnIndexEnd].Tasks;
+      const [removed] = allColumnState.splice(startColumnIndex, 1);
+      allColumnState.splice(endColumnIndex, 0, removed);
+
+      // allColumnState[columnIndexEnd].Tasks = newTaskState;
+      const sortColumnArr = allColumnState.map((item, index) => item = {
+        id: item.id,
+        title: item.title,
+        position: index,
+        boardId: item.boardId,
+        Tasks: item.Tasks,
+      })
+      console.log('VOT TUT 2', sortColumnArr);
+
+      // const column: IColumn[] = sortColumnArr
+      dispatch(updateIndexColumn(sortColumnArr))
     }
 
   }
@@ -131,7 +150,7 @@ const BoardSpace = () => {
     <Main>
       <div className={styles.columnSpace}>
         <div className={styles.new_column_input_wrapper}>
-          <form onSubmit={craetNewColumnForm} className={styles.header_input_form}>
+          <form onSubmit={creatNewColumnForm} className={styles.header_input_form}>
             <input
               onChange={(e) => setTitleColumn(e.target.value)}
               name='board' required

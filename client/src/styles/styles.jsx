@@ -1,4 +1,10 @@
 
 //COLOR
+const WHITE = '#ebecf0';
 
-bcakground.color = black;
+export const globalStyles = () => {
+  if(){
+    background: WHITE;
+
+  }
+}

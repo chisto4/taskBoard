@@ -29,8 +29,6 @@ const UserPage: React.FC = (): JSX.Element => {
   const image = useAppSelector((state) => state.user.user.Image)
   // const imageIdstate = useAppSelector((state) => state.user.user)
   const imageIdstate = useAppSelector((state) => state)
-  console.log('tut padaet', image)
-  console.log('tut padaet2', imageIdstate)
   const urlAvatar = !image ? baseAvatar : baseURL + '/' + image?.pathImages;
   
 

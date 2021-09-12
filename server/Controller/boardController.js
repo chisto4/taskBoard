@@ -126,6 +126,7 @@ class BoardController {
       }
       const boardColumns = await db.Column.findAll({
         where: { boardId: id },
+        order:[['position', 'ASC']],
         include: [
           {
               model: db.Task,
@@ -189,7 +190,42 @@ class BoardController {
       console.log('Board Column not update error')
     }
   }
+  async updateColumnPosition(req, res) {
+    try{
+      const{id: tokenId} = req.user
+      const column = req.body
+      const boardID = req.body[0].boardId
+      console.log("ZALUPA", column)
+        if(!tokenId){
+          return res.status(400).json({ message: "ID not found in user data" })
+        }
+      column.forEach(async(elem) => {
+        await db.Column.update({title: elem.title, position: elem.position,
+        boardId: elem.boardId},
+          {where: {id: elem.id}},
+          console.log('FORECH UPDATE COLUMN ARR', elem)
+          );
+        }
+        )
+        const userColumn = await db.Column.findAll({
+          where: {boardId: boardID},
+          order:[['position', 'ASC']],
+              include: [
+                {
+                  model: db.Task,
+                }
+              ],
+              order:[[db.Task, 'position', 'ASC']]
+          })
+                  res.status(200).json(userColumn)
 
+
+    }
+    catch (e) {
+      console.log(e);
+      console.log('Board Column Array not update error')
+    }
+  }
   async deleteColumn(req, res) {
     try {
       const { id: tokenId } = req.user
