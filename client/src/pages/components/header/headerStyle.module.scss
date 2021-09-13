@@ -1,0 +1,81 @@
+.headerWrapper{
+  position: absolute;
+  width: 85%;
+  height: 70px;
+  top: 5vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+  @media screen and (max-width:1560px) {
+    width:70%;
+    }
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  align-items: center;
+  justify-content: space-between;
+  position:absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+span{
+  cursor: pointer;
+  text-decoration: none;
+  color: rgba(107, 43, 43, 0.534);
+  margin-left: 1rem;
+  &:hover{
+    transform: scale(120%);
+  }
+}
+
+.userAuthWrapper {
+  display: flex;
+  align-items: center;
+  span{
+    color: black;
+    &:hover{
+      color:rgb(55, 89, 241);
+      text-decoration:underline;
+      transform: scale(105%);
+      transition: 0.4s;
+    }
+  }
+}
+
+.log_out {
+  span{
+    color: red;
+    &:hover{
+      color: blue;
+      text-decoration:underline;
+      transform: scale(120%);
+      transition: 0.8s;
+    }
+  }}
+
+.bottomLine{
+  width: 100%;
+  height:1px;
+  background: rgba(0, 0, 0, 0.349);
+  position: absolute;
+  bottom: 0;
+}
+
+.user_avatar{
+  // margin-bottom: 30px;
+  width: 50px;
+  height: 50px;
+  border-radius:50%;
+  overflow: hidden;//Dimon edition
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;//Dimon edition
+}}

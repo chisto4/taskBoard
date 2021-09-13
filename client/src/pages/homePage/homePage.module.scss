@@ -1,0 +1,42 @@
+.Hello_window {
+  position: absolute;
+  top: 20vh;
+  left: 10%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+ 
+  }
+.Welcome_text_wrapper{
+  margin-top: 80px;
+  width: 30%;
+  text-shadow: 2px 4px 6px rgba(128, 128, 128, 0.671);
+  letter-spacing: 5px;
+
+  h1{
+    font-size: 48px;
+    letter-spacing: 10px;
+    color: rgb(99, 68, 11);
+    text-shadow: 4px 6px 8px rgba(128, 128, 128, 0.671);
+    }
+  h2{
+    font-size: 38px;
+    margin-top: 1rem;
+    }
+  h3{
+    font-size: 28px;
+    margin-top: 1rem;
+    color: rgb(114, 104, 104);
+    }
+  }
+  
+.welcome_img{
+  width: 700px;
+  margin-left: 100px;
+  margin-top: 50px;
+  border-radius: 20px;
+  box-shadow: 10px 20px 40px rgba(128, 128, 128, 0.664);
+  @media screen and (max-width:1560px) {
+    width:40%;
+    }
+  }

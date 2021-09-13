@@ -1,0 +1,281 @@
+.user_update_information_main_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.default_user_info_wrapper{
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  text-align: justify;
+}
+.user_avatar{
+  margin-bottom: 30px;
+  width: 320px;
+  height: 320px;
+  border-radius:50%;
+  overflow: hidden;//Dimon edition
+  // background-image: url(http://localhost:3005/static/75943fd7098c5);
+  // background: url(http://localhost:3005/static/75944fd7098c567a9e7ed44c16666df1);
+  // z-index: 100;
+  img{
+    width: 100%;
+    height: 100%;
+    object-fit:cover;//Dimon edition
+}}
+
+.def_string_info{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 30%;
+  padding-right: 30%;
+  h6{
+    font-size:18px;
+    margin-bottom: 1vh;
+  }
+  p{
+    font-size:28px;
+  }
+}
+.link_change_email{
+  text-align: center;
+  margin-top: 2vh;
+  text-transform: lowercase;
+  font-size: 18px;
+}
+
+.change_user_info_wrapper{
+  // display: flex;
+  width: 50%;
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  h1 {
+    margin-bottom: 3vh;
+    font-weight: 100;
+    font-size: 24px;
+  }
+}
+
+.change_user_form_window_left{
+  cursor: pointer;
+  width: 160px;
+  height: 2rem;
+  // margin: 10px;
+  font-family: 'Cormorant SC';
+  font-size: 12px;
+  font-weight: 100;
+  // box-sizing: border-box;
+  border-top-left-radius:1rem;
+  border-bottom-left-radius:1rem;
+  // padding-left: 2rem;
+  // padding-right: 1rem;
+  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
+  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
+  5px -5px 25px rgba(116, 115, 115, 0.616);
+  border: 0.1px solid rgba(128, 128, 128, 0.363);
+  &:hover{
+    transition: 0.7s;
+    color:rgb(55, 89, 241);
+    border: 1px solid rgb(55, 89, 241);
+    box-shadow: -20px 10px 25px rgba(76, 71, 160, 0.644),
+    3px -3px 15px rgba(60, 117, 202, 0.616);
+  
+  }
+}
+
+.change_user_form_window_right{
+  cursor: pointer;
+  width: 160px;
+  height: 2rem;
+  // margin: 10px;
+  font-family: 'Cormorant SC';
+  font-size: 12px;
+  font-weight: 100;
+  // box-sizing: border-box;
+  border-top-right-radius:1rem;
+  border-bottom-right-radius:1rem;
+  // padding-left: 2rem;
+  // padding-right: 1rem;
+  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
+  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
+  5px -5px 25px rgba(116, 115, 115, 0.616);
+  border: 0.1px solid rgba(128, 128, 128, 0.363);
+  &:hover{
+    transition: 0.7s;
+    color:rgb(55, 89, 241);
+    border: 1px solid rgb(55, 89, 241);
+    box-shadow: -20px 10px 25px rgba(76, 71, 160, 0.644),
+    3px -3px 15px rgba(60, 117, 202, 0.616);
+  
+  }
+}
+
+.form {
+  left: 30vw;
+  border-radius:30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  width: 40vw;
+  // height: 70vh;
+  z-index: 10;
+}
+
+input {
+  width: 60%;
+  height: 3rem;
+  margin: 10px;
+  font-family: 'Cormorant SC';
+  font-size: 18px;
+  font-weight: 100;
+  box-sizing: border-box;
+  border-radius:1rem;
+  padding-left: 2rem;
+  padding-right: 1rem;
+  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
+  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
+  5px -5px 25px rgba(116, 115, 115, 0.616);
+  border: 0.1px solid rgba(128, 128, 128, 0.363);
+  outline: none;
+
+  &:hover{
+    transform: scale(105%);
+    transition: 0.7s;
+  }
+}
+
+.registrationButton {
+  font-family: 'Cormorant SC';
+  border: none;
+  border-bottom: 1px solid gray;
+  border-right: 1px solid gray;
+  background: none;
+  padding: 0.5rem 2rem;
+  border-radius: 20px;
+  margin-top: 20px;
+  &:hover{
+    transform: scale(105%);
+  }
+}
+
+.userRegistrationSucces {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 20;
+}
+
+.del_user_button {
+  color: white;
+  font-size: 12px;
+  margin-top: 10px;
+  background-color: rgba(238, 67, 67, 0.731);
+  padding: 10px 15px;
+  border: 1px solid rgb(171, 12, 12);
+  border-radius: 20px;
+}
+.avatar_form{
+display: flex;
+justify-content: space-evenly;
+height: 100px;
+flex-direction: column;
+align-items: center;
+}
+
+.upload_wrapper{
+  button{
+    margin-top: 10px;
+  }
+}
+
+.upload_input_form{
+  display: none;
+}
+
+.input_label{
+  transition: 1.8s;
+  width: 100%;
+  height: 40%;
+  font-family: 'Cormorant SC';
+  font-size: 14px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 100;
+  // box-sizing: border-box;
+  border-radius:1rem;
+  padding-left: 1rem;
+  padding: 10px 20px;
+  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
+  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
+  5px -5px 25px rgba(116, 115, 115, 0.616);
+  border: 0.1px solid rgba(128, 128, 128, 0.363);
+  cursor: pointer;
+  &:hover{
+    color:rgb(55, 89, 241);
+    transform: scale(105%);
+    border: 1px solid rgb(55, 89, 241);
+    box-shadow: -20px 10px 25px rgba(76, 71, 160, 0.644),
+    3px -3px 15px rgba(60, 117, 202, 0.616);
+    transition: 0.7s;
+  }
+}
+
+.password_valid_message {
+  color: red;
+  text-transform: uppercase;
+}
+
+.modal_Inform_Window{
+  position: absolute;
+  z-index: 20;
+  top: 40%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 40%;
+  height: 3rem;
+  font-family: 'Cormorant SC';
+  font-size: 18px;
+  font-weight: 100;
+  border-radius:1rem;
+  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
+  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
+  5px -5px 25px rgba(116, 115, 115, 0.616);
+  border: 0.1px solid rgba(128, 128, 128, 0.363);
+
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+
+  h4{
+    color: green;
+  }
+}
+
+.modal_Inform_Window_h4{
+  width: 90%;
+}
+
+.modal_Inform_Window_link{
+  width: 10%;
+}
+
+.close_button{
+  cursor: pointer;
+  width: 25px;
+  margin-top:5px;
+}

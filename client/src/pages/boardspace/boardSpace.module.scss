@@ -1,0 +1,232 @@
+
+.columnSpace{
+position: absolute;
+width: 92%;
+// height: 78vh;
+top: 14%;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+z-index: 10;
+}
+
+.new_column_input_wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  h4{
+    font-size:34px;
+    margin-right: 15px;
+  }
+  // margin-bottom: 1%;
+  input{
+    width: 400px;
+  }}
+
+  .create_button{
+    height: 3rem;
+    font-family: 'Cormorant SC';
+    font-size: 18px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-left: 5px;
+    border-radius:1rem;
+    padding-left: 1rem;
+    padding: 10px 20px;
+    background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
+    box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
+    5px -5px 25px rgba(116, 115, 115, 0.616);
+    border: 0.1px solid rgba(128, 128, 128, 0.363);
+    cursor: pointer;
+    &:hover{
+      color:rgb(55, 89, 241);
+      transform: scale(105%);
+      border: 1px solid rgb(55, 89, 241);
+      box-shadow: -20px 10px 25px rgba(76, 71, 160, 0.644),
+      3px -3px 15px rgba(60, 117, 202, 0.616);
+      transition: 0.7s;
+    }
+  }
+
+.column_wrapper {
+  overflow-x: scroll;
+  overflow-y:hidden;
+  display: flex;
+  justify-content: flex-start;
+  width: 88vw;
+  height: 70vh;
+  border-radius: 2%;
+  position: absolute;
+  top: 23vh;
+}
+
+.OneColumn {
+  min-width: 300px;
+  height:  95%;
+  box-shadow: -80px 50px 100px rgba(116, 114, 114, 0.644),
+  5px -5px 25px rgba(116, 115, 115, 0.616);
+  padding: 20px 10px;
+  border-radius:12px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction:column;
+  position: relative;
+}
+
+.column_input_form{
+  position: absolute;
+  width: 100%;
+  left: 0;
+  right: 0;
+}
+
+.column__title {
+  display: flex;
+  font-size:1.5rem;
+  font-weight:700;
+  margin-bottom:5px;
+}
+
+.delete_column_button{
+  width:20px;
+  cursor: pointer;
+}
+.button_wrapper{
+  display: flex;
+}
+.description_task_button{
+  height:18px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+.delete_task_button{
+  height:10px;
+  cursor: pointer;
+}
+.task_list_drop{
+  height:100%;
+}
+.task_wrapper{
+  // overflow-y: auto;
+  overflow: scroll;
+  height: 450px;
+  width: 100%;
+}
+
+.task_style {
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  padding: 10px;
+  border-radius:6px;
+  margin: 5px;
+  cursor: grab;
+  border: 0.1px solid rgba(155, 155, 155, 0.493);
+  background-image: linear-gradient(120deg, #ffffffe0 10%, #f3f3f3f5 100%);
+  box-shadow: 0px 20px 38px 0px rgba(34, 60, 80, 0.46);
+  p{
+    font-size: 14px;
+    width: 100%;
+  }
+a{
+display: flex;
+}
+}
+.color_priority{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+}
+.color_priority_red{
+  background: red;
+  width: 12px;
+  height: 10px;
+  border-radius:50%;
+  margin-right: 3px;
+}
+.color_priority_green{
+  background: green;
+  width: 12px;
+  height: 10px;
+  border-radius:50%;
+  margin-right: 3px;
+}
+
+  .new_task_input_form{
+    position: absolute;
+    bottom: 20px;
+    input{
+      width: 280px;
+      padding-left: 0;
+      padding-right: 0;
+      text-align: center;
+
+    }
+  }
+
+.boxShadow {
+  border: 2px solid rgb(93, 24, 184);
+  box-shadow: 3px 5px 10px rgba(116, 114, 114, 0.644)
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.deleteButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: linear-gradient(120deg, #f12828cb 10%, #d88080f5 100%);
+
+  box-shadow: -8px 5px 10px rgba(116, 114, 114, 0.644), 2px -2px 5px rgba(116, 115, 115, 0.616);
+  border-radius:50%;
+}
+
+.delete_oneColumn_button_wrapper{
+position: absolute;
+bottom: 0;
+}
+
+//FILTER BUTTONS
+
+.Filter_priority_wrapper{
+  // width: 100%;
+  margin-bottom: 5px;
+}
+.Filter_priority_button_red{
+  width: 60px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: rgba(255, 0, 0, 0.541);
+  background: white;
+  border: 1px solid rgba(255, 0, 0, 0.39);
+  border-radius:4px;
+  &:hover{
+    color: #fff;
+    background: rgba(255, 0, 0, 0.541);  
+    transform: scale(102%);
+    transition: 0.4s;
+    box-shadow: 0px 20px 38px 0px rgba(34, 60, 80, 0.46);
+  }
+}
+.Filter_priority_button_green{
+  width: 60px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: rgba(0, 128, 0, 0.541);
+  background: white;
+  border: 1px solid rgba(0, 128, 0, 0.336);
+  border-radius:4px;
+  &:hover{
+    color: white;
+    background: rgba(0, 128, 0, 0.541);
+    transform: scale(102%);
+    transition: 0.4s;
+    box-shadow: 0px 20px 38px 0px rgba(34, 60, 80, 0.46);
+  }
+}
