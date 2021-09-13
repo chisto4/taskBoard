@@ -1,26 +1,28 @@
-import helloWindow from "../../pages/homePage/homePage";
-import boardWindow from "../../pages/boardspace/boardSpace";
 import UserLogin from "../../pages/login/loginPage";
-import UserRegistration from "../../pages/registration/registartionWindow";
+import UserPage from "../../pages/userPage/UserPage";
 import WorkSpace from "../../pages/workSpace/WorkSpace";
-import { HELLO_PAGE, LOGIN, REGISTRATION, USER, WORK_SPACE, BOARD_WINDOW } from "../const/const";
-import UserPage from "../../pages/userPage/userPage";
-// const path = require('path');
+import helloWindow from "../../pages/homePage/HomePage";
+import boardWindow from "../../pages/Boardspace/BoardSpace";
+import UserRegistration from "../../pages/registration/RegistartionWindow";
+import {
+  HELLO_PAGE, LOGIN, REGISTRATION, USER,
+  WORK_SPACE, BOARD_WINDOW
+} from "../const/const";
 
 export const authRoutes = [
- { 
+  {
     path: WORK_SPACE,
     Component: WorkSpace
-},
- { 
+  },
+  {
     path: BOARD_WINDOW,
     Component: boardWindow
-},
-{
-  path: USER,
-  Component: UserPage
-}
-] //Странциы и информация доступная только авторизованным пользователям
+  },
+  {
+    path: USER,
+    Component: UserPage
+  }
+]
 
 export const publicRoutes = [
   {
@@ -35,5 +37,4 @@ export const publicRoutes = [
     path: LOGIN,
     Component: UserLogin
   }
-
-] //Страницы и ифнормация дотспная публично без авторизации
+]

@@ -12,14 +12,14 @@ import Main from '../components/main/Main';
 import BoardItem from './BoardItem/BoardItem';
 
 const BoardSpace = () => {
-  const useBoardId:IUseParams  = useParams()
+  const useBoardId: IUseParams = useParams()
   const boardIdNumber = Number(useBoardId.id)
 
   const dispatch = useDispatch();
 
- const [titleColumn, setTitleColumn] = useState('');
-  const [positionColumn, setPositionColumn] = useState(null);
+  const [titleColumn, setTitleColumn] = useState('');
   const userColumnArray = useAppSelector((state) => state.board.column)
+
   const arrLenth = () => {
     if (!userColumnArray) {
       return 0
@@ -27,14 +27,12 @@ const BoardSpace = () => {
     return userColumnArray.length
   }
 
-
-
   const creatNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
     const column: IColumn = {
+      Tasks: [],
       title: titleColumn,
       position: arrLenth(),
-      boardId: boardIdNumber,
-      Tasks: []
+      boardId: boardIdNumber
     }
     dispatch(creatColumn(column));
     setTitleColumn("");
@@ -44,93 +42,77 @@ const BoardSpace = () => {
   function onDragEnd(result: DropResult, provided: ResponderProvided) {
     const { source, destination, draggableId, type } = result;
     if (!destination) return
-    // const taskId = +draggableId;
-    // const columnIDEnd = +(destination.droppableId.split(' ')[1]);
-    if(type !== 'column'){
+    if (type !== 'column') {
       const taskIndexEnd = destination?.index;
       const columnIndexEnd = Number((destination.droppableId.split(' ')[0]));
       const taskIndexStart = source.index;
       const columnIndexStart = Number((source.droppableId.split(' ')[0]));
-      console.log('value', taskIndexEnd)
-  
-  
-  
+
       if (columnIndexStart === columnIndexEnd && taskIndexStart !== taskIndexEnd) {
         const newColumnState = userColumnArray.slice();
         const newTaskState = newColumnState[columnIndexEnd].Tasks;
         const [removed] = newTaskState.splice(taskIndexStart, 1);
         newTaskState.splice(taskIndexEnd, 0, removed);
-  
         newColumnState[columnIndexEnd].Tasks = newTaskState;
+
         const sortArr = newTaskState.map((item, index) => item = {
           id: item.id,
-          title: item.title,
-          description: item.description,
           position: index,
+          title: item.title,
           priority: item.priority,
           columnId: item.columnId,
+          description: item.description,
         })
-              
+
         const columnIndex: number = columnIndexStart;
         const task: ITask[] = sortArr
         dispatch(reorderTask(task, taskIndexStart, taskIndexEnd, columnIndex))
       }
-      else if(columnIndexStart !== columnIndexEnd){
-        if(!userColumnArray[columnIndexEnd].Tasks){
+
+      else if (columnIndexStart !== columnIndexEnd) {
+        if (!userColumnArray[columnIndexEnd].Tasks) {
           userColumnArray[columnIndexEnd].Tasks = []
         }
+
         const baseColumnArr = userColumnArray;
         const arrTaskStart = userColumnArray[columnIndexStart].Tasks.slice();
         const arrTaskEnd = userColumnArray[columnIndexEnd].Tasks.slice();
         const [removed] = arrTaskStart.splice(taskIndexStart, 1);
         removed.columnId = baseColumnArr[columnIndexEnd].id
-        // const updateTaskArrStart = arrTaskStart.splice(taskIndexStart, 1);
-        // const updateTaskArrEnd = arrTaskEnd.splice(taskIndexEnd, 0, removed)
         arrTaskEnd.splice(taskIndexEnd, 0, removed)
-        const arrTaskStartSort = arrTaskStart.map((item, index) => item={
+
+        const arrTaskStartSort = arrTaskStart.map((item, index) => item = {
           id: item.id,
-          title: item.title,
-          description: item.description,
           position: index,
+          title: item.title,
           priority: item.priority,
           columnId: item.columnId,
+          description: item.description,
         })
+
         dispatch(reorderTask(arrTaskStartSort, taskIndexStart, taskIndexEnd, columnIndexStart))
         baseColumnArr[columnIndexStart].Tasks = arrTaskStartSort;
-        const ARRR = baseColumnArr[columnIndexStart]
-        // dispatch(updateColumn(ARRR))
-        console.log('ARRR ', ARRR)
-  
-        const arrTaskEndSort = arrTaskEnd.map((item, index) => item={
+
+        const arrTaskEndSort = arrTaskEnd.map((item, index) => item = {
           id: item.id,
-          title: item.title,
-          description: item.description,
           position: index,
+          title: item.title,
           priority: item.priority,
           columnId: item.columnId,
+          description: item.description,
         })
-        console.log('REMOVE', arrTaskEndSort)
-  
+
         dispatch(reorderTask(arrTaskEndSort, taskIndexStart, taskIndexEnd, columnIndexEnd))
         baseColumnArr[columnIndexEnd].Tasks = arrTaskEndSort;
-        const column = baseColumnArr[columnIndexEnd];
-        // dispatch(updateColumn(column))
-        console.log('UPDATE COLUMN', column)
-        // dispatch(reorderColumn(column))
       }
-    } else     if(type === 'column'){
-      const boardID = Number((destination.droppableId));
-      const columnID = Number(draggableId);
+    } else if (type === 'column') {
       const startColumnIndex = source.index;
       const endColumnIndex = destination.index;
-      // console.log('VOT TUT', result, boardID, columnID, startColumnIndex, endColumnIndex);
 
       const allColumnState = userColumnArray.slice();
-      // const newTaskState = allColumnState[columnIndexEnd].Tasks;
       const [removed] = allColumnState.splice(startColumnIndex, 1);
       allColumnState.splice(endColumnIndex, 0, removed);
 
-      // allColumnState[columnIndexEnd].Tasks = newTaskState;
       const sortColumnArr = allColumnState.map((item, index) => item = {
         id: item.id,
         title: item.title,
@@ -138,12 +120,9 @@ const BoardSpace = () => {
         boardId: item.boardId,
         Tasks: item.Tasks,
       })
-      console.log('ARR TO UPDATE INDEX COLUMN', sortColumnArr);
 
-      // const column: IColumn[] = sortColumnArr
       dispatch(updateIndexColumn(sortColumnArr))
     }
-
   }
 
   return (
@@ -164,12 +143,9 @@ const BoardSpace = () => {
         </div>
       </div>
 
-      <DragDropContext
-      onDragEnd={onDragEnd}
-    >
+      <DragDropContext onDragEnd={onDragEnd}>
         <BoardItem />
       </DragDropContext>
-
 
     </Main>
 

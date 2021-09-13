@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { URL_HOME_PAGE } from './const/const';
 
 export const baseURL = URL_HOME_PAGE;

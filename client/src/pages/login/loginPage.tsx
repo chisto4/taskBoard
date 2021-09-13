@@ -1,15 +1,15 @@
 
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router';
+import { useAppSelector } from '../../store/reducers';
+import { IUser } from '../../types/types';
 
 import styles from './loginPage.module.scss';
 import Main from "../components/main/Main";
 import closeButton from '../../icon/close.png';
 
-import { useSelector, useDispatch } from 'react-redux';
-import { IUser } from '../../types/types';
 import { loginUser } from "../../store/userReducer/userThunk";
-import { useAppSelector } from '../../store/reducers';
-import { useHistory } from 'react-router';
 
 const UserLogin: React.FC = (): JSX.Element => {
   const [userLogin, setUserLogin] = useState('');
@@ -21,23 +21,22 @@ const UserLogin: React.FC = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const errorWrapper = useAppSelector((state) => state.user.error)
-  const [moadlMessage, setMoadlMessage] = useState<string | null>('');
+  const [modalMessage, setModalMessage] = useState<string | null>('');
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    console.log('event', event);
 
     const user: IUser = {
+      name: '',
+      dob: '',
+      surname: '',
+      avatarId: null,
       login: userLogin,
       email: userEmail,
       password: userPassword,
-      name: '',
-      surname: '',
-      dob: '',
-      avatarId: null
     };
     dispatch(loginUser(user));
-    setMoadlMessage(errorWrapper)
+    setModalMessage(errorWrapper)
   };
 
   useEffect(() => {
@@ -47,13 +46,13 @@ const UserLogin: React.FC = (): JSX.Element => {
   return (
     <Main>
 
-      {moadlMessage && <div className={styles.modal_Inform_Window}>
+      {modalMessage && <div className={styles.modal_Inform_Window}>
         <div className={styles.modal_Inform_Window_h4}>
           <h4>Sorry, but something went wrong:</h4>
-          <h6>{moadlMessage}</h6>
+          <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
-          <a onClick={() => setMoadlMessage('')}>
+          <a onClick={() => setModalMessage('')}>
             <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
           </a>
         </div>

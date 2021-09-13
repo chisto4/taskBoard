@@ -1,15 +1,14 @@
-import Main from "../components/main/Main";
-
+import { useDispatch } from 'react-redux';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import styles from './userRegistrationFormStyle.module.scss';
-import closeButton  from '../../icon/close.png';
-
-
-import { registrationUsers } from "../../store/userReducer/userThunk";
-import { IUser } from "../../types/types";
-import { useAppSelector } from "../../store/reducers";
 import { useHistory } from "react-router";
+import { useAppSelector } from "../../store/reducers";
+
+import styles from './userRegistrationFormStyle.module.scss';
+
+import { IUser } from "../../types/types";
+import Main from "../components/main/Main";
+import closeButton from '../../icon/close.png';
+import { registrationUsers } from "../../store/userReducer/userThunk";
 
 const UserRegistration: React.FC = (): JSX.Element => {
   const [userName, setUserName] = useState('');
@@ -22,7 +21,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
   const auth = useAppSelector((state) => state.user.auth)
 
   const errorWrapper = useAppSelector((state) => state.user.error)
-  const [moadlMessage, setMoadlMessage] = useState<string | null>('');
+  const [modalMessage, setModalMessage] = useState<string | null>('');
 
   const dispatch = useDispatch();
 
@@ -44,28 +43,28 @@ const UserRegistration: React.FC = (): JSX.Element => {
       avatarId: null
     };
     dispatch(registrationUsers(user));
-    setMoadlMessage(errorWrapper)
+    setModalMessage(errorWrapper)
   };
 
   useEffect(() => {
-    if (auth) {history.push("/user")}
-    }, [auth, history])
+    if (auth) { history.push("/user") }
+  }, [auth, history])
 
   return (
     <Main>
 
-    {moadlMessage && <div className={styles.modal_Inform_Window}>
-      <div className={styles.modal_Inform_Window_h4}>
-        <h4>Sorry, but something went wrong:</h4>
-        <h6>{moadlMessage}</h6>
-      </div>
-      <div className={styles.modal_Inform_Window_link}>
-      <a onClick={() => setMoadlMessage('')}>
-      <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
-      </a>
-      </div>
-    </div>}
-    
+      {modalMessage && <div className={styles.modal_Inform_Window}>
+        <div className={styles.modal_Inform_Window_h4}>
+          <h4>Sorry, but something went wrong:</h4>
+          <h6>{modalMessage}</h6>
+        </div>
+        <div className={styles.modal_Inform_Window_link}>
+          <a onClick={() => setModalMessage('')}>
+            <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
+          </a>
+        </div>
+      </div>}
+
       <form className={styles.form} onSubmit={userInfo}>
         <h1>REGISTRATION</h1>
         <input onChange={(e) => setUserName(e.target.value)} name='name' type="text" placeholder='Enter your Name' />
@@ -74,34 +73,9 @@ const UserRegistration: React.FC = (): JSX.Element => {
         <input onChange={(e) => setUserEmail(e.target.value)} name='email' type="email" placeholder='Enter your Email' />
         <input onChange={(e) => setUserPassword(e.target.value)} name='password' type="password" placeholder='Enter your Password' />
         <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
-        {/* <input name='avatar' type="text" placeholder='Choice your Avatar'/> */}
         <button type="submit" className={styles.registrationButton}>REGISTRATION</button>
       </form>
     </Main>
   );
 }
 export default UserRegistration;
-
-
-//  const getUserIfo: React.FC<Props> = (props) =>{
-//     const [state, setState] = useState<UserInterface[]>([]);
-
-//     useEffect(() => {
-//       console.log('getUserIfo')
-//       instance.get('user')
-//         .then(r => {
-//           console.log('result', r.data)
-//           setState(r.data)
-//         })
-//         .catch(e => console.log('error', e.message))
-//     }, []);
-
-//     return (
-//     <main className={styles.main}>
-//       {state.map(item => <h1 key={item.id}>{item.name}</h1>)}
-//       {props.children}
-//     </main>
-//       );
-//   }
-
-

@@ -1,7 +1,5 @@
 import Main from "../components/main/Main";
-// import {useDispatch, useSelector} from "react-redux";
-// import { FormEvent } from 'react';
-import React, { useState, useRef, useCallback, useEffect } from 'react';
+import React, { useState} from 'react';
 import { baseURL } from '../../api/index';
 
 import styles from './userPage.module.scss';
@@ -9,11 +7,10 @@ import baseAvatar from '../../image/wtf.jpeg';
 import closeButton  from '../../icon/close.png';
 import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
-import { editUsersEmail, updateUser, updateUserInformationToken, uploadUserAvatar } from "../../store/userReducer/userThunk";
+import { editUsersEmail, updateUser, uploadUserAvatar } from "../../store/userReducer/userThunk";
 import { useDispatch } from "react-redux";
-import { format, compareAsc } from 'date-fns';
-import { Card, Form, Button, Figure } from 'react-bootstrap';
-import axios from '../../api/index';
+import { format } from 'date-fns';
+import { Button } from "react-bootstrap";
 
 const UserPage: React.FC = (): JSX.Element => {
   const { name: stateName, dob: stateDob, email: stateEmail,
@@ -21,13 +18,11 @@ const UserPage: React.FC = (): JSX.Element => {
   } = useAppSelector((state) => state.user.user)
 
   const error = useAppSelector((state) => state.user.error)
-  console.log('ERRRROR', error)
 
   const thrueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
   const dispatch = useDispatch();
 
   const image = useAppSelector((state) => state.user.user.Image)
-  // const imageIdstate = useAppSelector((state) => state.user.user)
   const imageIdstate = useAppSelector((state) => state)
   const urlAvatar = !image ? baseAvatar : baseURL + '/' + image?.pathImages;
   
@@ -46,7 +41,7 @@ const UserPage: React.FC = (): JSX.Element => {
   const [valuePassword, setValuePassword] = useState(false);
   const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
-  const [moadlMessage, setMoadlMessage] = useState('');
+  const [modalMessage, setModalMessage] = useState('');
     const uploadAvatar = "Your avatar has been update"
     const updaitUserInfo = "Your user information has been update"
     const updaitEmailPassword = "Update success"
@@ -56,17 +51,16 @@ const UserPage: React.FC = (): JSX.Element => {
     console.log('event', event);
 
     const user: IUser = {
-      name: userName,
-      surname: userSurName,
-      login: userLogin,
-      password: userPassword,
       dob: userDob,
+      name: userName,
       email: userEmail,
+      login: userLogin,
+      surname: userSurName,
+      password: userPassword,
     };
-    console.log('send', user);
 
     dispatch(updateUser(user));
-    setMoadlMessage(updaitUserInfo)
+    setModalMessage(updaitUserInfo)
 
  };
 
@@ -91,7 +85,7 @@ const UserPage: React.FC = (): JSX.Element => {
 
     dispatch(editUsersEmail(user));
     setValuePassword(false)
-    setMoadlMessage(updaitEmailPassword)
+    setModalMessage(updaitEmailPassword)
 
  }};
 
@@ -99,10 +93,9 @@ const UserPage: React.FC = (): JSX.Element => {
     const formData = new FormData();
     e.preventDefault();
     formData.append('file', userAvatar);
-    // console.log("FORM DATA DLYA DIMY", formData)
     dispatch(uploadUserAvatar(formData));
     setUserAvatar('')
-    setMoadlMessage(uploadAvatar)
+    setModalMessage(uploadAvatar)
   };
 
   const setUseFile = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -115,12 +108,12 @@ const UserPage: React.FC = (): JSX.Element => {
   return (
     <Main >
 
-    {moadlMessage && <div className={styles.modal_Inform_Window}>
+    {modalMessage && <div className={styles.modal_Inform_Window}>
       <div className={styles.modal_Inform_Window_h4}>
-        <h4>{moadlMessage}test</h4>
+        <h4>{modalMessage}test</h4>
       </div>
       <div className={styles.modal_Inform_Window_link}>
-      <a onClick={() => setMoadlMessage('')}>
+      <a onClick={() => setModalMessage('')}>
       <img src={closeButton} className={styles.close_button} alt='close'></img>
       </a>
       </div>
@@ -150,7 +143,6 @@ const UserPage: React.FC = (): JSX.Element => {
               className={styles.input_label}
               as="input" type="submit" value="Load"
               hidden={!userAvatar}
-              // onClick={(e) => setUserAvatar('')}
             />
           </form>
 
@@ -169,12 +161,6 @@ const UserPage: React.FC = (): JSX.Element => {
           <div className={styles.def_string_info}>
             <h6>Date of born:</h6><p>{thrueDateFormat}</p>
           </div>
-          {/* USER EMAIL */}
-          {/* <div className={styles.link_change_email}>
-        <a href="/email">Change Email@adress</a>
-      </div> */}
-          {/* <button onSubmit={(deleteUsers)} className={styles.del_user_button}>DELETE USER</button> */}
-          {/* <span onClick={() => deleteUsers({email, })} className={styles.del_user_button}>DELETE USER</span> */}
         </div>
 
         <div className={styles.change_user_info_wrapper}>
@@ -190,10 +176,6 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setUserName(e.target.value)} name='name' required defaultValue={stateName} type="text" placeholder='Enter your Name' />
             <input onChange={(e) => setUserSurName(e.target.value)} name='surname' required defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' required defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
-            {/* <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="text" placeholder='Enter your Email' /> */}
-            {/* <input name='oldPassword' type="password" placeholder='Enter your Old password'/>
-        <input name='newPassword' type="password" placeholder='Enter your New password'/> */}
-            {/* <input onChange={(e) => setUserPassword(e.target.value)} name='newPasswordControl' required type="password" placeholder='Confirm password' /> */}
             <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
             <button type="submit" className={styles.registrationButton}>update information</button>
           </form>}

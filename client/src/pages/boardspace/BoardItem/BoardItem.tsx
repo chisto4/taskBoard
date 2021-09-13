@@ -1,10 +1,11 @@
 
-import { useAppSelector } from '../../../store/reducers';
+import { useParams } from 'react-router';
+import { Droppable } from 'react-beautiful-dnd';
+
 import styles from '../boardSpace.module.scss';
 import ColumnItem from '../ColumnItem/ColumnItem';
-import { Droppable } from 'react-beautiful-dnd';
-import { useParams } from 'react-router';
 import { IUseParams } from '../../../types/types';
+import { useAppSelector } from '../../../store/reducers';
 
 const BoardItem = () => {
 
@@ -13,10 +14,9 @@ const BoardItem = () => {
 
   const userColumnArray = useAppSelector((state) => state.board.column)
 
-  const sortingColumn = userColumnArray.sort((a,b) => {
+  const sortingColumn = userColumnArray.sort((a, b) => {
     return a.position - b.position
   })
-  console.log("SORTING ARRAY",sortingColumn )
 
   return (
     <Droppable droppableId={`${boardIdNumber}`} type='column' direction="horizontal">
@@ -31,14 +31,11 @@ const BoardItem = () => {
                 column={column}
                 columnIndex={index}
               />
-          )
-          }
+          )}
           {provided.placeholder}
         </div>
       )}
-
     </Droppable>
-
   )
 }
 

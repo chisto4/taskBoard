@@ -3,20 +3,15 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 
 import styles from './headerStyle.module.scss'
+
+import { baseURL } from '../../../api';
+import baseAvatar from '../../../image/wtf.jpeg';
 import { useAppSelector } from '../../../store/reducers';
 import { logOutThunk } from '../../../store/userReducer/userThunk';
-
-import baseAvatar from '../../../image/wtf.jpeg';
-import { baseURL } from '../../../api';
 import { LOGIN, REGISTRATION, USER, WORK_SPACE } from '../../../api/const/const';
-// import {NavLink} from 'react-router-dom';
 
-interface IHeader {
-  onClickLog: () => void;
-  onClickReg: () => void;
-}
 
-const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
+const Header: React.FC = () => {
 
   const dispatch = useDispatch();
   let history = useHistory();
@@ -32,9 +27,6 @@ const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
   const isAuth = useAppSelector((state) => state.user.auth)
   const login = useAppSelector((state) => state.user.user.login)
 
-  const testState = useAppSelector((state) => state)
-  console.log("testState", testState)
-
   return (
     <div className={styles.headerWrapper}>
       <div className={styles.header}>
@@ -49,9 +41,6 @@ const Header: React.FC<IHeader> = ({ onClickLog, onClickReg }) => {
           {!isAuth && <span onClick={() => { history.push(LOGIN) }} >Login</span>}
           {isAuth && <span onClick={(logOuting)} className={styles.log_out}>Log Out</span>}
           {!isAuth && <span onClick={() => { history.push(REGISTRATION) }}>Registration</span>}
-
-          {/* <NavLink className={styles.RegLogLink} to="/registration"><a>Login</a></NavLink>
-              <NavLink className={styles.RegLogLink} onClick={onClickReg} to="/registration">Registration</NavLink> */}
         </div>
       </div>
 
