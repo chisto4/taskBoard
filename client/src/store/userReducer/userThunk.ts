@@ -20,6 +20,7 @@ export const registrationUsers = (user: IUser) => async (dispatch: AppDispatch):
     localStorage.setItem('token', data.token)
     dispatch(actionsUpdateUser(data.newUser));
     dispatch(actionsSetAuth(true));
+    localStorage.setItem('isAuth', "true")
     } catch (error: any) {
     dispatch(actionsSetError(error.message))
   }
@@ -30,6 +31,7 @@ export const loginUser = (user: IUser) => async (dispatch: AppDispatch): Promise
     localStorage.setItem('token', data.token)
     dispatch(actionsUpdateUser(data.userLogin));
     dispatch(actionsLogAuth(true));
+    localStorage.setItem('isAuth', "true")
   } catch (error: any) {
     dispatch(actionsLogError(error.message))
   }
@@ -57,8 +59,10 @@ export const updateUserInformationToken = () => async (dispatch: AppDispatch): P
     const user = await getToken();
     dispatch(actionsUpdateUser(user));
     dispatch(actionsSetAuth(true));
+    localStorage.setItem('isAuth', "true")
   } catch (error: any) {
     dispatch(actionsGetTokenError(error.message))
+    localStorage.clear();
   }
 };
 export const uploadUserAvatar = (file: FormData) => async (dispatch: AppDispatch): Promise<void> => {

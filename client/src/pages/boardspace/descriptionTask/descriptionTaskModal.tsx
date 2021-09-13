@@ -15,7 +15,7 @@ interface Props {
   taskTitleValue?: string,
   taskIndex: number,
   columnIndex: number,
-  taskPriority: number
+  taskPriority: number | undefined
 }
 
 const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIndex,

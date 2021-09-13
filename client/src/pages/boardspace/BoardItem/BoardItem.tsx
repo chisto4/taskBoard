@@ -14,13 +14,12 @@ const BoardItem = () => {
   const userColumnArray = useAppSelector((state) => state.board.column)
 
   const sortingColumn = userColumnArray.sort((a,b) => {
-    // if(!a.position || !b.position) return 0
     return a.position - b.position
   })
   console.log("SORTING ARRAY",sortingColumn )
 
   return (
-    <Droppable droppableId={`${boardIdNumber}`} type='column'>
+    <Droppable droppableId={`${boardIdNumber}`} type='column' direction="horizontal">
       {(provided) => (
         <div className={styles.column_wrapper}
           {...provided.droppableProps}

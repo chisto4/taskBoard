@@ -7,10 +7,19 @@ import { useAppSelector } from '../../store/reducers';
 
 
 const AppRouter = observer(() => {
-    const isAuth = useAppSelector((state) => state.user.auth)
+    // const isAuth = useAppSelector((state) => state.user.auth)
+    const isAuth = localStorage.getItem('isAuth')
+     const validAuth = () => {
+        if(isAuth){
+            return true
+        } else{
+            return false
+        }
+    }
+
     return (
         <Switch>
-            {isAuth && authRoutes.map(({path, Component}) =>
+            {validAuth() && authRoutes.map(({path, Component}) =>
                 <Route key={path} path={path} component={Component} exact/>
             )}
             {publicRoutes.map(({path, Component}) =>

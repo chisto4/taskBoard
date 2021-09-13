@@ -38,7 +38,7 @@ function App() {
 
   useEffect(() => {
     dispatch(updateUserInformationToken());
-  }, [])
+  }, [dispatch])
 
   return (
     <BrowserRouter>

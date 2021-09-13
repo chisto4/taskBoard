@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { Draggable, Droppable } from 'react-beautiful-dnd';
+import { Draggable, Droppable,DraggableProvided } from 'react-beautiful-dnd';
 
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
 import { IColumn, ITask } from '../../../types/types';
@@ -31,6 +31,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   const [priorityTask, setPriorityTask] = useState(null);
   const [taskColumnId, setColumnId] = useState('');
   const [taskDescription, setTaskDescription] = useState('');
+  const [filterValue, setFilterValue] = useState('')
 
   const dispatch = useDispatch();
 
@@ -50,31 +51,61 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   const deleteOneColumn = (id: number | undefined) => {
     const column: IColumn = {
       id: id,
-      Tasks: []
+      Tasks: [],
+      position: 0
     };
     console.log('BdfgsdgsD ID', column)
     dispatch(deleteColumn(column));
   }
 
+  const filterPriorityTask = () => {
+    if(filterValue === "red"){
+      return 'red'
+    } else if(filterValue === "green"){
+      return 'green'
+    }
+  }
+
   return (
-    <Draggable key={columnIndex} draggableId={`${column.id}`} index={columnIndex}>
+    <Draggable key={column.id} draggableId={`${column.id}`} index={columnIndex}>
       {(provided) => (
         <div className={styles.OneColumn}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        style={{ ...provided.draggableProps.style }}
-        ref={provided.innerRef}
-        >
+          {...provided.draggableProps}
+          {...provided.dragHandleProps}
+          // style={{ ...provided.draggableProps.style }}
+          ref={provided.innerRef}
+          >
           <div className={styles.column__title}
           >
             {column.title}
+          </div>
+
+          <div className={styles.Filter_priority_wrapper}>
+            <button
+            className={styles.Filter_priority_button_red}
+            onClick={() => setFilterValue('red')}
+            >
+              RED
+            </button>
+            <button
+            className={styles.Filter_priority_button_green}
+            onClick={() => setFilterValue('green')}
+            >
+              GREEN
+            </button>
+            
           </div>
 
 
           {/* <div
           className={styles.task_list_drop}
         > */}
-            {column.Tasks && <TaskList tasks={column.Tasks} columnIndex={columnIndex} columnID={column.id} />}
+            {column.Tasks && <TaskList 
+            tasks={column.Tasks} 
+            columnIndex={columnIndex} 
+            columnID={column.id} 
+            valuePriority={filterPriorityTask()}
+            />}
           {/* </div> */}
 
             <form
