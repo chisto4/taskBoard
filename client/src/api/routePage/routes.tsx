@@ -8,18 +8,18 @@ import UserPage from "../../pages/userPage/userPage";
 // const path = require('path');
 
 export const authRoutes = [
- { 
+  {
     path: WORK_SPACE,
     Component: WorkSpace
-},
- { 
+  },
+  {
     path: BOARD_WINDOW,
     Component: boardWindow
-},
-{
-  path: USER,
-  Component: UserPage
-}
+  },
+  {
+    path: USER,
+    Component: UserPage
+  }
 ] //Странциы и информация доступная только авторизованным пользователям
 
 export const publicRoutes = [

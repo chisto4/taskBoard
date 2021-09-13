@@ -3,7 +3,7 @@ import Main from '../components/main/Main';
 
 import welcomwScreenImage from '../../image/welcomePageScreen.png';
 
-const helloWindow = () => {
+const HelloWindow = () => {
   return (
     <Main>
     <div className={styles.Hello_window}>
@@ -23,4 +23,4 @@ const helloWindow = () => {
     </Main>
 )}
 
-export default helloWindow;
+export default HelloWindow;

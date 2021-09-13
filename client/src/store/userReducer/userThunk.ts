@@ -1,5 +1,5 @@
 import { getAvatarInfo, uploadImageApi } from "../../api/userApi/uploadFile/uploadImageApi";
-import { editUsers, regUser, logUser, getToken, editUsersEmailPassword} from "../../api/userApi/userApi";
+import { editUsers, regUser, logUser, getToken, editUsersEmailPassword } from "../../api/userApi/userApi";
 import { IUser } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import {
@@ -21,10 +21,11 @@ export const registrationUsers = (user: IUser) => async (dispatch: AppDispatch):
     dispatch(actionsUpdateUser(data.newUser));
     dispatch(actionsSetAuth(true));
     localStorage.setItem('isAuth', "true")
-    } catch (error: any) {
+  } catch (error: any) {
     dispatch(actionsSetError(error.message))
   }
 };
+
 export const loginUser = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await logUser(user)
@@ -36,6 +37,7 @@ export const loginUser = (user: IUser) => async (dispatch: AppDispatch): Promise
     dispatch(actionsLogError(error.message))
   }
 };
+
 export const updateUser = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await editUsers(user)
@@ -45,6 +47,7 @@ export const updateUser = (user: IUser) => async (dispatch: AppDispatch): Promis
     dispatch(actionsLogError(error.message))
   }
 };
+
 export const editUsersEmail = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await editUsersEmailPassword(user)
@@ -54,6 +57,7 @@ export const editUsersEmail = (user: IUser) => async (dispatch: AppDispatch): Pr
     dispatch(actionsLogError(error.message))
   }
 };
+
 export const updateUserInformationToken = () => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const user = await getToken();
@@ -65,6 +69,7 @@ export const updateUserInformationToken = () => async (dispatch: AppDispatch): P
     localStorage.clear();
   }
 };
+
 export const uploadUserAvatar = (file: FormData) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await uploadImageApi(file)
@@ -75,6 +80,7 @@ export const uploadUserAvatar = (file: FormData) => async (dispatch: AppDispatch
     dispatch(actionsUploadError(error.message))
   }
 };
+
 export const logOutThunk = () => (dispatch: AppDispatch) => {
   dispatch(actionsLogOut());
   localStorage.clear();

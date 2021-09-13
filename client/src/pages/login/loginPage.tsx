@@ -11,7 +11,7 @@ import { loginUser } from "../../store/userReducer/userThunk";
 import { useAppSelector } from '../../store/reducers';
 import { useHistory } from 'react-router';
 
-const UserLogin: React.FC = (): JSX.Element => {
+const UserLogin: React.FC = () => {
   const [userLogin, setUserLogin] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');

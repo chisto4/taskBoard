@@ -1,31 +1,34 @@
 // import React, {useContext} from 'react';
-import {Switch, Route, Redirect} from 'react-router-dom'
-import {authRoutes, publicRoutes} from "./routes";
-import {HOME_PAGE} from "../const/const";
-import {observer} from "mobx-react-lite";
+import { Switch, Route, Redirect } from 'react-router-dom'
+import { authRoutes, publicRoutes } from "./routes";
+import { HOME_PAGE } from "../const/const";
+import { observer } from "mobx-react-lite";
 import { useAppSelector } from '../../store/reducers';
+import PrivateRoute from './PrivateRouter';
 
 
 const AppRouter = observer(() => {
     // const isAuth = useAppSelector((state) => state.user.auth)
-    const isAuth = localStorage.getItem('isAuth')
-     const validAuth = () => {
-        if(isAuth){
-            return true
-        } else{
-            return false
-        }
-    }
+    // const isAuth = localStorage.getItem('isAuth')
+    // const validAuth = () => {
+    //     if (isAuth) {
+    //         return true
+    //     } else {
+    //         return false
+    //     }
+    // }
 
     return (
         <Switch>
-            {validAuth() && authRoutes.map(({path, Component}) =>
-                <Route key={path} path={path} component={Component} exact/>
+            {authRoutes.map(({ path, Component }, index) =>
+                <PrivateRoute key={index}>
+                    <Route path={path} component={Component} exact />
+                </PrivateRoute>
             )}
-            {publicRoutes.map(({path, Component}) =>
-                <Route key={path} path={path} component={Component} exact/>
+            {publicRoutes.map(({ path, Component }, index) =>
+                <Route key={index} path={path} component={Component} exact />
             )}
-            <Redirect to={HOME_PAGE}/>
+            <Redirect to={HOME_PAGE} />
         </Switch>
     );
 });
