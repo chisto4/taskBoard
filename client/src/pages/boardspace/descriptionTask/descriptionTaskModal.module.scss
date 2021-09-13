@@ -37,6 +37,20 @@
     margin-bottom: 10px;
   }
 }
+.input_task_priority{
+  position: absolute;
+    top: 97px;
+    left: 70%;
+    height: 15px;
+    p{
+      display: flex;
+      align-items: center;
+    }
+}
+.input_checkBox_Red{
+  width:15px;
+  height:15px;
+}
 .input_description{
   width: 45vw;
   height: 30vh;
@@ -74,3 +88,4 @@
   right: 8px;
   cursor: pointer;
 }
+

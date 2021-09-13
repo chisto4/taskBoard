@@ -48,7 +48,8 @@ const WorkSpace = () => {
    const getAllColumnsClick = (id: number | undefined) => {
       const column: IColumn = {
         id,
-        Tasks:[]
+        Tasks:[],
+        position: 0,
       };
       dispatch(getAllColumns(column));
       history.push(BOARD_WINDOW.replace(':id', `${column?.id}`))

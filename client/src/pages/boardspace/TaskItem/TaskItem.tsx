@@ -19,7 +19,7 @@ interface Props {
 
 const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
 
-  // const taskPosiotion = useAppSelector((state) => state.board.column[taskIndex].Tasks[taskIndex].position)
+  // const taskPriorityStatus = useAppSelector((state) => state.board.column[taskIndex].Tasks[taskIndex].priority)
 
   const dispatch = useDispatch();
   const [visionDescription, setVisionDescription] = useState(false);
@@ -46,6 +46,10 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
 
           // onDragStart={(event) => dragStartHeandler(event, task.id, task.columnId)}
           >
+            {/* <div className={styles.color_priority}> */}
+              {(task.priority === 1 ) && <div className={styles.color_priority_red}></div>}
+              {(task.priority === 2 ) &&  <div className={styles.color_priority_green}></div>}
+            {/* </div> */}
             <p>
               {task.title}
             </p>
@@ -65,6 +69,7 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
               taskIndex={taskIndex}
               columnIndex={columnIndex}
               taskDescriptionValue={task.description}
+              taskPriority={task.priority}
               taskTitleValue={task.title}
             />}
           </div>

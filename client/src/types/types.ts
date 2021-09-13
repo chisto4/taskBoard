@@ -88,7 +88,7 @@ export interface ITask {
   position?: number,
   description?: string,
   columnId?: number,
-  priority?: number | null,
+  priority: number | undefined,
 }
 export interface ITaskRequest {
     id?: number | null,

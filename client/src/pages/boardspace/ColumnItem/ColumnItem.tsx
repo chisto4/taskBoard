@@ -38,7 +38,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
     const task: ITask = {
       title: titleTask,
       position: arrLenth(),
-      priority: priorityTask,
+      priority: 2,
       description: taskDescription,
       columnId: id,
     }

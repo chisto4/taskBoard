@@ -138,7 +138,7 @@ const BoardSpace = () => {
         boardId: item.boardId,
         Tasks: item.Tasks,
       })
-      console.log('VOT TUT 2', sortColumnArr);
+      console.log('ARR TO UPDATE INDEX COLUMN', sortColumnArr);
 
       // const column: IColumn[] = sortColumnArr
       dispatch(updateIndexColumn(sortColumnArr))
@@ -150,6 +150,7 @@ const BoardSpace = () => {
     <Main>
       <div className={styles.columnSpace}>
         <div className={styles.new_column_input_wrapper}>
+          <h4>board title</h4>
           <form onSubmit={creatNewColumnForm} className={styles.header_input_form}>
             <input
               onChange={(e) => setTitleColumn(e.target.value)}
