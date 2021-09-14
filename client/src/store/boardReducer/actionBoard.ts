@@ -33,7 +33,7 @@ export const actionsChoiceBoard = (column: IColumn): ActionsChoiceBoard => ({
   payload: column,
 })
 
-export const actionsCreateColumn = (column: IColumn): ActionsCreateColumn => ({
+export const actionsCreateColumn = (column: IColumnRequest): ActionsCreateColumn => ({
   type: actions.CREATE_COLUMN,
   payload: column,
 })

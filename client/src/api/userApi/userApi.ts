@@ -54,11 +54,6 @@ export const deleteUsers = (user: {
     const result = await response.data;
 
     if (response.status === 200) {
-      console.log(result);
-      const users = [{
-        id: user.id,
-        email: user.email,
-      }];
       document.location.href = 'http://localhost:3000/';
     }
     else {

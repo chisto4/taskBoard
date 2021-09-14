@@ -110,7 +110,6 @@ class BoardController {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       let newColumn = await db.Column.create({ title, position, boardId })
-      // let newColumn = await db.Column.create({ title, position, boardId }).catch(err => console.log(err));
       newColumn = newColumn.toJSON();
       return res.status(200).json(newColumn)
     }

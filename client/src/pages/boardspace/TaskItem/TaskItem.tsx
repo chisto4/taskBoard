@@ -21,12 +21,14 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
   const dispatch = useDispatch();
   const [visionDescription, setVisionDescription] = useState(false);
 
-  const deleteOneTask = (id: number | undefined) => {
-    const task: ITask = {
+  const deleteOneTask = (id: number | undefined, columnId: number, position: number) => {
+    const taskDel: ITask = {
       id: id,
-      priority: 2
+      priority: 2,
+      position: position,
+      columnId: columnId
     };
-    dispatch(deleteTask(task));
+    dispatch(deleteTask(taskDel));
   }
 
   return (
@@ -38,22 +40,23 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
           ref={provided.innerRef}
           style={{ ...provided.draggableProps.style }}
         >
-          {(task.priority === 1) && <div className={styles.color_priority_red}></div>}
-          {(task.priority === 2) && <div className={styles.color_priority_green}></div>}
+          {(task.priority === 1) ?
+            <div className={styles.color_priority_red}></div>
+            : <div className={styles.color_priority_green}></div>}
           <p>
             {task.title}
           </p>
 
           <div className={styles.description_button_wrapper}>
-            <a onClick={() => setVisionDescription(true)}>
+            <button className={styles.delete_button_wrapper} onClick={() => setVisionDescription(true)}>
               <img src={descriptionTaskButton} className={styles.description_task_button} alt='delete'></img>
-            </a>
+            </button>
           </div>
 
           <div className={styles.delete_button_wrapper}>
-            <a onClick={() => deleteOneTask(task.id)}>
+            <button className={styles.delete_button_wrapper} onClick={() => deleteOneTask(task.id, task.columnId, task.position)}>
               <img src={deleteTaskButton} className={styles.delete_task_button} alt='delete'></img>
-            </a>
+            </button>
           </div>
 
           {visionDescription && <DescriptionTask

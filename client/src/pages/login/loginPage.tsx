@@ -6,7 +6,7 @@ import { useAppSelector } from '../../store/reducers';
 import { IUser } from '../../types/types';
 
 import styles from './loginPage.module.scss';
-import Main from "../components/main/Main";
+import Main from "../components/Main/Main";
 import closeButton from '../../icon/close.png';
 
 import { loginUser } from "../../store/userReducer/userThunk";
@@ -20,7 +20,7 @@ const UserLogin: React.FC = (): JSX.Element => {
   let history = useHistory();
   const dispatch = useDispatch();
 
-  const errorWrapper = useAppSelector((state) => state.user.error)
+  const errorStatus = useAppSelector((state) => state.user.error)
   const [modalMessage, setModalMessage] = useState<string | null>('');
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
@@ -36,7 +36,7 @@ const UserLogin: React.FC = (): JSX.Element => {
       password: userPassword,
     };
     dispatch(loginUser(user));
-    setModalMessage(errorWrapper)
+    setModalMessage(errorStatus)
   };
 
   useEffect(() => {
@@ -52,9 +52,9 @@ const UserLogin: React.FC = (): JSX.Element => {
           <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
-          <a onClick={() => setModalMessage('')}>
+          <button className={styles.close_button_wrapper} onClick={() => setModalMessage('')}>
             <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
-          </a>
+          </button>
         </div>
       </div>}
 

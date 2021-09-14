@@ -264,7 +264,11 @@ align-items: center;
   h4{
     color: green;
   }
+  h3{
+    color: red;
+  }
 }
+
 
 .modal_Inform_Window_h4{
   width: 90%;
@@ -274,7 +278,12 @@ align-items: center;
   width: 10%;
 }
 
-.close_button{
+.close_button_wrapper{
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.close_button_img{
   cursor: pointer;
   width: 25px;
   margin-top:5px;

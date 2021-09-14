@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 const { key } = require('../utils/constants')
 
 exports.genAccessToken = (id, email) => {
-  console.log('!!asd')
   const payload = {
     id, email
   }
@@ -29,7 +28,6 @@ exports.tokenModule = async (req, res, next) => {
       if (err.name === 'JsonWebTokenError') return res.status(401).json({ message: 'Incorrect token' });
     }
     req.user = decodedData
-    console.log('decodata', decodedData)
     next()
   } catch (e) {
     console.log(e)

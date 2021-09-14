@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
 import styles from './boardSpace.module.scss';
-import { IColumn, ITask, IUseParams } from '../../types/types';
+import { IColumn, IColumnRequest, ITask, IUseParams } from '../../types/types';
 import { useAppSelector } from '../../store/reducers';
-import { creatColumn, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
+import { creatColumn, getAllBoards, getAllColumns, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
 
-import Main from '../components/main/Main';
+import Main from '../components/Main/Main';
 import BoardItem from './BoardItem/BoardItem';
 
 const BoardSpace = () => {
@@ -17,9 +17,23 @@ const BoardSpace = () => {
 
   const dispatch = useDispatch();
 
+  
+  const column: IColumn = {
+    id: boardIdNumber,
+    Tasks: [],
+    position: 0,
+  };
+
+  useEffect(() => {
+    dispatch(getAllBoards());
+    dispatch(getAllColumns(column));
+  }, [dispatch])
+
+
   const [titleColumn, setTitleColumn] = useState('');
   const userColumnArray = useAppSelector((state) => state.board.column)
-
+  const stateBoard = useAppSelector((state) => state.board.board.find(brd=>brd.id===boardIdNumber))
+  const boardTitle = stateBoard?.title
   const arrLenth = () => {
     if (!userColumnArray) {
       return 0
@@ -28,7 +42,8 @@ const BoardSpace = () => {
   }
 
   const creatNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
-    const column: IColumn = {
+    
+    const column: IColumnRequest = {
       Tasks: [],
       title: titleColumn,
       position: arrLenth(),
@@ -40,7 +55,7 @@ const BoardSpace = () => {
   }
 
   function onDragEnd(result: DropResult, provided: ResponderProvided) {
-    const { source, destination, draggableId, type } = result;
+    const { source, destination, type } = result;
     if (!destination) return
     if (type !== 'column') {
       const taskIndexEnd = destination?.index;
@@ -78,7 +93,7 @@ const BoardSpace = () => {
         const arrTaskStart = userColumnArray[columnIndexStart].Tasks.slice();
         const arrTaskEnd = userColumnArray[columnIndexEnd].Tasks.slice();
         const [removed] = arrTaskStart.splice(taskIndexStart, 1);
-        removed.columnId = baseColumnArr[columnIndexEnd].id
+        removed.columnId = baseColumnArr[columnIndexEnd].id || 0
         arrTaskEnd.splice(taskIndexEnd, 0, removed)
 
         const arrTaskStartSort = arrTaskStart.map((item, index) => item = {
@@ -114,7 +129,7 @@ const BoardSpace = () => {
       allColumnState.splice(endColumnIndex, 0, removed);
 
       const sortColumnArr = allColumnState.map((item, index) => item = {
-        id: item.id,
+        id: item.id || 0,
         title: item.title,
         position: index,
         boardId: item.boardId,
@@ -129,11 +144,11 @@ const BoardSpace = () => {
     <Main>
       <div className={styles.columnSpace}>
         <div className={styles.new_column_input_wrapper}>
-          <h4>board title</h4>
+          <h4>" {boardTitle} "</h4>
           <form onSubmit={creatNewColumnForm} className={styles.header_input_form}>
             <input
               onChange={(e) => setTitleColumn(e.target.value)}
-              name='board' required
+              name='columnInputTitle' required
               value={titleColumn}
               type="text"
               placeholder='New column'

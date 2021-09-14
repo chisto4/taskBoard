@@ -27,7 +27,7 @@ const BoardItem = () => {
           {sortingColumn.map(
             (column, index) =>
               <ColumnItem
-                key={column.id}
+                key={index}
                 column={column}
                 columnIndex={index}
               />

@@ -6,7 +6,7 @@ import { useAppSelector } from "../../store/reducers";
 import styles from './userRegistrationFormStyle.module.scss';
 
 import { IUser } from "../../types/types";
-import Main from "../components/main/Main";
+import Main from "../components/Main/Main";
 import closeButton from '../../icon/close.png';
 import { registrationUsers } from "../../store/userReducer/userThunk";
 
@@ -30,7 +30,6 @@ const UserRegistration: React.FC = (): JSX.Element => {
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    console.log('event', event);
     const parseDate = new Date(userDob);
 
     const user: IUser = {
@@ -59,9 +58,9 @@ const UserRegistration: React.FC = (): JSX.Element => {
           <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
-          <a onClick={() => setModalMessage('')}>
+          <button className={styles.close_button_wrapper} onClick={() => setModalMessage('')}>
             <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
-          </a>
+          </button>
         </div>
       </div>}
 

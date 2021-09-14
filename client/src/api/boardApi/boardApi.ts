@@ -1,6 +1,6 @@
 
 import axios from '../index';
-import { IBoard, IColumn, ITask } from "../../types/types";
+import { IBoard, IColumn, IColumnRequest, ITask, IUpdateTask } from "../../types/types";
 
 export const createBoardApi = async (board: IBoard) => {
   const res = await axios.post('workspace/board', board);
@@ -22,9 +22,8 @@ export const deleteBoardApi = async (board: IBoard) => {
   return res.data
 };
 
-export const createColumnApi = async (column: IColumn) => {
+export const createColumnApi = async (column: IColumnRequest) => {
   const res = await axios.post('/workspace/board/column', column);
-  console.log('Column info creating', res.data);
   return res.data
 };
 
@@ -53,7 +52,7 @@ export const createTaskApi = async (task: ITask) => {
   return res.data
 };
 
-export const updateTaskApi = async (task: ITask) => {
+export const updateTaskApi = async (task: IUpdateTask) => {
   const res = await axios.put('/workspace/board/column/task', task);
   return res.data
 };

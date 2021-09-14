@@ -52,7 +52,7 @@ export type ActionsChoiceBoard = {
 
 export type ActionsCreateColumn = {
   type: actions.CREATE_COLUMN,
-  payload: IColumn
+  payload: IColumnRequest
 }
 export type ActionsUpdateColumn = {
   type: actions.UPDATE_COLUMN,

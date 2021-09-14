@@ -6,9 +6,9 @@ import { Draggable } from 'react-beautiful-dnd';
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
 import { IColumn, ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
-import TaskList from '../TaskList/TaskList';
 import deleteButton from '../../../icon/deleteAll.png';
 import { useAppSelector } from '../../../store/reducers';
+import TaskList from '../TaskList/TaskList';
 
 
 interface Props {
@@ -31,7 +31,8 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
     return columnArr
   }
 
-  const creatNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number | undefined) => {
+  const creatNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number) => {
+    console.log('IDDDD', id)
     const task: ITask = {
       title: titleTask,
       position: arrLenth(),
@@ -44,7 +45,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
     event.preventDefault();
   }
 
-  const deleteOneColumn = (id: number | undefined) => {
+  const deleteOneColumn = (id: number) => {
     const column: IColumn = {
       id: id,
       Tasks: [],
@@ -112,9 +113,9 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
           </form >
 
           <div className={styles.delete_oneColumn_button_wrapper}>
-            <a onClick={() => deleteOneColumn(column.id)}>
+            <button className={styles.delete_button_wrapper} onClick={() => deleteOneColumn(column.id)}>
               <img src={deleteButton} className={styles.delete_column_button} alt='delete'></img>
-            </a>
+            </button>
           </div>
         </div>
 

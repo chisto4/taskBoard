@@ -32,7 +32,6 @@ class UserController {
             newUser = newUser.toJSON();
             delete newUser.password;
             const token = authToken.genAccessToken(newUser.id, newUser.email)
-            console.log({ token, newUser })
             return res.status(200).json({ token, newUser })
         }
         catch (e) {
@@ -132,7 +131,6 @@ class UserController {
                 raw: true,
                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
             });
-            console.log(users);
             res.status(200).json(users);
         }
         catch (e) {
@@ -150,7 +148,6 @@ class UserController {
                 where: { id }, raw: true,
                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
             });
-            console.log(getUser)
             res.status(200).json(getUser)
         }
         catch (e) {
@@ -183,7 +180,6 @@ class UserController {
             })
 
             res.status(200).json(userIdToken)
-            console.log('User information updated success! Congratulations!')
         }
 
         catch (e) {
@@ -226,7 +222,6 @@ class UserController {
                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
             })
             res.status(200).json(userIdToken)
-            console.log('User Email updated success! Congratulations!')
         }
         catch (e) {
             console.log(e);
@@ -239,7 +234,6 @@ class UserController {
             const id = req.params.id
             const users = await db.User.destroy({ where: { id } });
             res.json(users)
-            console.log('User delete')
         }
         catch (e) {
             console.log(e);

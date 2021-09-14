@@ -1,10 +1,10 @@
-import Main from "../components/main/Main";
-import React, { useState} from 'react';
+import Main from "../components/Main/Main";
+import React, { useState } from 'react';
 import { baseURL } from '../../api/index';
 
 import styles from './userPage.module.scss';
 import baseAvatar from '../../image/wtf.jpeg';
-import closeButton  from '../../icon/close.png';
+import closeButton from '../../icon/close.png';
 import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
 import { editUsersEmail, updateUser, uploadUserAvatar } from "../../store/userReducer/userThunk";
@@ -14,41 +14,51 @@ import { Button } from "react-bootstrap";
 
 const UserPage: React.FC = (): JSX.Element => {
   const { name: stateName, dob: stateDob, email: stateEmail,
-    login: stateLogin, surname: stateSurName, avatarId: stateAvatarId
+    login: stateLogin, surname: stateSurName
   } = useAppSelector((state) => state.user.user)
 
-  const error = useAppSelector((state) => state.user.error)
-
-  const thrueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
   const dispatch = useDispatch();
 
+  const error = useAppSelector((state) => state.user.error)
   const image = useAppSelector((state) => state.user.user.Image)
-  const imageIdstate = useAppSelector((state) => state)
+
+  const thrueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
   const urlAvatar = !image ? baseAvatar : baseURL + '/' + image?.pathImages;
-  
 
-  const [userName, setUserName] = useState(stateName);
-  const [userSurName, setUserSurName] = useState(stateSurName);
-  const [userLogin, setUserLogin] = useState(stateLogin);
+  const updaitEmailPassword = "Update success"
   const [userDob, setUserDob] = useState(stateDob);
-  
-  const [userEmail, setUserEmail] = useState(stateEmail);
-  const [userPassword, setUserPassword] = useState('');
+  const uploadAvatar = "Your avatar has been update"
   const [newPassword, setNewPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-
+  const [userName, setUserName] = useState(stateName);
   const [formSwitch, setFormSwitch] = useState(false);
+  const [userPassword, setUserPassword] = useState('');
+  const [modalMessage, setModalMessage] = useState('');
+  const [userLogin, setUserLogin] = useState(stateLogin);
+  const [userEmail, setUserEmail] = useState(stateEmail);
   const [valuePassword, setValuePassword] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [userSurName, setUserSurName] = useState(stateSurName);
+  const updaitUserInfo = "Your user information has been update"
   const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
-  const [modalMessage, setModalMessage] = useState('');
-    const uploadAvatar = "Your avatar has been update"
-    const updaitUserInfo = "Your user information has been update"
-    const updaitEmailPassword = "Update success"
+  const statusError = () => {
+    if(error){
+      const ErrorMessage = (`WARRNING! ${error}`)
+      setModalMessage(ErrorMessage)
+    }
+  }
+
+  const updateInfromationStatus = () => {
+    if (userName !== stateName || userSurName !== stateSurName ||
+      userLogin !== stateLogin || userDob !== stateDob) {
+      return true
+    } else {
+      return false
+    }
+  }
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    console.log('event', event);
 
     const user: IUser = {
       dob: userDob,
@@ -60,34 +70,33 @@ const UserPage: React.FC = (): JSX.Element => {
     };
 
     dispatch(updateUser(user));
-    setModalMessage(updaitUserInfo)
-
- };
+    setModalMessage(updaitUserInfo) 
+    statusError()
+  };
 
   const userInfoPassEmail: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    console.log('Password and Email event', event);
 
     const validNewPassword = (newPassword === confirmPassword);
-    if(!validNewPassword){
+    if (!validNewPassword) {
       setValuePassword(true)
     } else {
+
       const updatePassword = newPassword
-    const user: IUser = {
-      name: userName,
-      surname: userSurName,
-      login: userLogin,
-      password: updatePassword,
-      dob: userDob,
-      email: userEmail,
-    };
-    console.log('send', user);
+      const user: IUser = {
+        name: userName,
+        surname: userSurName,
+        login: userLogin,
+        password: updatePassword,
+        dob: userDob,
+        email: userEmail,
+      };
 
-    dispatch(editUsersEmail(user));
-    setValuePassword(false)
-    setModalMessage(updaitEmailPassword)
-
- }};
+      dispatch(editUsersEmail(user));
+      setValuePassword(false)
+      setModalMessage(updaitEmailPassword)
+    }
+  };
 
   const submitUserImg = (e: React.FormEvent<HTMLFormElement>) => {
     const formData = new FormData();
@@ -108,16 +117,17 @@ const UserPage: React.FC = (): JSX.Element => {
   return (
     <Main >
 
-    {modalMessage && <div className={styles.modal_Inform_Window}>
-      <div className={styles.modal_Inform_Window_h4}>
-        <h4>{modalMessage}test</h4>
-      </div>
-      <div className={styles.modal_Inform_Window_link}>
-      <a onClick={() => setModalMessage('')}>
-      <img src={closeButton} className={styles.close_button} alt='close'></img>
-      </a>
-      </div>
-    </div>}
+      {modalMessage && <div className={styles.modal_Inform_Window}>
+        <div className={styles.modal_Inform_Window_h4}>
+          {!error && <h4>{modalMessage}</h4>}
+          {error && <h3 >{modalMessage}</h3>}
+        </div>
+        <div className={styles.modal_Inform_Window_link}>
+          <button className={styles.close_button_wrapper} onClick={() => setModalMessage('')}>
+            <img src={closeButton} className={styles.close_button_img} alt='close'></img>
+          </button>
+        </div>
+      </div>}
 
       <div className={styles.user_update_information_main_wrapper}>
 
@@ -164,8 +174,8 @@ const UserPage: React.FC = (): JSX.Element => {
         </div>
 
         <div className={styles.change_user_info_wrapper}>
-        {!formSwitch && <h1>Change user information</h1>}
-        {formSwitch && <h1>Change E-mail and password</h1>}
+          {!formSwitch && <h1>Change user information</h1>}
+          {formSwitch && <h1>Change E-mail and password</h1>}
 
           <div className={styles.change_update_form_window}>
             <button className={styles.change_user_form_window_left} onClick={() => setFormSwitch(false)} >USER INFO</button>
@@ -177,7 +187,7 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setUserSurName(e.target.value)} name='surname' required defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' required defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
             <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
-            <button type="submit" className={styles.registrationButton}>update information</button>
+            {updateInfromationStatus() && <button type="submit" className={styles.registrationButton}>update information</button>}
           </form>}
 
           {formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>
@@ -185,7 +195,7 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setUserPassword(e.target.value)} name='Password' required type="password" placeholder='Enter Old Password' />
             <input onChange={(e) => setNewPassword(e.target.value)} name='newPassword' required type="password" placeholder='Enter your New Password' />
             <input onChange={(e) => setConfirmPassword(e.target.value)} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
-              {valuePassword && <p className={styles.password_valid_message}>Password mismatch</p>}
+            {valuePassword && <p className={styles.password_valid_message}>Password mismatch</p>}
             <button type="submit" className={styles.registrationButton}>update email and password</button>
           </form>}
         </div>

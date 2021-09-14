@@ -1,4 +1,4 @@
-import { getAvatarInfo, uploadImageApi } from "../../api/userApi/uploadFile/uploadImageApi";
+import { uploadImageApi } from "../../api/userApi/uploadFile/uploadImageApi";
 import { editUsers, regUser, logUser, getToken, editUsersEmailPassword} from "../../api/userApi/userApi";
 import { IUser } from "../../types/types";
 import { AppDispatch } from "../reducers";

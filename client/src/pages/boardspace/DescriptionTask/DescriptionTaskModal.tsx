@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import styles from './descriptionTaskModal.module.scss';
-import { ITask } from '../../../types/types';
+import { IUpdateTask } from '../../../types/types';
 import deleteTaskButton from '../../../icon/close.png';
 import { updateTask } from '../../../store/boardReducer/boardThunk';
 
@@ -13,7 +13,7 @@ interface Props {
   columnIndex: number,
   taskTitleValue?: string,
   taskDescriptionValue?: string,
-  taskPriority: number | undefined
+  taskPriority: number
 }
 
 const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIndex,
@@ -21,51 +21,18 @@ const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIn
 
   const dispatch = useDispatch();
 
-  const taskPriorityFromStateGreen = () => {
-    if (taskPriority === 2) {
-      const priorityStateTask = false
-      return priorityStateTask
-    }
-    else {
-      const priorityStateTask = true
-      return priorityStateTask
-    }
-  }
-
-  const taskPriorityFromStateRed = () => {
-    if (taskPriority === 1) {
-      const priorityStateTask = false
-      return priorityStateTask
-    }
-    else {
-      const priorityStateTask = true
-      return priorityStateTask
-    }
-  }
-
   const [taskTitle, setTaskTitle] = useState(taskTitleValue);
   const [taskDescription, setTaskDescription] = useState(taskDescriptionValue);
-  const [taskPriorityStateRed, setTaskPriorityRed] = useState(taskPriorityFromStateRed());
-  const [taskPriorityStateGreen, setTaskPriorityGreen] = useState(taskPriorityFromStateGreen());
+  const [taskPriorityState, setTaskPriority] = useState<number>(taskPriority);
 
   const updateDescription = (event: React.FormEvent<HTMLFormElement>, taskId?: number) => {
 
-    const booleanToNumber = () => {
-      if (taskPriorityStateGreen) {
-        setTaskPriorityRed(false)
-        const priorityNumber: number = 2;
-        return priorityNumber;
-
-      } else if (taskPriorityStateRed) {
-        setTaskPriorityGreen(false)
-        const priorityNumber: number = 1;
-        return priorityNumber;
-      }
-    }
-    const task: ITask = {
-      id: taskId,
+    console.log('taskPriorityState', taskPriorityState);
+    
+    const task: IUpdateTask = {
+      id: taskId || 0,
       title: taskTitle,
-      priority: booleanToNumber(),
+      priority: taskPriorityState,
       description: taskDescription
     }
     dispatch(updateTask(task, columnIndex, taskIndex))
@@ -87,15 +54,15 @@ const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIn
         ></input>
         <div className={styles.input_task_priority}>
 
-          {taskPriorityFromStateRed() && <p>Priority<input type="checkbox"
+          {taskPriority === 2 && <p>Priority<input type="checkbox"
             className={styles.input_checkBox_Red}
-            onChange={(e) => setTaskPriorityRed(e.target.checked)}
+            onChange={(e) => setTaskPriority(e.target.checked ? 1 : 2 )}
             name="redCheck"
           />RED</p>}
 
-          {taskPriorityFromStateGreen() && <p><input type="checkbox"
+          {taskPriority === 1 && <p>Priority<input type="checkbox"
             className={styles.input_checkBox_Red}
-            onChange={(e) => setTaskPriorityGreen(e.target.checked)}
+            onChange={(e) => setTaskPriority(e.target.checked ? 2 : 1)}
             name="greenCheck"
           />GREEN</p>}
 
@@ -111,9 +78,9 @@ const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIn
       </form>
 
       <div className={styles.close_button_wrapper}>
-        <a onClick={() => setVisionDescription(false)}>
+        <button onClick={() => setVisionDescription(false)}>
           <img src={deleteTaskButton} className={styles.close_description_button} alt='close'></img>
-        </a>
+        </button>
       </div>
 
     </div>

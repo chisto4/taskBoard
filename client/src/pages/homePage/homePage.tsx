@@ -1,4 +1,4 @@
-import Main from '../components/main/Main';
+import Main from '../components/Main/Main';
 import styles from './homePage.module.scss';
 
 import welcomeScreenImage from '../../image/welcomePageScreen.png';

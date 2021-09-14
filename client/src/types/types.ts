@@ -35,14 +35,14 @@ export interface ILogUser {
 }
 
 export interface IUpdateTaskIndex {
-  taskIndexStart: number, 
-  taskIndexEnd: number, 
+  taskIndexStart: number,
+  taskIndexEnd: number,
   columnIndex: number,
   task: ITask[]
 
 }
 export interface IColumnIndex {
-  columnIndex: number 
+  columnIndex: number
 }
 export interface ITaskIndex {
   taskIndex: number
@@ -61,17 +61,15 @@ export interface IUserState {
   message: string | null,
 }
 
-//BOARD
-
 export interface IBoard {
   title?: string | null,
-  id?: number | undefined,
+  id: number,
 }
 export interface IBoardRequest {
   id: number,
 }
 export interface IColumn {
-  id?: number | undefined,
+  id: number,
   title?: string | null,
   position: number,
   boardId?: number | null,
@@ -79,29 +77,42 @@ export interface IColumn {
   Tasks: ITask[]
 }
 export interface IColumnRequest {
-  id: number | null,
+  id?: number,
+  title?: string | null,
+  position: number,
   boardId?: number | null,
+  clickBoardId?: number | null | string,
+  Tasks: ITask[]
 }
 export interface ITask {
   id?: number,
   title?: string,
-  position?: number,
+  position: number,
   description?: string,
-  columnId?: number,
-  priority: number | undefined,
+  columnId: number,
+  priority: number,
 }
 export interface ITaskRequest {
-    id?: number | null,
-    columnId?: number | null,
+  id?: number | null,
+  columnId?: number | null,
 }
 
 export interface IBoardState {
   board: IBoard[],
-  column: IColumn[],
+  column: IColumn[] | IColumnRequest[],
   task: ITask[],
   clickBoardId?: number | undefined,
 }
 
 export interface IUseParams {
   id: string;
+}
+
+export interface IUpdateTask {
+  id: number,
+  title?: string,
+  position?: number,
+  columnId?: number,
+  description?: string,
+  priority?: number
 }

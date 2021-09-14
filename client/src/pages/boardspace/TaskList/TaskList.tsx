@@ -5,7 +5,7 @@ import { ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 
 interface Props {
-  tasks?: ITask[],
+  tasks: ITask[],
   columnID?: number,
   columnIndex: number,
   valuePriority?: string
@@ -13,17 +13,16 @@ interface Props {
 
 const TaskList: React.FC<Props> = ({ tasks, columnIndex, columnID, valuePriority }) => {
 
-  const sortArr = tasks?.sort((a, b) => {
-    if (!a.priority || !b.priority) return 0
+  const sortArr = tasks.sort((a, b) => {
     if (valuePriority === "green") return b.priority - a.priority
     if (valuePriority === "red") return a.priority - b.priority
-    if (!a.position || !b.position) return 0
-    if (!valuePriority) return a.position - b.position
+     return a.position - b.position;
   })
 
-  const content = sortArr?.map((task, index) =>
-    <TaskItem task={task} taskIndex={index} key={task.id} columnIndex={columnIndex} />
-  )
+  const content = sortArr?.map((task, index) =>{
+    
+    return <TaskItem task={task} taskIndex={index} key={index} columnIndex={columnIndex} />
+  })
 
 
   return (
