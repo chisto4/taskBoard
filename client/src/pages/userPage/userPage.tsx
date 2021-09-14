@@ -48,7 +48,7 @@ const UserPage: React.FC = (): JSX.Element => {
     }
   }
 
-  const updateInfromationStatus = () => {
+  const updateInformationStatus = () => {
     if (userName !== stateName || userSurName !== stateSurName ||
       userLogin !== stateLogin || userDob !== stateDob) {
       return true
@@ -187,7 +187,7 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setUserSurName(e.target.value)} name='surname' required defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' required defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
             <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
-            {updateInfromationStatus() && <button type="submit" className={styles.registrationButton}>update information</button>}
+            {updateInformationStatus() && <button type="submit" className={styles.registrationButton}>update information</button>}
           </form>}
 
           {formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>

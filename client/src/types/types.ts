@@ -62,7 +62,7 @@ export interface IUserState {
 }
 
 export interface IBoard {
-  title?: string | null,
+  title: string,
   id: number,
 }
 export interface IBoardRequest {

@@ -11,24 +11,22 @@ import { BOARD_WINDOW } from "../../../api/const/const";
 
 interface Props {
   index: number,
-  boardItem:IBoard,
+  boardItem: IBoard,
 }
 
-
-
-const OneBoard: React.FC<Props> = ({index, boardItem}) => {
+const OneBoard: React.FC<Props> = ({ index, boardItem }) => {
 
   const dispatch = useDispatch();
   let history = useHistory();
 
-  const [titleBoardChange, setTitleBoardChange] = useState('');
+  const [titleBoardChange, setTitleBoardChange] = useState(boardItem.title);
   const [titleBoard, setTitleBoard] = useState('');
 
 
   const boardUpdate = (event: React.FormEvent<HTMLFormElement>) => {
 
     const board: IBoard = {
-      title: titleBoard,
+      title: titleBoardChange,
       id: 0
     };
 
@@ -39,7 +37,8 @@ const OneBoard: React.FC<Props> = ({index, boardItem}) => {
 
   const deleteOneBoard = (id: number) => {
     const board: IBoard = {
-      id: id,
+      id: boardItem.id,
+      title: boardItem.title
     };
     dispatch(deleteBoard(board));
   }
@@ -54,37 +53,40 @@ const OneBoard: React.FC<Props> = ({index, boardItem}) => {
     history.push(BOARD_WINDOW.replace(':id', `${column?.id}`))
   }
 
- return(
+  return (
 
-  <div className={styles.board} key={index}
-          >
-            <div className={styles.close_button_wrapper}>
-              <button className={styles.close_button} onClick={() => deleteOneBoard(boardItem.id)}>
-                <img src={closeButton} className={styles.close_button_img} alt='delete'></img>
-              </button>
-            </div>
+    <div className={styles.board} key={index}>
+        <div className={styles.close_button_wrapper}>
+          <button className={styles.close_button} onClick={() => deleteOneBoard(boardItem.id)}>
+            <img src={closeButton} className={styles.close_button_img} alt='delete'></img>
+          </button>
+        </div>
 
-            <p className={styles.board__title}
-              
-            >
-              <form onSubmit={boardUpdate} className={styles.header_input_form}>
-            <input
-              onChange={(e) => setTitleBoardChange(e.target.value)}
-              name='board' required
-              // value={titleBoard}
-              value={titleBoardChange}
-              // defaultValue={board.title}
-              type="text"
-              placeholder='New board'
-            />
-          </form >
-              {/* {board.title} */}
-            </p>
+      <div 
+      className={styles.one_board_wrapper}
+      onClick={() => getAllColumnsClick(boardItem.id)}>
 
-            <p onClick={() => getAllColumnsClick(boardItem.id)}>OPEN</p>
+      </div>
 
-  </div>
- )
+      <div className={styles.board_title_input_wrapper}>
+        <form onSubmit={boardUpdate} className={styles.board_title_input_form}>
+          <input
+            className={styles.border_update_input}
+            onChange={(e) => setTitleBoardChange(e.target.value)}
+            name='boardChange' required
+            // value={titleBoard}
+            value={titleBoardChange}
+            // defaultValue={board.title}
+            type="text"
+            placeholder='New board'
+          />
+        </form >
+      </div>
+
+    </div>
+
+
+  )
 
 }
 

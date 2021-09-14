@@ -57,7 +57,7 @@ z-index: 10;
   height: 100%;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: space-between;
   align-content: flex-start;
   overflow-y: scroll;
   border-radius:30px;
@@ -75,6 +75,12 @@ z-index: 10;
   flex-direction: column;
   justify-content: center;
   position: relative;
+  cursor: pointer;
+}
+
+.one_board_wrapper{
+  height: 100%;
+  width: 100%;
 }
 
 .board__title {
@@ -87,7 +93,23 @@ z-index: 10;
   align-items: center;
   justify-content: center;
   text-align: center;
-  cursor: pointer;
+}
+.board_title_input_wrapper{
+  height: 20px;
+  position: absolute;
+  top: 25%;
+}
+.border_update_input{
+  text-align: center;
+  border: none;
+  box-shadow: none;
+  background: none;
+  height: 15px;
+  input{
+    height: 15px;
+    padding: 0;
+    margin: 0;
+  }
 }
 
 .close_button_wrapper{

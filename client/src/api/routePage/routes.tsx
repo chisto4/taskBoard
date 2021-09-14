@@ -2,7 +2,7 @@ import UserLogin from "../../pages/login/loginPage";
 import UserPage from "../../pages/UserPage/UserPage";
 import WorkSpace from "../../pages/WorkSpace/WorkSpace";
 import helloWindow from "../../pages/HomePage/HomePage";
-import boardWindow from "../../pages/boardspace/BoardSpace";
+import boardWindow from "../../pages/Boardspace/BoardSpace";
 import UserRegistration from "../../pages/Registration/RegistartionWindow";
 import {
   HELLO_PAGE, LOGIN, REGISTRATION, USER,
