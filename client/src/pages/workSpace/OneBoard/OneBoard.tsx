@@ -5,7 +5,7 @@ import styles from '../workSpace.module.scss';
 import closeButton from '../../../icon/close.png';
 import { IBoard, IColumn } from "../../../types/types";
 import { useDispatch } from "react-redux";
-import { deleteBoard, getAllColumns } from "../../../store/boardReducer/boardThunk";
+import { deleteBoard, getAllColumns, updateBoard } from "../../../store/boardReducer/boardThunk";
 import { useHistory } from "react-router";
 import { BOARD_WINDOW } from "../../../api/const/const";
 
@@ -20,18 +20,16 @@ const OneBoard: React.FC<Props> = ({ index, boardItem }) => {
   let history = useHistory();
 
   const [titleBoardChange, setTitleBoardChange] = useState(boardItem.title);
-  const [titleBoard, setTitleBoard] = useState('');
 
 
   const boardUpdate = (event: React.FormEvent<HTMLFormElement>) => {
+    console.log("BOARDID", boardItem.id)
 
     const board: IBoard = {
       title: titleBoardChange,
-      id: 0
+      id: boardItem.id
     };
-
-    dispatch(creatBoard(board));
-    setTitleBoard("");
+    dispatch(updateBoard(board));
     event.preventDefault();
   };
 

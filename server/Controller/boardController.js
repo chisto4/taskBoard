@@ -65,16 +65,16 @@ class BoardController {
 
   async updateBoard(req, res) {
     try {
-      const { id } = req.user
-      const { boardId, title } = req.body
-      if (!id) {
+      const { id: tokenID } = req.user
+      const { id, title } = req.body
+      if (!tokenID) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       await db.Board.update({ title },
-        { where: { id: boardId } });
+        { where: { id } });
 
       const userBoard = await db.Board.findOne({
-        where: { id: boardId }
+        where: { id }
       })
     res.status(200).json(userBoard)
     }
