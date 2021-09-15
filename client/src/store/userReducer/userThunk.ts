@@ -1,5 +1,5 @@
 import { uploadImageApi } from "../../api/userApi/uploadFile/uploadImageApi";
-import { editUsers, regUser, logUser, getToken, editUsersEmailPassword} from "../../api/userApi/userApi";
+import { editUsers, regUser, logUser, getToken, editUsersEmailPassword } from "../../api/userApi/userApi";
 import { IUser } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import {
@@ -20,8 +20,7 @@ export const registrationUsers = (user: IUser) => async (dispatch: AppDispatch):
     localStorage.setItem('token', data.token)
     dispatch(actionsUpdateUser(data.newUser));
     dispatch(actionsSetAuth(true));
-    localStorage.setItem('isAuth', "true")
-    } catch (error: any) {
+  } catch (error: any) {
     dispatch(actionsSetError(error.message))
   }
 };
@@ -29,9 +28,8 @@ export const loginUser = (user: IUser) => async (dispatch: AppDispatch): Promise
   try {
     const data = await logUser(user)
     localStorage.setItem('token', data.token)
-    dispatch(actionsUpdateUser(data.userLogin));
     dispatch(actionsLogAuth(true));
-    localStorage.setItem('isAuth', "true")
+    dispatch(actionsUpdateUser(data.userLogin));
   } catch (error: any) {
     dispatch(actionsLogError(error.message))
   }
@@ -59,7 +57,6 @@ export const updateUserInformationToken = () => async (dispatch: AppDispatch): P
     const user = await getToken();
     dispatch(actionsUpdateUser(user));
     dispatch(actionsSetAuth(true));
-    localStorage.setItem('isAuth', "true")
   } catch (error: any) {
     dispatch(actionsGetTokenError(error.message))
     localStorage.clear();

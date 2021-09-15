@@ -34,7 +34,8 @@ const Header: React.FC = () => {
 
         <div className={styles.userAuthWrapper}>
           <div className={styles.user_avatar}>
-            {isAuth && <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>}
+            {isAuth && <img src={urlAvatar} className={styles.circle_avatar} 
+            onClick={() => { history.push(USER) }} alt='User Avatar'></img>}
           </div>
           {isAuth && <span onClick={() => { history.push(USER) }} >{login}</span>}
           {isAuth && <span onClick={() => { history.push(WORK_SPACE) }} >Work Space</span>}

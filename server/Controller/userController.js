@@ -58,11 +58,11 @@ class UserController {
                 return res.status(400).json({ message: "Error Registration", errors })
             }
             if (!userLogin) {
-                return res.status(400).json({ message: `Not found ${login}` })
+                return res.status(401).json({ message: `Not found ${login}` })
             }
             const validPassword = bcrypt.compareSync(password, userLogin.password)
             if (!validPassword) {
-                return res.status(400).json({ message: "Bad password! Try again" })
+                return res.status(402).json({ message: "Bad password! Try again" })
             }
             userLogin = userLogin.toJSON();
             delete userLogin.password;

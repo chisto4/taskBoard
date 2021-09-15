@@ -186,8 +186,8 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setUserName(e.target.value)} name='name' required defaultValue={stateName} type="text" placeholder='Enter your Name' />
             <input onChange={(e) => setUserSurName(e.target.value)} name='surname' required defaultValue={stateSurName} type="text" placeholder='Enter your Last Name' />
             <input onChange={(e) => setUserLogin(e.target.value)} name='login' required defaultValue={stateLogin} type="text" placeholder='Enter your Login' />
-            <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
-            {updateInformationStatus() && <button type="submit" className={styles.registrationButton}>update information</button>}
+            <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder={userDob} />
+            {updateInformationStatus() && <button type="submit" className={styles.update_user_inf_button}>update information</button>}
           </form>}
 
           {formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>
@@ -196,7 +196,7 @@ const UserPage: React.FC = (): JSX.Element => {
             <input onChange={(e) => setNewPassword(e.target.value)} name='newPassword' required type="password" placeholder='Enter your New Password' />
             <input onChange={(e) => setConfirmPassword(e.target.value)} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
             {valuePassword && <p className={styles.password_valid_message}>Password mismatch</p>}
-            <button type="submit" className={styles.registrationButton}>update email and password</button>
+            <button type="submit" className={styles.update_user_inf_button}>update email and password</button>
           </form>}
         </div>
       </div>

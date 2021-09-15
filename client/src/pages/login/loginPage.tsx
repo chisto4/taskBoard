@@ -26,17 +26,22 @@ const UserLogin: React.FC = (): JSX.Element => {
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
+const errorAlert = () => {
+  setModalMessage(errorStatus)
+}
     const user: IUser = {
       name: '',
       dob: '',
       surname: '',
       avatarId: null,
       login: userLogin,
-      email: userEmail,
+      email: '',
       password: userPassword,
     };
     dispatch(loginUser(user));
-    setModalMessage(errorStatus)
+    if(errorStatus){
+      setTimeout(errorAlert, 2000)
+    }
   };
 
   useEffect(() => {
@@ -61,7 +66,7 @@ const UserLogin: React.FC = (): JSX.Element => {
       <form className={styles.form} onSubmit={userInfo}>
         <h1>LOGIN</h1>
         <input onChange={(e) => setUserLogin(e.target.value)} name='login' type="text" placeholder='Enter your Login' />
-        <input onChange={(e) => setUserEmail(e.target.value)} name='email' type="email" placeholder='Enter your Email' />
+        {/* <input onChange={(e) => setUserEmail(e.target.value)} name='email' type="email" placeholder='Enter your Email' /> */}
         <input onChange={(e) => setUserPassword(e.target.value)} name='password' type="password" placeholder='Enter your Password' />
         <button type="submit" className={styles.registrationButton}>LOGIN</button>
       </form>

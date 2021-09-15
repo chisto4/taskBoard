@@ -6,7 +6,7 @@ import { Draggable } from 'react-beautiful-dnd';
 import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
 import { IColumn, ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
-import deleteButton from '../../../icon/deleteAll.png';
+import deleteButton from '../../../icon/delete_red.png';
 import { useAppSelector } from '../../../store/reducers';
 import TaskList from '../TaskList/TaskList';
 
@@ -22,7 +22,6 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
 
   const [titleTask, setTitleTask] = useState('');
   const [filterValue, setFilterValue] = useState('')
-
   const columnArr = useAppSelector((state) => state.board.column[columnIndex].Tasks?.length)
   const arrLenth = () => {
     if (!columnArr) {
@@ -81,14 +80,12 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
               className={styles.Filter_priority_button_red}
               onClick={() => setFilterValue('red')}
             >
-              RED
             </button>
 
             <button
               className={styles.Filter_priority_button_green}
               onClick={() => setFilterValue('green')}
             >
-              GREEN
             </button>
 
           </div>
@@ -108,7 +105,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
               name='name' required
               value={titleTask}
               type="text"
-              placeholder='`New task'
+              placeholder='+ Add another card'
             />
           </form >
 

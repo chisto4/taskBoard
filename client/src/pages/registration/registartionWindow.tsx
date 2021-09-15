@@ -70,7 +70,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
         <input onChange={(e) => setUserSurName(e.target.value)} name='surname' type="text" placeholder='Enter your Last Name' />
         <input onChange={(e) => setUserLogin(e.target.value)} name='login' type="text" placeholder='Enter your Login' />
         <input onChange={(e) => setUserEmail(e.target.value)} name='email' type="email" placeholder='Enter your Email' />
-        <input onChange={(e) => setUserPassword(e.target.value)} name='password' type="password" placeholder='Enter your Password' />
+        <input onChange={(e) => setUserPassword(e.target.value)} name='password' type="password" minLength={4} maxLength={50} placeholder='Enter your Password' />
         <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
         <button type="submit" className={styles.registrationButton}>REGISTRATION</button>
       </form>

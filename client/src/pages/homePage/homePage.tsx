@@ -1,9 +1,13 @@
 import Main from '../components/Main/Main';
 import styles from './homePage.module.scss';
-
+import React, { useState } from 'react';
+import DatePicker from 'react-date-picker';
+// import 'react-calendar/dist/Calendar.css';
 import welcomeScreenImage from '../../image/welcomePageScreen.png';
+import Calendar from 'react-calendar';
 
-const helloWindow = () => {
+const HelloWindow = () => {
+  const [value, onChange] = useState(new Date());
   return (
     <Main>
       <div className={styles.Hello_window}>
@@ -17,11 +21,27 @@ const helloWindow = () => {
 
         </div>
 
-        <img className={styles.welcome_img} src={welcomeScreenImage} alt={"logo"} />
+        {/* <img className={styles.welcome_img} src={welcomeScreenImage} alt={"logo"} /> */}
+
+        {/* <Calendar/> */}
+        {/* <div>
+      <DatePicker
+        onChange={onChange}
+        value={value}
+      />
+    </div> */}
+
+<div>
+      <Calendar
+        onChange={onChange}
+        value={value}
+      />
+    </div>
+        
 
       </div>
     </Main>
   )
 }
 
-export default helloWindow;
+export default HelloWindow;

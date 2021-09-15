@@ -22,7 +22,7 @@ const Main: React.FC<Props> = (props) => {
   return (
     <main className={styles.main}>
       <div className={styles.color_theme_wrapper}>
-        <button onClick={() => changeTheme()}>
+        <button onClick={() => changeTheme()} className={styles.color_theme_button}>
           <img src={blacWhiteButton} className={styles.light_style_button} alt='color_theme'></img>
         </button>
       </div>

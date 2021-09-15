@@ -111,7 +111,18 @@ class BoardController {
       }
       let newColumn = await db.Column.create({ title, position, boardId })
       newColumn = newColumn.toJSON();
-      return res.status(200).json(newColumn)
+      
+      const createdColumns = await db.Column.findOne({
+        where: { id: newColumn.id },
+        include: [
+          {
+            model: db.Task,
+          }
+        ],
+        order:[[db.Task, 'position', 'ASC']  ]
+      })
+      return res.status(200).json(createdColumns)
+
     }
     catch (e) { res.status(500).json(e) }
   }

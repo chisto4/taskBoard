@@ -15,15 +15,13 @@ userRouter.post('/registration/', [
   check('surname', "Input surname, please!").notEmpty(),
   check('login', "Input login please!").notEmpty(),
   check('email', "Input email please!").notEmpty(),
-  check('password', "Minimal length of password 4 maximum 16").isLength({ min: 4, max: 16 })
+  check('password', "Minimal length of password 4 maximum 50").isLength({ min: 4, max: 50 })
 ],
   userController.registrationUser);
 
 userRouter.post('/login/',
   [
     check('login', "Input login please!").notEmpty(),
-    check('email', "Input email please!").notEmpty(),
-    check('password', "Minimal length of password 4 maximum 16").isLength({ min: 4, max: 16 })
   ],
   userController.loginUser);
 

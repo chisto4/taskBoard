@@ -74,9 +74,10 @@ export const updateColumn = (column: IColumn) => async (dispatch: AppDispatch): 
   }
 };
 export const updateIndexColumn = (column: IColumn[]) => async (dispatch: AppDispatch): Promise<void> => {
+  dispatch(actionsUpdateIndexColumn(column));
   try {
     const data = await updateIndexColumnApi(column)
-    dispatch(actionsUpdateIndexColumn(data));
+    // dispatch(actionsUpdateIndexColumn(data));
   } catch (error: any) {
     dispatch(actionsSetError(error.message))
   }

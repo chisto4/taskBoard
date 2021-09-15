@@ -2,7 +2,7 @@ import { useState } from "react";
 
 import styles from '../workSpace.module.scss';
 
-import closeButton from '../../../icon/close.png';
+import closeButton from '../../../icon/close_white.png';
 import { IBoard, IColumn } from "../../../types/types";
 import { useDispatch } from "react-redux";
 import { deleteBoard, getAllColumns, updateBoard } from "../../../store/boardReducer/boardThunk";
