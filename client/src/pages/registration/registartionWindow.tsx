@@ -7,8 +7,9 @@ import styles from './userRegistrationFormStyle.module.scss';
 
 import { IUser } from "../../types/types";
 import Main from "../components/Main/Main";
-import closeButton from '../../icon/close.png';
+import closeButton from '../../icon/close_white.png';
 import { registrationUsers } from "../../store/userReducer/userThunk";
+import { actionsSetError } from '../../store/userReducer/actionUser';
 
 const UserRegistration: React.FC = (): JSX.Element => {
   const [userName, setUserName] = useState('');
@@ -16,11 +17,13 @@ const UserRegistration: React.FC = (): JSX.Element => {
   const [userLogin, setUserLogin] = useState('');
   const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
+  const [confirmCUerPassword, setConfirmUserPassword] = useState('');
   const [userDob, setUserDob] = useState('');
 
   const auth = useAppSelector((state) => state.user.auth)
 
   const errorWrapper = useAppSelector((state) => state.user.error)
+  console.log('ZALUPENKA', errorWrapper)
   const [modalMessage, setModalMessage] = useState<string | null>('');
 
   const dispatch = useDispatch();
@@ -31,6 +34,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const parseDate = new Date(userDob);
+    if(userPassword !== confirmCUerPassword)return setModalMessage('PASSWOR MISTMACH')
 
     const user: IUser = {
       name: userName,
@@ -41,8 +45,9 @@ const UserRegistration: React.FC = (): JSX.Element => {
       dob: parseDate,
       avatarId: null
     };
-    dispatch(registrationUsers(user));
     setModalMessage(errorWrapper)
+    dispatch(actionsSetError(null));
+    dispatch(registrationUsers(user));
   };
 
   useEffect(() => {
@@ -71,6 +76,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
         <input onChange={(e) => setUserLogin(e.target.value)} name='login' type="text" placeholder='Enter your Login' />
         <input onChange={(e) => setUserEmail(e.target.value)} name='email' type="email" placeholder='Enter your Email' />
         <input onChange={(e) => setUserPassword(e.target.value)} name='password' type="password" minLength={4} maxLength={50} placeholder='Enter your Password' />
+        <input onChange={(e) => setConfirmUserPassword(e.target.value)} name='Confirm_Password' type="password" minLength={4} maxLength={50} placeholder='Confirm Password' />
         <input onChange={(e) => setUserDob(e.target.value)} name='dob' type="date" placeholder='Enter your Date of Born' />
         <button type="submit" className={styles.registrationButton}>REGISTRATION</button>
       </form>

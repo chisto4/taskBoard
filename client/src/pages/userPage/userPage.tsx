@@ -70,9 +70,15 @@ const UserPage: React.FC = (): JSX.Element => {
     };
 
     dispatch(updateUser(user));
-    setModalMessage(updaitUserInfo) 
-    statusError()
+    error ? statusError() : setModalMessage(updaitUserInfo) 
+    
   };
+
+  const cleareInput = () => {
+    setUserPassword('');
+    setNewPassword('');
+    setConfirmPassword('');
+  }
 
   const userInfoPassEmail: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -85,7 +91,7 @@ const UserPage: React.FC = (): JSX.Element => {
       const updatePassword = newPassword
       const user: IUser = {
         name: userName,
-        surname: userSurName,
+        surname: userPassword,
         login: userLogin,
         password: updatePassword,
         dob: userDob,
@@ -93,8 +99,10 @@ const UserPage: React.FC = (): JSX.Element => {
       };
 
       dispatch(editUsersEmail(user));
+      cleareInput();
       setValuePassword(false)
-      setModalMessage(updaitEmailPassword)
+      error ? statusError() : setModalMessage(updaitEmailPassword)
+      if(!error) return cleareInput();
     }
   };
 
@@ -192,9 +200,9 @@ const UserPage: React.FC = (): JSX.Element => {
 
           {formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>
             <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="email" placeholder='Enter New Email' />
-            <input onChange={(e) => setUserPassword(e.target.value)} name='Password' required type="password" placeholder='Enter Old Password' />
-            <input onChange={(e) => setNewPassword(e.target.value)} name='newPassword' required type="password" placeholder='Enter your New Password' />
-            <input onChange={(e) => setConfirmPassword(e.target.value)} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
+            <input onChange={(e) => setUserPassword(e.target.value)} value= {userPassword} name='Password' required type="password" placeholder='Enter Old Password' />
+            <input onChange={(e) => setNewPassword(e.target.value)} value= {newPassword} name='newPassword' required type="password" placeholder='Enter your New Password' />
+            <input onChange={(e) => setConfirmPassword(e.target.value)} value= {confirmPassword} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
             {valuePassword && <p className={styles.password_valid_message}>Password mismatch</p>}
             <button type="submit" className={styles.update_user_inf_button}>update email and password</button>
           </form>}

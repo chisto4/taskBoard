@@ -17,11 +17,12 @@ import {
 export const registrationUsers = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await regUser(user)
+    console.log('DATA WHEN ERROR', data)
     localStorage.setItem('token', data.token)
     dispatch(actionsUpdateUser(data.newUser));
     dispatch(actionsSetAuth(true));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const loginUser = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
@@ -31,7 +32,7 @@ export const loginUser = (user: IUser) => async (dispatch: AppDispatch): Promise
     dispatch(actionsLogAuth(true));
     dispatch(actionsUpdateUser(data.userLogin));
   } catch (error: any) {
-    dispatch(actionsLogError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const updateUser = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
@@ -40,7 +41,7 @@ export const updateUser = (user: IUser) => async (dispatch: AppDispatch): Promis
     dispatch(actionsUpdateUser(data));
     dispatch(actionsLogAuth(true));
   } catch (error: any) {
-    dispatch(actionsLogError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const editUsersEmail = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
@@ -49,7 +50,7 @@ export const editUsersEmail = (user: IUser) => async (dispatch: AppDispatch): Pr
     dispatch(actionsUpdateUser(data));
     dispatch(actionsLogAuth(true));
   } catch (error: any) {
-    dispatch(actionsLogError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const updateUserInformationToken = () => async (dispatch: AppDispatch): Promise<void> => {
@@ -58,7 +59,7 @@ export const updateUserInformationToken = () => async (dispatch: AppDispatch): P
     dispatch(actionsUpdateUser(user));
     dispatch(actionsSetAuth(true));
   } catch (error: any) {
-    dispatch(actionsGetTokenError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
     localStorage.clear();
   }
 };
@@ -69,7 +70,7 @@ export const uploadUserAvatar = (file: FormData) => async (dispatch: AppDispatch
     console.log(pathImage)
     dispatch(actionsUploadImage(pathImage));
   } catch (error: any) {
-    dispatch(actionsUploadError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const logOutThunk = () => (dispatch: AppDispatch) => {

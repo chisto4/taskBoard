@@ -28,7 +28,7 @@ class BoardController {
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      const userBoards = await db.User.findOne({
+      const allUserBoards = await db.User.findOne({
         where: { id },
         include: [{
           model: db.Board,
@@ -36,7 +36,7 @@ class BoardController {
           through: { attributes: [] }
         }]
       })
-      res.status(200).json(userBoards.Boards)
+      res.status(200).json(allUserBoards.Boards)
     }
 
     catch (e) {
@@ -51,6 +51,12 @@ class BoardController {
       const { boardId } = req.body
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })
+      }
+      const validBoard = await db.UserBoard.findOne(
+        { where: { boardId: boardId } }
+      ) 
+      if(validBoard.userId !== id){
+        return res.status(400).json({ message: "Access for this board close" })
       }
       const userBoard = await db.Board.findOne({
         where: { id: boardId }
@@ -105,9 +111,16 @@ class BoardController {
   async createColumn(req, res) {
     try {
       const { title, position, boardId } = req.body
+      console.log('BOARD ID COLUMN CREATE ', req.body)
       const { id } = req.user
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })
+      }
+      const validBoard = await db.UserBoard.findOne(
+        { where: { boardId: 12 } }
+      ) 
+      if(validBoard.userId !== id){
+        return res.status(400).json({ message: "Access for this board close" })
       }
       let newColumn = await db.Column.create({ title, position, boardId })
       newColumn = newColumn.toJSON();
@@ -124,7 +137,7 @@ class BoardController {
       return res.status(200).json(createdColumns)
 
     }
-    catch (e) { res.status(500).json(e) }
+    catch (e) { res.status(500).json({ message: "Column not create" }) }
   }
 
   async getAllColumns(req, res) {
@@ -133,6 +146,18 @@ class BoardController {
       const { id: tokenId } = req.user
       if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
+      }
+      const findBoard = await db.Board.findOne(
+        { where: { id } }
+      ) 
+      if(!findBoard){
+        return res.status(404).json({ message: "Board not found" })
+      }
+      const validBoard = await db.UserBoard.findOne(
+        { where: { boardId: id } }
+      ) 
+      if(validBoard.userId !== tokenId){
+        return res.status(400).json({ message: "Access for this board close" })
       }
       const boardColumns = await db.Column.findAll({
         where: { boardId: id },
@@ -152,6 +177,7 @@ class BoardController {
     catch (e) {
       console.log(e);
       console.log('Board Columns not download error')
+      return res.status(400).json({ message: "Board Columns not download error" })
     }
   }
 

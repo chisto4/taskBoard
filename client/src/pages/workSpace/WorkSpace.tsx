@@ -17,6 +17,9 @@ const WorkSpace = () => {
   const dispatch = useDispatch();
 
   const userBoardArray = useAppSelector((state) => state.board.board)
+  const stateInfo = useAppSelector((state) => state)
+  console.log('STATE INFO', stateInfo)
+
   const [titleBoard, setTitleBoard] = useState('');
 
   const boardInfo = (event: React.FormEvent<HTMLFormElement>) => {

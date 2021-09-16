@@ -7,9 +7,10 @@ import { IUser } from '../../types/types';
 
 import styles from './loginPage.module.scss';
 import Main from "../components/Main/Main";
-import closeButton from '../../icon/close.png';
+import closeButton from '../../icon/close_white.png';
 
 import { loginUser } from "../../store/userReducer/userThunk";
+import { actionsSetError } from '../../store/userReducer/actionUser';
 
 const UserLogin: React.FC = (): JSX.Element => {
   const [userLogin, setUserLogin] = useState('');
@@ -23,12 +24,14 @@ const UserLogin: React.FC = (): JSX.Element => {
   const errorStatus = useAppSelector((state) => state.user.error)
   const [modalMessage, setModalMessage] = useState<string | null>('');
 
+  const clearError = () => {
+    setModalMessage('')
+    dispatch(actionsSetError(null));
+  }
+
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
 
-const errorAlert = () => {
-  setModalMessage(errorStatus)
-}
     const user: IUser = {
       name: '',
       dob: '',
@@ -38,16 +41,19 @@ const errorAlert = () => {
       email: '',
       password: userPassword,
     };
-    dispatch(loginUser(user));
-    if(errorStatus){
-      setTimeout(errorAlert, 2000)
-    }
+    const qwer = loginUser(user)
+    console.log("qwer", qwer)
+    dispatch(qwer);
+    if(errorStatus) setModalMessage(errorStatus)
+    dispatch(actionsSetError(null))
   };
 
   useEffect(() => {
+    if(errorStatus)setModalMessage(errorStatus)
     if (auth) { history.push("/user") }
-  }, [auth, history])
+  }, [auth, history, errorStatus])
 
+  console.log("modalMessage", modalMessage)
   return (
     <Main>
 
@@ -57,7 +63,7 @@ const errorAlert = () => {
           <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
-          <button className={styles.close_button_wrapper} onClick={() => setModalMessage('')}>
+          <button className={styles.close_button_wrapper} onClick={() => clearError()}>
             <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
           </button>
         </div>

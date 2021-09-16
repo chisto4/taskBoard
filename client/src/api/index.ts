@@ -19,7 +19,6 @@ instance.interceptors.request.use(
     return config;
   },
   (error) => {
-    console.error('AXIOS_REQUEST_ERROR', error);
     return Promise.reject(error);
   },
 );
@@ -27,7 +26,6 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => response,
   (error) => {
-    console.error('AXIOS_RESPONSE_ERROR', error);
     return Promise.reject(error);
   },
 );
