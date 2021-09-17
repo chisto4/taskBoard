@@ -22,14 +22,17 @@ const UserRegistration: React.FC = (): JSX.Element => {
 
   const auth = useAppSelector((state) => state.user.auth)
 
-  const errorWrapper = useAppSelector((state) => state.user.error)
-  console.log('ZALUPENKA', errorWrapper)
+  const errorStatus = useAppSelector((state) => state.user.error)
   const [modalMessage, setModalMessage] = useState<string | null>('');
 
   const dispatch = useDispatch();
 
   let history = useHistory();
 
+  const clearError = () => {
+    setModalMessage('')
+    dispatch(actionsSetError(null));
+  }
 
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
@@ -45,25 +48,27 @@ const UserRegistration: React.FC = (): JSX.Element => {
       dob: parseDate,
       avatarId: null
     };
-    setModalMessage(errorWrapper)
-    dispatch(actionsSetError(null));
     dispatch(registrationUsers(user));
+    if(errorStatus) setModalMessage(errorStatus)
+    dispatch(actionsSetError(null));
   };
 
   useEffect(() => {
+    if(errorStatus !== 'Users not  authorization second Falls')setModalMessage('Please input correct information')
+    if(errorStatus)setModalMessage(errorStatus)
     if (auth) { history.push("/user") }
-  }, [auth, history])
+  }, [auth, history, errorStatus])
 
   return (
     <Main>
 
       {modalMessage && <div className={styles.modal_Inform_Window}>
         <div className={styles.modal_Inform_Window_h4}>
-          <h4>Sorry, but something went wrong:</h4>
+          <h4>Sorry, but:</h4>
           <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
-          <button className={styles.close_button_wrapper} onClick={() => setModalMessage('')}>
+          <button className={styles.close_button_wrapper} onClick={() => clearError()}>
             <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
           </button>
         </div>

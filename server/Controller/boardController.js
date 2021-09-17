@@ -117,7 +117,7 @@ class BoardController {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       const validBoard = await db.UserBoard.findOne(
-        { where: { boardId: 12 } }
+        { where: { boardId } }
       ) 
       if(validBoard.userId !== id){
         return res.status(400).json({ message: "Access for this board close" })
@@ -155,7 +155,8 @@ class BoardController {
       }
       const validBoard = await db.UserBoard.findOne(
         { where: { boardId: id } }
-      ) 
+        ) 
+        console.log('VALID BOARD', validBoard)
       if(validBoard.userId !== tokenId){
         return res.status(400).json({ message: "Access for this board close" })
       }

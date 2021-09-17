@@ -10,16 +10,12 @@ import {  getAllBoards, getAllColumns, reorderTask, updateIndexColumn } from '..
 
 import Main from '../components/Main/Main';
 import BoardItem from './BoardItem/BoardItem';
-import { WORK_SPACE } from '../../api/const/const';
-import { actionsSetError } from '../../store/userReducer/actionUser';
 
 const BoardSpace = () => {
   const useBoardId: IUseParams = useParams()
   const boardIdNumber = Number(useBoardId.id)
-  const errorWrapper = useAppSelector((state) => state.user.error)
 
   const dispatch = useDispatch();
-  let history = useHistory();
   
   const column: IColumn = {
     id: boardIdNumber,
@@ -28,12 +24,9 @@ const BoardSpace = () => {
   };
 
   useEffect(() => {
-    if(errorWrapper) {
-      history.push(WORK_SPACE)
-    }
     dispatch(getAllBoards());
     dispatch(getAllColumns(column));
-  }, [dispatch, errorWrapper])
+  }, [])
 
   const userColumnArray = useAppSelector((state) => state.board.column)
   const stateBoard = useAppSelector((state) => state.board.board.find(brd=>brd.id===boardIdNumber))
@@ -133,6 +126,7 @@ const BoardSpace = () => {
 
   return (
     <Main>
+
       <div className={styles.columnSpace}>
           <h4>" {boardTitle} "</h4>
       </div>

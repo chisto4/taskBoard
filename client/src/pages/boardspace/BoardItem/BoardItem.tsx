@@ -1,5 +1,5 @@
 
-import { useParams } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { Droppable } from 'react-beautiful-dnd';
 
 import styles from '../boardSpace.module.scss';
@@ -8,7 +8,8 @@ import { IColumnRequest, IUseParams } from '../../../types/types';
 import { useAppSelector } from '../../../store/reducers';
 import { creatColumn } from '../../../store/boardReducer/boardThunk';
 import { useDispatch } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { WORK_SPACE } from '../../../api/const/const';
 
 interface Props {
   arrLenth: number,
@@ -17,11 +18,14 @@ interface Props {
 const BoardItem : React.FC<Props>  = ({arrLenth}) => {
 
   const dispatch = useDispatch();
+  let history = useHistory();
 
   const useBoardId: IUseParams = useParams()
   const boardIdNumber = Number(useBoardId.id)
 
   const userColumnArray = useAppSelector((state) => state.board.column)
+  const errorWrapper = useAppSelector((state) => state.user.error)
+
   const [titleColumn, setTitleColumn] = useState('');
 
   const sortingColumn = userColumnArray.sort((a, b) => {
@@ -40,6 +44,10 @@ const BoardItem : React.FC<Props>  = ({arrLenth}) => {
     setTitleColumn("");
     event.preventDefault();
   }
+
+  useEffect(() => {
+    if(errorWrapper) history.push(WORK_SPACE)
+  }, [errorWrapper, history])
 
   return (
     <Droppable droppableId={`${boardIdNumber}`} type='column' direction="horizontal">

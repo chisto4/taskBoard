@@ -5,9 +5,9 @@ import { BrowserRouter, Switch } from 'react-router-dom';
 import './App.css';
 
 import AppRouter from './api/routePage/AppRouter';
-import Header from './pages/components/Header/Header';
 import { updateUserInformationToken } from './store/userReducer/userThunk';
 import { useAppSelector } from './store/reducers';
+import Header from './pages/components/Header/Header';
 
 function App() {
 

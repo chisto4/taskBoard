@@ -15,7 +15,7 @@ export const creatBoard = (board: IBoard) => async (dispatch: AppDispatch): Prom
     const data = await createBoardApi(board)
     dispatch(actionsCreateBoard(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const getAllBoards = () => async (dispatch: AppDispatch): Promise<void> => {
@@ -23,7 +23,7 @@ export const getAllBoards = () => async (dispatch: AppDispatch): Promise<void> =
     const data = await getAllBoardsApi()
     dispatch(actionsGetAllBoard(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const updateBoard = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
@@ -31,7 +31,7 @@ export const updateBoard = (board: IBoard) => async (dispatch: AppDispatch): Pro
     const data = await updateBoardApi(board)
     dispatch(actionsUpdateBoard(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const deleteBoard = (board: IBoard) => async (dispatch: AppDispatch): Promise<void> => {
@@ -39,7 +39,7 @@ export const deleteBoard = (board: IBoard) => async (dispatch: AppDispatch): Pro
     await deleteBoardApi(board)
     dispatch(actionsDeleteBoard(board));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 
@@ -51,7 +51,7 @@ export const creatColumn = (column: IColumnRequest) => async (dispatch: AppDispa
     console.log("CREATING COLUMN", data)
     dispatch(actionsCreateColumn(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const getAllColumns = (column: IColumn) => async (dispatch: AppDispatch): Promise<void> => {
@@ -59,7 +59,7 @@ export const getAllColumns = (column: IColumn) => async (dispatch: AppDispatch):
     const data = await getAllColumnsApi(column)
     dispatch(actionsGetAllColumn(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const clearAllColumns = () => (dispatch: AppDispatch) => {
@@ -70,7 +70,7 @@ export const updateColumn = (column: IColumn) => async (dispatch: AppDispatch): 
     const data = await updateColumnApi(column)
     dispatch(actionsUpdateColumn(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const updateIndexColumn = (column: IColumn[]) => async (dispatch: AppDispatch): Promise<void> => {
@@ -79,7 +79,7 @@ export const updateIndexColumn = (column: IColumn[]) => async (dispatch: AppDisp
     const data = await updateIndexColumnApi(column)
     // dispatch(actionsUpdateIndexColumn(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const deleteColumn = (column: IColumn) => async (dispatch: AppDispatch): Promise<void> => {
@@ -87,7 +87,7 @@ export const deleteColumn = (column: IColumn) => async (dispatch: AppDispatch): 
     await deleteColumnApi(column)
     dispatch(actionsDeleteColumn(column));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 // TASK
@@ -98,7 +98,7 @@ export const creatTask = (task: ITask) => async (dispatch: AppDispatch): Promise
 
     dispatch(actionsCreateTask(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const getAllTasks = (task: ITask) => async (dispatch: AppDispatch): Promise<void> => {
@@ -106,7 +106,7 @@ export const getAllTasks = (task: ITask) => async (dispatch: AppDispatch): Promi
     const data = await getAllTaskApi(task)
     dispatch(actionsGetAllTask(data));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 
@@ -118,7 +118,7 @@ export const updateTask = (task: IUpdateTask, columnIndex: number,
       
       dispatch(actionsUpdateTask({ task: data, columnIndex, taskIndex }));
     } catch (error: any) {
-      dispatch(actionsSetError(error.message))
+      dispatch(actionsSetError(error.response.data.message))
     }
   };
 export const reorderTask = (task: ITask[], taskIndexStart: number, taskIndexEnd: number, columnIndex: number) =>
@@ -127,7 +127,7 @@ export const reorderTask = (task: ITask[], taskIndexStart: number, taskIndexEnd:
     try {
       await updateTaskPositionApi(task)
     } catch (error: any) {
-      dispatch(actionsSetError(error.message))
+      dispatch(actionsSetError(error.response.data.message))
     }
   };
 
@@ -136,6 +136,6 @@ export const deleteTask = (task: ITask) => async (dispatch: AppDispatch): Promis
     await deleteTaskApi(task)
     dispatch(actionsDeleteTask(task));
   } catch (error: any) {
-    dispatch(actionsSetError(error.message))
+    dispatch(actionsSetError(error.response.data.message))
   }
 };

@@ -14,7 +14,6 @@ import { actionsSetError } from '../../store/userReducer/actionUser';
 
 const UserLogin: React.FC = (): JSX.Element => {
   const [userLogin, setUserLogin] = useState('');
-  const [userEmail, setUserEmail] = useState('');
   const [userPassword, setUserPassword] = useState('');
 
   const auth = useAppSelector((state) => state.user.auth)
@@ -41,25 +40,23 @@ const UserLogin: React.FC = (): JSX.Element => {
       email: '',
       password: userPassword,
     };
-    const qwer = loginUser(user)
-    console.log("qwer", qwer)
-    dispatch(qwer);
+    dispatch(loginUser(user));
     if(errorStatus) setModalMessage(errorStatus)
     dispatch(actionsSetError(null))
   };
 
   useEffect(() => {
+    if(errorStatus !== 'Users not  authorization second Falls')setModalMessage('You need input correct Login ans Password')
     if(errorStatus)setModalMessage(errorStatus)
     if (auth) { history.push("/user") }
   }, [auth, history, errorStatus])
 
-  console.log("modalMessage", modalMessage)
   return (
     <Main>
 
       {modalMessage && <div className={styles.modal_Inform_Window}>
         <div className={styles.modal_Inform_Window_h4}>
-          <h4>Sorry, but something went wrong:</h4>
+          <h4>Sorry, but:</h4>
           <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
@@ -72,8 +69,7 @@ const UserLogin: React.FC = (): JSX.Element => {
       <form className={styles.form} onSubmit={userInfo}>
         <h1>LOGIN</h1>
         <input onChange={(e) => setUserLogin(e.target.value)} name='login' type="text" placeholder='Enter your Login' />
-        {/* <input onChange={(e) => setUserEmail(e.target.value)} name='email' type="email" placeholder='Enter your Email' /> */}
-        <input onChange={(e) => setUserPassword(e.target.value)} name='password' type="password" placeholder='Enter your Password' />
+        <input onChange={(e) => setUserPassword(e.target.value)} name='passwordLogin' type="password" placeholder='Enter your Password' />
         <button type="submit" className={styles.registrationButton}>LOGIN</button>
       </form>
     </Main>
