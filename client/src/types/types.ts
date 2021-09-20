@@ -1,5 +1,6 @@
 //USER
 export interface IUser {
+  id?: number,
   login: string,
   password: string,
   email: string,
@@ -17,6 +18,10 @@ export interface IUserUpdate {
   surname: string,
   login: string,
   dob: Date | string,
+}
+
+export interface IUserRequest {
+  id?: number
 }
 
 export interface ILogUser {
@@ -51,7 +56,10 @@ export interface ITaskIndex {
 export interface ITaskUpdate {
   columnIndex: number,
   taskIndex: number,
-  task: ITask
+  task: ITask,
+  userId?: number,
+  userLogin?: string,
+  userPathImage?: string,
 }
 
 export interface IUserState {
@@ -59,15 +67,25 @@ export interface IUserState {
   auth: boolean,
   error: string | null,
   message: string | null,
+  usersList: IUser[],
 }
 
 export interface IBoard {
   title: string,
   id: number,
+  userId: number,
+  userLogin: string,
+  userPathImage: string | undefined,
+  updatedAt?:Date | string,
 }
 export interface IBoardRequest {
   id: number,
 }
+export interface IBoardSend {
+  boardId: number,
+  userId?: number,
+}
+
 export interface IColumn {
   id: number,
   title?: string | null,
@@ -91,6 +109,10 @@ export interface ITask {
   description?: string,
   columnId: number,
   priority: number,
+  userId: number,
+  userLogin: string,
+  userPathImage: string | undefined,
+  updatedAt?:Date | string,
 }
 export interface ITaskRequest {
   id?: number | null,

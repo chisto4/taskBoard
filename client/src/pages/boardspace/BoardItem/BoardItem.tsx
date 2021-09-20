@@ -15,7 +15,7 @@ interface Props {
   arrLenth: number,
 }
 
-const BoardItem : React.FC<Props>  = ({arrLenth}) => {
+const BoardItem: React.FC<Props> = ({ arrLenth }) => {
 
   const dispatch = useDispatch();
   let history = useHistory();
@@ -33,7 +33,7 @@ const BoardItem : React.FC<Props>  = ({arrLenth}) => {
   })
 
   const creatNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
-    
+
     const column: IColumnRequest = {
       Tasks: [],
       title: titleColumn,
@@ -46,39 +46,42 @@ const BoardItem : React.FC<Props>  = ({arrLenth}) => {
   }
 
   useEffect(() => {
-    if(errorWrapper) history.push(WORK_SPACE)
+    if (errorWrapper) history.push(WORK_SPACE)
   }, [errorWrapper, history])
 
   return (
-    <Droppable droppableId={`${boardIdNumber}`} type='column' direction="horizontal">
-      {(provided) => (
-        <div className={styles.column_wrapper}
-          {...provided.droppableProps}
-          ref={provided.innerRef}>
-          {sortingColumn.map(
-            (column, index) =>
-              <ColumnItem
-                key={index}
-                column={column}
-                columnIndex={index}
-              />
-          )}
-        <div className={styles.new_column_input_wrapper}>
-          <form onSubmit={creatNewColumnForm} className={styles.header_input_form}>
-            <input
-              onChange={(e) => setTitleColumn(e.target.value)}
-              name='columnInputTitle' required
-              value={titleColumn}
-              type="text"
-              placeholder='+ Add another column'
-            />
-            {/* <button type="submit" className={styles.create_button}>CREATE</button> */}
-          </form >
-        </div>
-          {provided.placeholder}
-        </div>
-      )}
-    </Droppable>
+    <div className={styles.column_wrapper}>
+
+      <Droppable droppableId={`${boardIdNumber}`} type='column' direction="horizontal">
+        {(provided) => (
+          <div className={styles.column__drop_wrapper}
+            {...provided.droppableProps}
+            ref={provided.innerRef}>
+            {sortingColumn.map(
+              (column, index) =>
+                <ColumnItem
+                  key={index}
+                  column={column}
+                  columnIndex={index}
+                />
+            )}
+            {provided.placeholder}
+          </div>
+        )}
+      </Droppable>
+      <div className={styles.new_column_input_wrapper}>
+        <form onSubmit={creatNewColumnForm} className={styles.header_input_form}>
+          <input
+            onChange={(e) => setTitleColumn(e.target.value)}
+            name='columnInputTitle' required
+            value={titleColumn}
+            type="text"
+            placeholder='+ Add another column'
+          />
+          {/* <button type="submit" className={styles.create_button}>CREATE</button> */}
+        </form >
+      </div>
+    </div>
   )
 }
 

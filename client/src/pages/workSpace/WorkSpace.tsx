@@ -24,6 +24,7 @@ const WorkSpace = () => {
 
 
   const userBoardArray = useAppSelector((state) => state.board.board)
+  const userState = useAppSelector((state) => state.user.user)
   const errorStatus = useAppSelector((state) => state.user.error)
 
   const stateInfo = useAppSelector((state) => state)
@@ -35,7 +36,11 @@ const WorkSpace = () => {
 
     const board: IBoard = {
       title: titleBoard,
-      id: 0
+      id: 0,
+      //@ts-ignore
+      userId: userState.id,
+      userLogin: userState.login,
+      userPathImage: userState.Image?.pathImages,
     };
 
     dispatch(creatBoard(board));
@@ -65,8 +70,8 @@ const WorkSpace = () => {
           <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
-          <button className={styles.close_button_wrapper} onClick={() => clearError()}>
-            <img src={closeButton} className={styles.close_button} alt='User Avatar'></img>
+          <button className={styles.close_button_wrapper_modal} onClick={() => clearError()}>
+            <img src={closeButton} className={styles.close_button_modal} alt='User Avatar'></img>
           </button>
         </div>
       </div>}
@@ -91,6 +96,7 @@ const WorkSpace = () => {
           <OneBoard
             boardItem={board}
             index={index}
+            key={board.id}
           />
           )}
         </div>

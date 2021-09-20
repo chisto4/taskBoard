@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { baseURL } from '../../api/index';
 
 import styles from './userPage.module.scss';
-import baseAvatar from '../../image/wtf.jpeg';
+import baseAvatar from '../../image/baseAvatar/baseAvatar.jpeg';
 import closeButton from '../../icon/close.png';
 import { useAppSelector } from "../../store/reducers";
 import { IUser } from "../../types/types";
@@ -22,10 +22,10 @@ const UserPage: React.FC = (): JSX.Element => {
   const error = useAppSelector((state) => state.user.error)
   const image = useAppSelector((state) => state.user.user.Image)
 
-  const thrueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
+  const trueDateFormat = format(new Date(stateDob), 'MM/dd/yyyy')
   const urlAvatar = !image ? baseAvatar : baseURL + '/' + image?.pathImages;
 
-  const updaitEmailPassword = "Update success"
+  const updateEmailPassword = "Update success"
   const [userDob, setUserDob] = useState(stateDob);
   const uploadAvatar = "Your avatar has been update"
   const [newPassword, setNewPassword] = useState('');
@@ -38,12 +38,12 @@ const UserPage: React.FC = (): JSX.Element => {
   const [valuePassword, setValuePassword] = useState(false);
   const [confirmPassword, setConfirmPassword] = useState('');
   const [userSurName, setUserSurName] = useState(stateSurName);
-  const updaitUserInfo = "Your user information has been update"
+  const updateUserInfo = "Your user information has been update"
   const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
   const statusError = () => {
     if(error){
-      const ErrorMessage = (`WARRNING! ${error}`)
+      const ErrorMessage = (`WARRING! ${error}`)
       setModalMessage(ErrorMessage)
     }
   }
@@ -70,11 +70,11 @@ const UserPage: React.FC = (): JSX.Element => {
     };
 
     dispatch(updateUser(user));
-    error ? statusError() : setModalMessage(updaitUserInfo) 
+    error ? statusError() : setModalMessage(updateUserInfo) 
     
   };
 
-  const cleareInput = () => {
+  const clearInput = () => {
     setUserPassword('');
     setNewPassword('');
     setConfirmPassword('');
@@ -99,10 +99,10 @@ const UserPage: React.FC = (): JSX.Element => {
       };
 
       dispatch(editUsersEmail(user));
-      cleareInput();
+      clearInput();
       setValuePassword(false)
-      error ? statusError() : setModalMessage(updaitEmailPassword)
-      if(!error) return cleareInput();
+      error ? statusError() : setModalMessage(updateEmailPassword)
+      if(!error) return clearInput();
     }
   };
 
@@ -177,7 +177,7 @@ const UserPage: React.FC = (): JSX.Element => {
           </div>
 
           <div className={styles.def_string_info}>
-            <h6>Date of born:</h6><p>{thrueDateFormat}</p>
+            <h6>Date of born:</h6><p>{trueDateFormat}</p>
           </div>
         </div>
 

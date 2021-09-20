@@ -3,10 +3,12 @@ import { useDispatch } from 'react-redux';
 
 import { Draggable } from 'react-beautiful-dnd';
 
-import { creatTask, deleteColumn } from '../../../store/boardReducer/boardThunk';
+import { creatTask, deleteColumn, updateColumn } from '../../../store/boardReducer/boardThunk';
 import { IColumn, ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
 import deleteButton from '../../../icon/delete_red.png';
+import inputPen from '../../../icon/pen_white.png';
+import closeButton from '../../../icon/close_white.png';
 import { useAppSelector } from '../../../store/reducers';
 import TaskList from '../TaskList/TaskList';
 
@@ -21,6 +23,8 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   const dispatch = useDispatch();
 
   const [titleTask, setTitleTask] = useState('');
+  const [titleColumn, setTitleColumn] = useState('');
+  // const [titleColumn, setTitleColumn] = useState(column.title);
   const [filterValue, setFilterValue] = useState('')
   const columnArr = useAppSelector((state) => state.board.column[columnIndex].Tasks?.length)
   const arrLenth = () => {
@@ -31,8 +35,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   }
 
   const creatNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number) => {
-    console.log('IDDDD', id)
-    const task: ITask = {
+     const task: ITask = {
       title: titleTask,
       position: arrLenth(),
       priority: 2,
@@ -41,6 +44,24 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
     }
     dispatch(creatTask(task));
     setTitleTask("");
+    event.preventDefault();
+  }
+
+  const [inputVision,setInputVision] = useState(false);
+  const inputColumnTitleVision = () => {
+    inputVision ? setInputVision(false) : setInputVision(true)
+  }
+
+  const updateColumnTitle = (event: React.FormEvent<HTMLFormElement>, id: number) => {
+     const columnUpdate: IColumn = {
+      title: titleColumn,
+      id: id,
+      Tasks: column.Tasks,
+      position: column.position,
+    }
+    dispatch(updateColumn(columnUpdate));
+    setTitleTask("");
+    setInputVision(false)
     event.preventDefault();
   }
 
@@ -69,11 +90,28 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <div className={styles.column__title}
-          >
-            {column.title}
-          </div>
+          <div className={styles.title_column_wrapper}>
 
+            {inputVision && <form
+            onSubmit={(e) => updateColumnTitle(e, column.id)}
+            className={styles.column_title_input_form}>
+            <input
+              onChange={(e) => setTitleColumn(e.target.value)}
+              name='columnTitleName' required
+              value={titleColumn}
+              type="text"
+            />
+          </form >}
+          {inputVision && <button onClick={() => inputColumnTitleVision()} className={styles.title_column_button_pen}>
+              <img src={closeButton} className={styles.redact_pen} alt='pen'></img>
+            </button>}
+          {!inputVision && <p className={styles.title_column_vision}>{column.title}</p>}
+
+          {!inputVision && <button onClick={() => inputColumnTitleVision()} className={styles.title_column_button_pen}>
+              <img src={inputPen} className={styles.redact_pen} alt='pen'></img>
+            </button>}
+
+          </div>
           <div className={styles.Filter_priority_wrapper}>
 
             <button
@@ -102,7 +140,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
             className={styles.new_task_input_form}>
             <input
               onChange={(e) => setTitleTask(e.target.value)}
-              name='name' required
+              name='newTaskTitle' required
               value={titleTask}
               type="text"
               placeholder='+ Add another card'

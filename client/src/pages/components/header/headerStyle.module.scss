@@ -39,6 +39,7 @@ span{
 .userAuthWrapper {
   display: flex;
   align-items: center;
+  cursor: pointer;
   span{
     color: white;
     &:hover{

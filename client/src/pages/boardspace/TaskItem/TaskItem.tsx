@@ -11,7 +11,7 @@ import { deleteTask } from '../../../store/boardReducer/boardThunk';
 import DescriptionTask from '../DescriptionTask/DescriptionTaskModal'
 import { useAppSelector } from '../../../store/reducers';
 import { baseURL } from '../../../api';
-import baseAvatar from '../../../image/wtf.jpeg';
+import baseAvatar from '../../../image/baseAvatar/baseAvatar.jpeg';
 
 
 interface Props {

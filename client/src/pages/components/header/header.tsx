@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import styles from './headerStyle.module.scss'
 
 import { baseURL } from '../../../api';
-import baseAvatar from '../../../image/wtf.jpeg';
+import baseAvatar from '../../../image/baseAvatar/baseAvatar.jpeg';
 import { useAppSelector } from '../../../store/reducers';
 import { logOutThunk } from '../../../store/userReducer/userThunk';
 import { LOGIN, REGISTRATION, USER, WORK_SPACE } from '../../../api/const/const';

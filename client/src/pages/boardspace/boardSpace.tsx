@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
-import { useHistory, useParams } from 'react-router';
+import { useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
 import styles from './boardSpace.module.scss';
 import { IColumn, ITask, IUseParams } from '../../types/types';
+import boardHard from '../../icon/board_hard.png';
 import { useAppSelector } from '../../store/reducers';
 import {  getAllBoards, getAllColumns, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
 
@@ -128,6 +129,7 @@ const BoardSpace = () => {
     <Main>
 
       <div className={styles.columnSpace}>
+      <img src={boardHard} className={styles.board_hard} alt='pen'></img>
           <h4>" {boardTitle} "</h4>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>

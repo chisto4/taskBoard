@@ -21,6 +21,18 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true
       },
+      userId: {
+        allowNull: true,
+        type: Sequelize.INTEGER
+      },
+      userLogin: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
+      userPathImage: {
+        type: Sequelize.STRING,
+        allowNull: true
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

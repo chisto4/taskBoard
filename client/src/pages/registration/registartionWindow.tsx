@@ -54,7 +54,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
   };
 
   useEffect(() => {
-    if(errorStatus !== 'Users not  authorization second Falls')setModalMessage('Please input correct information')
+    if(errorStatus === 'Please input correct information') dispatch(actionsSetError(null)) && setModalMessage('')
     if(errorStatus)setModalMessage(errorStatus)
     if (auth) { history.push("/user") }
   }, [auth, history, errorStatus])

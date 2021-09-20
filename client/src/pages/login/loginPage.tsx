@@ -41,15 +41,15 @@ const UserLogin: React.FC = (): JSX.Element => {
       password: userPassword,
     };
     dispatch(loginUser(user));
-    if(errorStatus) setModalMessage(errorStatus)
+    // if(errorStatus) setModalMessage(errorStatus)
     dispatch(actionsSetError(null))
   };
 
   useEffect(() => {
-    if(errorStatus !== 'Users not  authorization second Falls')setModalMessage('You need input correct Login ans Password')
+    if(errorStatus === 'Please input correct information') dispatch(actionsSetError(null)) && setModalMessage('')
     if(errorStatus)setModalMessage(errorStatus)
     if (auth) { history.push("/user") }
-  }, [auth, history, errorStatus])
+  }, [auth, history, errorStatus, dispatch])
 
   return (
     <Main>

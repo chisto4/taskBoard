@@ -20,6 +20,11 @@ export const getToken = async () => {
   return res.data
 };
 
+export const getUsers = async () => {
+  const res = await axios.get('/users');
+  return res.data
+};
+
 export const editUsers = async (user: IUser) => {
   const res = await axios.put('/user', user);
   if (res.status === 200) {

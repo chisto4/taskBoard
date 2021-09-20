@@ -1,6 +1,6 @@
 import { uploadImageApi } from "../../api/userApi/uploadFile/uploadImageApi";
-import { editUsers, regUser, logUser, getToken, editUsersEmailPassword } from "../../api/userApi/userApi";
-import { IUser } from "../../types/types";
+import { editUsers, regUser, logUser, getToken, editUsersEmailPassword, getUsers } from "../../api/userApi/userApi";
+import { IUser, IUserRequest } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import {
   actionsGetTokenError,
@@ -11,7 +11,8 @@ import {
   actionsUpdateUser,
   actionsSetAuth,
   actionsUploadError,
-  actionsUploadImage
+  actionsUploadImage,
+  actionsGetAllUsers
 } from './actionUser'
 
 export const registrationUsers = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
@@ -61,6 +62,14 @@ export const updateUserInformationToken = () => async (dispatch: AppDispatch): P
   } catch (error: any) {
     dispatch(actionsSetError(error.response.data.message))
     localStorage.clear();
+  }
+};
+export const getAllUserList = (user: IUserRequest) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    const user = await getUsers();
+    dispatch(actionsGetAllUsers(user));
+  } catch (error: any) {
+    dispatch(actionsSetError(error.response.data.message))
   }
 };
 export const uploadUserAvatar = (file: FormData) => async (dispatch: AppDispatch): Promise<void> => {

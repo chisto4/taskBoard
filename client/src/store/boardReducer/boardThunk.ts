@@ -1,5 +1,5 @@
-import { createBoardApi, createColumnApi, createTaskApi, deleteBoardApi, deleteColumnApi, deleteTaskApi, getAllBoardsApi, getAllColumnsApi, getAllTaskApi, updateBoardApi, updateColumnApi, updateIndexColumnApi, updateTaskApi, updateTaskPositionApi } from "../../api/boardApi/boardApi";
-import { IBoard, IColumn, IColumnRequest, ITask, IUpdateTask } from "../../types/types";
+import { createBoardApi, createColumnApi, createTaskApi, deleteBoardApi, deleteColumnApi, deleteTaskApi, getAllBoardsApi, getAllColumnsApi, getAllTaskApi, sendBoardApi, updateBoardApi, updateColumnApi, updateIndexColumnApi, updateTaskApi, updateTaskPositionApi } from "../../api/boardApi/boardApi";
+import { IBoard, IBoardSend, IColumn, IColumnRequest, ITask, IUpdateTask } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import { actionsSetError } from "../userReducer/actionUser";
 import {
@@ -38,6 +38,13 @@ export const deleteBoard = (board: IBoard) => async (dispatch: AppDispatch): Pro
   try {
     await deleteBoardApi(board)
     dispatch(actionsDeleteBoard(board));
+  } catch (error: any) {
+    dispatch(actionsSetError(error.response.data.message))
+  }
+};
+export const sendBoard = (board: IBoardSend) => async (dispatch: AppDispatch): Promise<void> => {
+  try {
+    await sendBoardApi(board)
   } catch (error: any) {
     dispatch(actionsSetError(error.response.data.message))
   }

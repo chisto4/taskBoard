@@ -17,7 +17,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Board.init({
-    title: DataTypes.STRING
+    title: DataTypes.STRING,
+    userId:DataTypes.INTEGER,
+    userLogin: DataTypes.STRING,
+    userPathImage: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Board',

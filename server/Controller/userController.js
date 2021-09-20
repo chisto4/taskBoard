@@ -14,16 +14,16 @@ class UserController {
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: "Error Registration Midellwhere", errors })
+                return res.status(400).json({ message: "Error Registration Middleware", errors })
             }
             if (userEmail) {
-                return res.status(400).json({ message: 'This E-mail is alredy registrated' })
+                return res.status(400).json({ message: 'This E-mail is already registered' })
             }
-            if (!regularEmail.test(String(email).toLowerCase())) return res.status(400).json({ message: 'Not format e-mail - coorrect yor input e-mail' });
+            if (!regularEmail.test(String(email).toLowerCase())) return res.status(400).json({ message: 'Not format e-mail - correct yor input e-mail' });
             const lowerCaseLogin = login.toLowerCase();
             const loginUser = await db.User.findOne({ where: { login: lowerCaseLogin } })
             if (loginUser) {
-                return res.status(400).json({ message: 'This login is alredy registrated'})
+                return res.status(400).json({ message: 'This login is already registered'})
             }
             const hashPassword = bcrypt.hashSync(password, 5);
             let newUser = await db.User.create(
@@ -55,7 +55,7 @@ class UserController {
             })
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: "Error Login Midellwhere", errors })
+                return res.status(400).json({ message: "Error Login Middleware", errors })
             }
             if (!userLogin) {
                 return res.status(401).json({ message: `Not found ${login}` })
@@ -127,15 +127,24 @@ class UserController {
 
     async getUsers(req, res) {
         try {
+            const { id } = req.user
+            if (!id) {
+                return res.status(400).json({ message: "ID not use" })
+            }
             const users = await db.User.findAll({
-                raw: true,
+                include: [
+                    {
+                        model: db.Images,
+                        attributes: ['pathImages']
+                    }
+                ],
                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
             });
             res.status(200).json(users);
         }
         catch (e) {
             console.log(e);
-            res.status(400).json({ message: "Failde Get User's" })
+            res.status(400).json({ message: "Fail Get User's" })
 
         }
     }
@@ -208,7 +217,7 @@ class UserController {
                 const validPassword = bcrypt.compareSync(surname, userPasswordDb.password)
                 console.log('USER BY ID', validPassword)
                 if (!validPassword) {
-                    return res.status(402).json({ message: "Invalide old password! Try again" })
+                    return res.status(402).json({ message: "Invalided old password! Try again" })
                 }
             }
 

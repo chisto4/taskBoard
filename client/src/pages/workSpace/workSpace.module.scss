@@ -81,13 +81,31 @@ z-index: 10;
   flex-wrap: wrap;
   justify-content: space-between;
   align-content: flex-start;
-  overflow-y: scroll;
   border-radius:30px;
+  
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+    
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 2px grey; 
+    border-radius: 5px;
+  }
+    
+  &::-webkit-scrollbar-thumb {
+    background:black; 
+    border-radius: 5px;
+  }
+    
+  &::-webkit-scrollbar-thumb:hover {
+    background:rgb(54, 56, 58); 
+  }
 }
 
 .board {
   width: 250px;
-  height: 100px;
+  height: 140px;
   background: #18191c6b;
   box-shadow: -2px 2px 5px rgba(78, 62, 62, 0.288),
   1px -2px 5px rgba(80, 71, 71, 0.308);
@@ -144,11 +162,11 @@ z-index: 10;
 }
 
 .close_button_wrapper{
-  width: 15px;
-  height: 15px;
+  width: 25px;
+  height: 25px;
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 5px;
+  right: 5px;
 }
 .close_button{
   cursor: pointer;
@@ -159,3 +177,89 @@ z-index: 10;
   width: 100%;
   cursor: pointer;
 }
+.modal_Inform_Window{
+  position: absolute;
+  z-index: 20;
+  top: 28vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 40%;
+  height: 300px;
+  font-family: 'Cormorant SC';
+  font-size: 16px;
+  font-weight: 100;
+  border-radius:1rem;
+  background-image: linear-gradient(120deg, #302e2dc0 10%, #46200ec7 100%);
+  border: 0.1px solid rgba(181, 101, 101, 0.675);
+
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+
+  h4{
+    color: rgb(252, 249, 249);
+    padding-top: 18px;
+    margin-bottom: 15px;
+  }
+  h6{
+    font-size: 18px;
+    color: rgb(231, 228, 228);
+    padding-bottom: 15px;
+  }
+}
+.modal_Inform_Window_h4{
+  width: 90%;
+}
+
+.modal_Inform_Window_link{
+  width: 5%;
+  position:absolute;
+  left: 48%;
+  bottom: 8px;
+}
+.close_button_wrapper_modal{
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+.close_button_modal{
+  cursor: pointer;
+  width: 100%;
+  margin-top:5px;
+}
+
+//USER AVATAR & Information
+.user_info_mini_wrapper{
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 5px;
+h6{
+  font-size:12px;
+}}
+
+.user_info_left_wrapper{
+  width: 20%;
+  margin-left: 5px;
+  font-size: 12px;
+}
+.user_info_right_wrapper{
+width: 80%;
+display: flex;
+justify-content:flex-end;
+}
+.user_wrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 10px;
+}
+
+ .circle_avatar{
+   width: 24px;
+   height: 24px;
+   border-radius: 50%;
+   object-fit:cover;
+ }

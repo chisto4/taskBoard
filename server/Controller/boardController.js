@@ -7,14 +7,14 @@ class BoardController {
   
   async createBoard(req, res) {
 
-    const { title } = req.body
+    const { title, userId, userPathImage, userLogin } = req.body
 
     try {
       const { id } = req.user
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      let newBoard = await db.Board.create({ title })
+      let newBoard = await db.Board.create({ title, userId, userPathImage, userLogin })
       newBoard.setUsers([id])
       newBoard = newBoard.toJSON();
       return res.status(200).json(newBoard)
@@ -72,11 +72,11 @@ class BoardController {
   async updateBoard(req, res) {
     try {
       const { id: tokenID } = req.user
-      const { id, title } = req.body
+      const { id, title, userId, userPathImage, userLogin } = req.body
       if (!tokenID) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      await db.Board.update({ title },
+      await db.Board.update({ title, userId, userPathImage, userLogin },
         { where: { id } });
 
       const userBoard = await db.Board.findOne({
@@ -103,6 +103,26 @@ class BoardController {
     catch (e) {
       console.log(e);
       console.log('User Board not delete error')
+    }
+  }
+
+  async sendBoard(req, res) {
+    try {
+      const { id: tokenId } = req.user
+      const { boardId, userId  } = req.body
+      console.log("BACKEND", boardId, userId)
+      if (!tokenId) {
+        return res.status(400).json({ message: "ID not found in user data" })
+      }
+      const newBoardSend = await db.UserBoard.create({userId, boardId })
+      console.log("newBoardSend", newBoardSend)
+        res.status(200).json("Board Send")
+    }
+    catch (e) {
+      console.log(e);
+      console.log('Board not Send error')
+      return res.status(400).json({ message: "Board not Send error" })
+
     }
   }
 
@@ -153,24 +173,24 @@ class BoardController {
       if(!findBoard){
         return res.status(404).json({ message: "Board not found" })
       }
-      const validBoard = await db.UserBoard.findOne(
-        { where: { boardId: id } }
-        ) 
-        console.log('VALID BOARD', validBoard)
-      if(validBoard.userId !== tokenId){
-        return res.status(400).json({ message: "Access for this board close" })
-      }
+      // const validBoard = await db.UserBoard.findAll(
+      //   { where: { boardId: id } }
+      //   )
+      //   const bool = validBoard.filterOf(elem => 
+      //     elem.userId === tokenId) 
+      //     console.log('CHTO TUT', bool)
+      // if(bool !== tokenId){
+      //   return res.status(400).json({ message: "Access for this board close" })
+      // }
       const boardColumns = await db.Column.findAll({
         where: { boardId: id },
         order:[['position', 'ASC']],
         include: [
           {
               model: db.Task,
-              // attributes: ['id', 'boardId', 'position', 'title']
           }
       ],
       order:[[db.Task, 'position', 'ASC']  ]
-      // attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId',],
       })
       res.status(200).json(boardColumns)
     }
@@ -232,7 +252,6 @@ class BoardController {
       const{id: tokenId} = req.user
       const column = req.body
       const boardID = req.body[0].boardId
-      console.log("ZALUPA", column)
         if(!tokenId){
           return res.status(400).json({ message: "ID not found in user data" })
         }
@@ -240,7 +259,6 @@ class BoardController {
         await db.Column.update({title: elem.title, position: elem.position,
         boardId: elem.boardId},
           {where: {id: elem.id}},
-          console.log('FORECH UPDATE COLUMN ARR', elem)
           );
         }
         )
@@ -255,8 +273,6 @@ class BoardController {
               order:[[db.Task, 'position', 'ASC']]
           })
                   res.status(200).json(userColumn)
-
-
     }
     catch (e) {
       console.log(e);
@@ -283,12 +299,13 @@ class BoardController {
 
   async createTask(req, res) {
     try {
-      const { title, position, columnId, description, priority } = req.body
+      const { title, position, columnId, description, priority, userId, userPathImage, userLogin } = req.body
       const { id } = req.user
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      let newTask = await db.Task.create({ title, position, columnId, description, priority })
+      let newTask = await db.Task.create({ title, position, columnId, 
+            description, priority, userId, userPathImage, userLogin })
       newTask = newTask.toJSON();
       return res.status(200).json(newTask)
     }
@@ -298,7 +315,6 @@ class BoardController {
   async getAllTasks(req, res) {
     try {
       const { id } = req.params
-      console.log('zalupa ne raboataetTUT', req.query)
       const { id: tokenId } = req.user
       if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
@@ -335,11 +351,11 @@ class BoardController {
   async updateTask(req, res) {
     try {
       const { id } = req.user
-      const { id: taskId, title, position, columnId, description, priority } = req.body
+      const { id: taskId, title, position, columnId, description, priority, userId, userPathImage, userLogin } = req.body
       if (!id) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      await db.Task.update({ title, position, columnId, description, priority },
+      await db.Task.update({ title, position, columnId, description, priority, userId, userPathImage, userLogin },
         { where: { id: taskId } });
 
       const columnTask = await db.Task.findOne({

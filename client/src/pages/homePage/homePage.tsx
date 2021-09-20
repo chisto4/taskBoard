@@ -1,13 +1,21 @@
 import Main from '../components/Main/Main';
 import styles from './homePage.module.scss';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-date-picker';
 // import 'react-calendar/dist/Calendar.css';
 import welcomeScreenImage from '../../image/welcomePageScreen.png';
 import Calendar from 'react-calendar';
+import { useDispatch } from 'react-redux';
+import { actionsSetError } from '../../store/userReducer/actionUser';
 
 const HelloWindow = () => {
   const [value, onChange] = useState(new Date());
+
+const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actionsSetError(null))
+  },[dispatch])
+  
   return (
     <Main>
       <div className={styles.Hello_window}>

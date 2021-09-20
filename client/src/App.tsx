@@ -6,14 +6,11 @@ import './App.css';
 
 import AppRouter from './api/routePage/AppRouter';
 import { updateUserInformationToken } from './store/userReducer/userThunk';
-import { useAppSelector } from './store/reducers';
 import Header from './pages/components/Header/Header';
 
 function App() {
 
-  const isAuth = useAppSelector((state) => state.user.auth)
   const [isRes, setRes] = useState(false);
-  const token = localStorage.getItem('token')
 
   const dispatch = useDispatch();
 

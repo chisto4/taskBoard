@@ -3,10 +3,10 @@ import { actions, ActionsCreateBoard, ActionsUpdateBoard, ActionsGetAllBoard,
 ActionsGetOneBoard, ActionsDeleteBoard, ActionsCreateColumn, ActionsUpdateColumn,
 ActionsGetAllColumn, ActionsGetOneColumn, ActionsDeleteColumn, ActionsCreateTask,
 ActionsUpdateTask, ActionsGetAllTask, ActionsGetOneTask, ActionsDeleteTask, 
-ActionsChoiceBoard, ActionsClearColumnState, ActionsReorderTask, ActionsUpdateIndexColumn
+ActionsChoiceBoard, ActionsClearColumnState, ActionsReorderTask, ActionsUpdateIndexColumn, ActionsSendBoard
         } from './constansBoard';
 import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest,
-   ITaskRequest, ITaskUpdate, IUpdateTaskIndex } from "../../types/types";
+   ITaskRequest, ITaskUpdate, IUpdateTaskIndex, IBoardSend } from "../../types/types";
 
 export const actionsCreateBoard = (board: IBoard): ActionsCreateBoard => ({
   type: actions.CREATE_BOARD,
@@ -31,6 +31,10 @@ export const actionsDeleteBoard = (board: IBoard): ActionsDeleteBoard => ({
 export const actionsChoiceBoard = (column: IColumn): ActionsChoiceBoard => ({
   type: actions.CHOICE_BOARD,
   payload: column,
+})
+export const actionsSendBoard = (board: IBoardSend): ActionsSendBoard => ({
+  type: actions.SEND_BOARD,
+  payload: board,
 })
 
 export const actionsCreateColumn = (column: IColumnRequest): ActionsCreateColumn => ({
