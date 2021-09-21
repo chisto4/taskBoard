@@ -136,9 +136,9 @@ class BoardController {
         return res.status(400).json({ message: "ID not found in user data" })
       }
       const validBoard = await db.UserBoard.findOne(
-        { where: { boardId } }
+        { where: { boardId, userId: id } }
       ) 
-      if(validBoard.userId !== id){
+      if(validBoard.length === 0){
         return res.status(400).json({ message: "Access for this board close" })
       }
       let newColumn = await db.Column.create({ title, position, boardId })
@@ -172,15 +172,12 @@ class BoardController {
       if(!findBoard){
         return res.status(404).json({ message: "Board not found" })
       }
-      // const validBoard = await db.UserBoard.findAll(
-      //   { where: { boardId: id } }
-      //   )
-      //   const bool = validBoard.filterOf(elem => 
-      //     elem.userId === tokenId) 
-      //     console.log('CHTO TUT', bool)
-      // if(bool !== tokenId){
-      //   return res.status(400).json({ message: "Access for this board close" })
-      // }
+      const validBoard = await db.UserBoard.findAll(
+        { where: { boardId: id, userId: tokenId } }
+        )
+      if(validBoard.length === 0){
+        return res.status(400).json({ message: "Access for this board close" })
+      }
       const boardColumns = await db.Column.findAll({
         where: { boardId: id },
         order:[['position', 'ASC']],
