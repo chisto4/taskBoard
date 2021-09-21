@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     priority: DataTypes.STRING,
     columnId: DataTypes.INTEGER,
+    userId:DataTypes.INTEGER,
+    userLogin: DataTypes.STRING,
+    userPathImage: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Task',

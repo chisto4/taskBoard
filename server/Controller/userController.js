@@ -14,16 +14,16 @@ class UserController {
         try {
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: "Error Registration", errors })
+                return res.status(400).json({ message: "Error Registration Middleware", errors })
             }
             if (userEmail) {
-                return res.status(400).json({ message: 'This email is alredy registrated' })
+                return res.status(400).json({ message: 'This E-mail is already registered' })
             }
-            if (!regularEmail.test(String(email).toLowerCase())) return res.status(400).json({ message: 'Not format e-mail - coorrect yor input e-mail' });
+            if (!regularEmail.test(String(email).toLowerCase())) return res.status(400).json({ message: 'Not format e-mail - correct yor input e-mail' });
             const lowerCaseLogin = login.toLowerCase();
             const loginUser = await db.User.findOne({ where: { login: lowerCaseLogin } })
             if (loginUser) {
-                return res.status(400).json({ message: 'This login is alredy registrated' })
+                return res.status(400).json({ message: 'This login is already registered'})
             }
             const hashPassword = bcrypt.hashSync(password, 5);
             let newUser = await db.User.create(
@@ -55,14 +55,14 @@ class UserController {
             })
             const errors = validationResult(req)
             if (!errors.isEmpty()) {
-                return res.status(400).json({ message: "Error Registration", errors })
+                return res.status(400).json({ message: "Error Login Middleware", errors })
             }
             if (!userLogin) {
-                return res.status(400).json({ message: `Not found ${login}` })
+                return res.status(401).json({ message: `Not found ${login}` })
             }
             const validPassword = bcrypt.compareSync(password, userLogin.password)
             if (!validPassword) {
-                return res.status(400).json({ message: "Bad password! Try again" })
+                return res.status(402).json({ message: "Bad password! Try again" })
             }
             userLogin = userLogin.toJSON();
             delete userLogin.password;
@@ -121,20 +121,31 @@ class UserController {
             res.status(200).json(userIdToken)
         } catch (e) {
             console.log(e)
-            res.status(400).json({ message: 'Token fail error' })
+            res.status(400).json({ message: 'Token FAIL Error' })
         }
     }
 
     async getUsers(req, res) {
         try {
+            const { id } = req.user
+            if (!id) {
+                return res.status(400).json({ message: "ID not use" })
+            }
             const users = await db.User.findAll({
-                raw: true,
+                include: [
+                    {
+                        model: db.Images,
+                        attributes: ['pathImages']
+                    }
+                ],
                 attributes: ['id', 'name', 'surname', 'login', 'email', 'dob', 'avatarId']
             });
             res.status(200).json(users);
         }
         catch (e) {
             console.log(e);
+            res.status(400).json({ message: "Fail Get User's" })
+
         }
     }
 
@@ -151,6 +162,7 @@ class UserController {
             res.status(200).json(getUser)
         }
         catch (e) {
+            res.status(400).json({ message: "User ID not Found!" })
             console.log(e);
             console.log('User ID not found')
         }
@@ -183,6 +195,7 @@ class UserController {
         }
 
         catch (e) {
+            res.status(400).json({ message: "User information not update error!" })
             console.log(e);
             console.log('User information not update error')
         }
@@ -191,14 +204,22 @@ class UserController {
 
     async updateEmail(req, res) {
         const { id } = req.user
-        const { email, password, login } = req.body
+        const { email, surname, password, login } = req.body
         const lowerCaseEmail = email.toLowerCase();
 
         try {
             const validEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
             if (!id) {
                 return res.status(400).json({ message: "ID token not use" })
-            } else
+            } else{
+                const userPasswordDb = await db.User.findOne({ where: { id: id } })
+                console.log('USER BY ID', userPasswordDb)
+                const validPassword = bcrypt.compareSync(surname, userPasswordDb.password)
+                console.log('USER BY ID', validPassword)
+                if (!validPassword) {
+                    return res.status(402).json({ message: "Invalided old password! Try again" })
+                }
+            }
 
             if (!validEmail) {
                 const hashPassword = bcrypt.hashSync(password, 5);
@@ -210,7 +231,6 @@ class UserController {
                 await db.User.update({ email, password: hashPassword },
                     { where: { email } })
             }
-
             const userIdToken = await db.User.findOne({
                 where: { id },
                 include: [
@@ -226,6 +246,7 @@ class UserController {
         catch (e) {
             console.log(e);
             console.log('User Email not update error')
+            return res.status(400).json({ message: "User Email not update error" })
         }
     }
 

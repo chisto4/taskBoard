@@ -1,7 +1,7 @@
 
 import { actions, ActionsGetTokenAuth, ActionsGetTokenError, ActionsLogAuth,
          ActionsLogError, ActionsLogOut, ActionsLogUser, ActionsSetAuth, ActionsSetError, 
-         ActionsSetUser, ActionsUploadError, ActionsUploadImage, ActionsUpdateUser 
+         ActionsSetUser, ActionsUploadError, ActionsUploadImage, ActionsUpdateUser, ActionsGetAllUsers 
         } from './constansUser';
 import { IUser } from "../../types/types";
 // import {} from "../../store/userReducer/constansUser"
@@ -45,6 +45,11 @@ export const actionsUpdateUser = (user: IUser): ActionsUpdateUser  => ({
 export const actionsGetTokenAuth = (boolean: boolean): ActionsGetTokenAuth => ({
   type: actions.GET_TOKEN_AUTH,
   payload: boolean,
+});
+
+export const actionsGetAllUsers = (user: IUser[]): ActionsGetAllUsers => ({
+  type: actions.GET_ALL_USER,
+  payload: user,
 });
 
 export const actionsGetTokenError = (error: string | null): ActionsGetTokenError => ({

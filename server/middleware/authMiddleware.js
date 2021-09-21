@@ -17,7 +17,7 @@ exports.tokenModule = async (req, res, next) => {
     console.log(req.headers);
     const token = req.headers.authorization.split(' ')[1]
     if (!token) {
-      return res.status(403).json({ message: 'Users not  authorization first Falls' })
+      return res.status(403).json({ message: 'Users not  authorization Middleware error' });
     }
     let decodedData = jwt.verify(token, key)
     
@@ -31,7 +31,7 @@ exports.tokenModule = async (req, res, next) => {
     next()
   } catch (e) {
     console.log(e)
-    return res.status(403).json({ message: 'Users not  authorization second Falls' })
+    return res.status(403).json({ message: 'Please input correct information' })
   }
 }
 

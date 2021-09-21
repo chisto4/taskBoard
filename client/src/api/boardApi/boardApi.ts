@@ -1,6 +1,6 @@
 
 import axios from '../index';
-import { IBoard, IColumn, IColumnRequest, ITask, IUpdateTask } from "../../types/types";
+import { IBoard, IBoardSend, IColumn, IColumnRequest, ITask, IUpdateTask } from "../../types/types";
 
 export const createBoardApi = async (board: IBoard) => {
   const res = await axios.post('workspace/board', board);
@@ -18,8 +18,14 @@ export const getAllBoardsApi = async () => {
 };
 
 export const deleteBoardApi = async (board: IBoard) => {
-  const res = await axios.delete('workspace/board', { params: board });
+  const res = await axios.delete('workspace/board', { params: board});
   return res.data
+};
+
+export const sendBoardApi = async (board: IBoardSend) => {
+  const res = await axios.put('workspace/board/send',  board );
+  console.log("RESPONDE BOARD", res)
+    return res.data
 };
 
 export const createColumnApi = async (column: IColumnRequest) => {

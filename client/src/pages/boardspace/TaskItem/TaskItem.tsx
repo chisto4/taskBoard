@@ -5,10 +5,14 @@ import { Draggable } from 'react-beautiful-dnd';
 
 import { ITask } from '../../../types/types';
 import styles from '../boardSpace.module.scss';
-import deleteTaskButton from '../../../icon/close.png';
+import deleteTaskButton from '../../../icon/close_white.png';
 import descriptionTaskButton from '../../../icon/description.png';
 import { deleteTask } from '../../../store/boardReducer/boardThunk';
 import DescriptionTask from '../DescriptionTask/DescriptionTaskModal'
+import { useAppSelector } from '../../../store/reducers';
+import { baseURL } from '../../../api';
+import baseAvatar from '../../../image/baseAvatar/baseAvatar.jpeg';
+
 
 interface Props {
   task: ITask,
@@ -21,12 +25,20 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
   const dispatch = useDispatch();
   const [visionDescription, setVisionDescription] = useState(false);
 
+  // const image = useAppSelector((state) => state.user.user.Image)
+  const image = task.userPathImage
+  const urlAvatar = !image ? baseAvatar : baseURL + '/' + image;
+
+
   const deleteOneTask = (id: number | undefined, columnId: number, position: number) => {
     const taskDel: ITask = {
       id: id,
       priority: 2,
       position: position,
-      columnId: columnId
+      columnId: columnId,
+      userId: 0,
+      userLogin: '',
+      userPathImage: ''
     };
     dispatch(deleteTask(taskDel));
   }
@@ -47,9 +59,18 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
             {task.title}
           </p>
 
+          <div className={styles.user_avatar_mini}>
+            <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
+          {task.userLogin}
+          </div>
+          
+          <div className={styles.one_task_button_wrapper}>
+
           <div className={styles.description_button_wrapper}>
-            <button className={styles.delete_button_wrapper} onClick={() => setVisionDescription(true)}>
-              <img src={descriptionTaskButton} className={styles.description_task_button} alt='delete'></img>
+            <button className={styles.description_circle_button_wrapper} onClick={() => setVisionDescription(true)}>
+              <div className={styles.one_circle}></div>
+              <div className={styles.one_circle}></div>
+              <div className={styles.one_circle}></div>
             </button>
           </div>
 
@@ -57,6 +78,8 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
             <button className={styles.delete_button_wrapper} onClick={() => deleteOneTask(task.id, task.columnId, task.position)}>
               <img src={deleteTaskButton} className={styles.delete_task_button} alt='delete'></img>
             </button>
+          </div>
+          
           </div>
 
           {visionDescription && <DescriptionTask

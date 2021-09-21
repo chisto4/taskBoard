@@ -4,9 +4,11 @@
   left: 25vw;
   width: 50vw;
   height: 50vh;
-  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
-  box-shadow: -80px 50px 100px rgba(116, 114, 114, 0.644),
-  5px -5px 25px rgba(116, 115, 115, 0.616);
+  background: #56565c;
+
+  // background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
+  // box-shadow: -80px 50px 100px rgba(116, 114, 114, 0.644),
+  // 5px -5px 25px rgba(116, 115, 115, 0.616);
   /* padding: 20px 10px; */
   border-radius:12px;
   margin: 10px;
@@ -18,10 +20,28 @@
 }
 
 .input_task_title{
-  width: 60%;
-  text-align: center;
-  margin-top: 0;
-  font-size: 24px;
+    width: 400px;
+    height: 40px;
+    margin: 10px;
+    font-family: 'Cormorant SC';
+    font-size: 18px;
+    font-weight: 100;
+    box-sizing: border-box;
+    border-radius:1rem;
+    margin-bottom: 5px; 
+    text-align: center;   
+    background: #45454d;
+    color: white;
+    border: 0.1px solid rgba(128, 128, 128, 0.363);
+    outline: none;
+    &:hover{
+      transform: scale(105%);
+      transition: 0.7s;
+    }
+    &::placeholder{
+      color: white;
+      opacity: 0.7;
+    }
 }
 
 .description_form{
@@ -39,7 +59,7 @@
 }
 .input_task_priority{
   position: absolute;
-    top: 88px;
+    top: 100px;
     left: 70%;
     height: 15px;
     p{
@@ -58,33 +78,44 @@
   padding: 5px 10px;
   font-family: 'Cormorant SC';
   font-size: 16px;
-
+  background: rgb(59, 59, 59);
+  color: white;
 }
 .save_description_button{
   font-family: 'Cormorant SC';
   font-size: 12px;
-  padding: 5px 15px;
-  margin-top: 10px;
-  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
-  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
-  5px -5px 25px rgba(116, 115, 115, 0.616);
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-top: 15px;
+  border-radius:10px;
+  padding: 8px 15px;
+  background: #45454d;
+  color: white;
+  box-shadow: -5px 5px 10px rgba(116, 114, 114, 0.288),
+  2px -3px 5px rgba(116, 115, 115, 0.308);
   border: 0.1px solid rgba(128, 128, 128, 0.363);
-  border-radius: 10px;
   cursor: pointer;
   &:hover{
     color:rgb(55, 89, 241);
     transform: scale(105%);
     border: 1px solid rgb(55, 89, 241);
-    box-shadow: -20px 10px 25px rgba(76, 71, 160, 0.644),
-    3px -3px 15px rgba(60, 117, 202, 0.616);
+    box-shadow: -5px 5px 10px rgba(76, 71, 160, 0.644),
+    2px -3px 5px rgba(60, 117, 202, 0.616);
     transition: 0.7s;
   }
 }
-.close_description_button{
-  width: 20px;
+.close_button_wrapper{
   position: absolute;
   top: 8px;
   right: 8px;
+}
+.close_button_description{
+  border: none;
+  background: none;
+}
+.close_description_button{
+  width: 20px;
   cursor: pointer;
 }
 

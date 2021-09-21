@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import styles from './descriptionTaskModal.module.scss';
 import { IUpdateTask } from '../../../types/types';
-import deleteTaskButton from '../../../icon/close.png';
+import deleteTaskButton from '../../../icon/close_white.png';
 import { updateTask } from '../../../store/boardReducer/boardThunk';
 
 interface Props {
@@ -78,7 +78,7 @@ const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIn
       </form>
 
       <div className={styles.close_button_wrapper}>
-        <button onClick={() => setVisionDescription(false)}>
+        <button onClick={() => setVisionDescription(false)} className={styles.close_button_description}>
           <img src={deleteTaskButton} className={styles.close_description_button} alt='close'></img>
         </button>
       </div>

@@ -3,9 +3,12 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import { HOME_PAGE } from "../const/const";
 import { observer } from "mobx-react-lite";
 import { authRoutes, publicRoutes } from "./routes";
+import { useAppSelector } from '../../store/reducers';
 
 const AppRouter = observer(() => {
-    const isAuth = localStorage.getItem('isAuth')
+    // const isAuth = localStorage.getItem('isAuth')
+    const isAuth = useAppSelector((state) => state.user.auth)
+
     const validAuth = () => {
         if (isAuth) {
             return true

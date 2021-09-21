@@ -16,41 +16,50 @@
     font-weight: 100;
     font-size: 24px;
   }
-}
-
-input {
-  width: 90%;
-  height: 3rem;
-  margin: 10px;
-  font-family: 'Cormorant SC';
-  font-size: 18px;
-  font-weight: 100;
-  box-sizing: border-box;
-  border-radius:1rem;
-  padding-left: 2rem;
-  padding-right: 1rem;
-  background-image: linear-gradient(120deg, #f8f4ede0 10%, #fffef8f5 100%);
-  box-shadow: -10px 10px 20px rgba(116, 114, 114, 0.288),
-  2px -3px 5px rgba(116, 115, 115, 0.308);
-  border: 0.1px solid rgba(128, 128, 128, 0.363);
-  &:hover{
-    transform: scale(105%);
-    transition: 0.7s;
+  input {
+    width: 100%;
+    height: 3rem;
+    margin: 10px;
+    font-family: 'Cormorant SC';
+    font-size: 18px;
+    font-weight: 100;
+    box-sizing: border-box;
+    border-radius:1rem;
+    padding-left: 2rem;
+    padding-right: 1rem;
+    background: #45454d;
+    color: white;
+    box-shadow: none;
+    border: 0.1px solid rgba(128, 128, 128, 0.363);
+    outline: none;
+    &:hover{
+      transform: scale(105%);
+      transition: 0.7s;
+    }
+    &::placeholder{
+      color: white;
+      opacity: 0.7;
+    }
+    @media screen and (max-width:800px) {
+    width:90%;
+    }
+  }
+  @media screen and (max-width:800px) {
+  left: 0;
+  width: 100vw;
   }
 }
+
 
 .registrationButton {
   font-family: 'Cormorant SC';
-  border: none;
-  border-bottom: 1px solid gray;
-  border-right: 1px solid gray;
+  color: white;
   background: none;
-  padding: 0.5rem 2rem;
-  border-radius: 20px;
-  margin-top: 20px;
-  &:hover{
-    transform: scale(105%);
-  }
+  padding: 10px 15px;
+  border-bottom: 1px solid white;
+  border-right: 1px solid white;
+  border-radius: 15px;
+  margin-top: 10px;
 }
 
 .userRegistrationSucces {
@@ -65,19 +74,17 @@ input {
 .modal_Inform_Window{
   position: absolute;
   z-index: 20;
-  top: 14vh;
+  top: 28vh;
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 40%;
-  height: auto;
+  height: 300px;
   font-family: 'Cormorant SC';
   font-size: 16px;
   font-weight: 100;
   border-radius:1rem;
-  background-image: linear-gradient(120deg, #f8f4ed3b 10%, #fffef84b 100%);
-  box-shadow: -40px 20px 50px rgba(116, 114, 114, 0.644),
-  5px -5px 25px rgba(116, 115, 115, 0.616);
+  background-image: linear-gradient(120deg, #302e2dc0 10%, #46200ec7 100%);
   border: 0.1px solid rgba(181, 101, 101, 0.675);
 
   padding-left: 10px;
@@ -85,22 +92,31 @@ input {
   text-align: center;
 
   h4{
-    color: rgb(250, 1, 1);
-    padding-top: 15px;
+    color: rgb(252, 249, 249);
+    padding-top: 18px;
+    margin-bottom: 15px;
+    margin-left: 0;
   }
   h6{
-    font-size: 12px;
-    color: rgb(250, 1, 1);
+    font-size: 18px;
+    color: rgb(231, 228, 228);
     padding-bottom: 15px;
+  }
+  @media screen and (max-width:800px) {
+  width: 90%;
+  height: 200px;
   }
 }
 
 .modal_Inform_Window_h4{
-  width: 90%;
+  width: 100%;
 }
 
 .modal_Inform_Window_link{
-  width: 10%;
+  width: 5%;
+  position:absolute;
+  left: 48%;
+  bottom: 8px;
 }
 .close_button_wrapper{
   cursor: pointer;
@@ -109,6 +125,6 @@ input {
 }
 .close_button{
   cursor: pointer;
-  width: 25px;
+  width: 100%;
   margin-top:5px;
 }

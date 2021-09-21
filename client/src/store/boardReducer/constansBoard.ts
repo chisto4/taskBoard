@@ -1,4 +1,4 @@
-import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest, ITaskUpdate, IUpdateTaskIndex } from "../../types/types";
+import { IBoard, IColumn, ITask,  IBoardRequest, IColumnRequest, ITaskRequest, ITaskUpdate, IUpdateTaskIndex, IBoardSend } from "../../types/types";
 
 
 export enum actions {
@@ -8,6 +8,7 @@ export enum actions {
   GET_ONE_BOARD = 'GET_ONE_BOARD',
   DELETE_BOARD = 'DELETE_BOARD',
   CHOICE_BOARD = 'CHOICE_BOARD',
+  SEND_BOARD = 'SEND_BOARD',
 
   CREATE_COLUMN = 'CREATE_COLUMN',
   UPDATE_COLUMN = 'UPDATE_COLUMN',
@@ -45,11 +46,14 @@ export type ActionsDeleteBoard = {
   type: actions.DELETE_BOARD,
   payload: IBoard
 }
+export type ActionsSendBoard = {
+  type: actions.SEND_BOARD,
+  payload: IBoardSend
+}
 export type ActionsChoiceBoard = {
   type: actions.CHOICE_BOARD,
   payload: IColumn
 }
-
 export type ActionsCreateColumn = {
   type: actions.CREATE_COLUMN,
   payload: IColumnRequest
@@ -77,7 +81,6 @@ export type ActionsDeleteColumn = {
 export type ActionsClearColumnState = {
   type: actions.CLEARE_CASH_COLUMN,
 }
-
 export type ActionsCreateTask = {
   type: actions.CREATE_TASK,
   payload: any
@@ -123,3 +126,4 @@ export type ActionBoard =
   | ActionsClearColumnState
   | ActionsReorderTask
   | ActionsUpdateIndexColumn
+  | ActionsSendBoard

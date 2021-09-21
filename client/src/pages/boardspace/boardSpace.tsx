@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 
 import styles from './boardSpace.module.scss';
-import { IColumn, IColumnRequest, ITask, IUseParams } from '../../types/types';
+import { IColumn, ITask, IUseParams } from '../../types/types';
+import boardHard from '../../icon/board_hard.png';
 import { useAppSelector } from '../../store/reducers';
-import { creatColumn, getAllBoards, getAllColumns, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
+import {  getAllBoards, getAllColumns, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
 
 import Main from '../components/Main/Main';
 import BoardItem from './BoardItem/BoardItem';
@@ -16,7 +17,6 @@ const BoardSpace = () => {
   const boardIdNumber = Number(useBoardId.id)
 
   const dispatch = useDispatch();
-
   
   const column: IColumn = {
     id: boardIdNumber,
@@ -27,10 +27,8 @@ const BoardSpace = () => {
   useEffect(() => {
     dispatch(getAllBoards());
     dispatch(getAllColumns(column));
-  }, [dispatch])
+  }, [])
 
-
-  const [titleColumn, setTitleColumn] = useState('');
   const userColumnArray = useAppSelector((state) => state.board.column)
   const stateBoard = useAppSelector((state) => state.board.board.find(brd=>brd.id===boardIdNumber))
   const boardTitle = stateBoard?.title
@@ -39,19 +37,6 @@ const BoardSpace = () => {
       return 0
     }
     return userColumnArray.length
-  }
-
-  const creatNewColumnForm = (event: React.FormEvent<HTMLFormElement>) => {
-    
-    const column: IColumnRequest = {
-      Tasks: [],
-      title: titleColumn,
-      position: arrLenth(),
-      boardId: boardIdNumber
-    }
-    dispatch(creatColumn(column));
-    setTitleColumn("");
-    event.preventDefault();
   }
 
   function onDragEnd(result: DropResult, provided: ResponderProvided) {
@@ -77,6 +62,10 @@ const BoardSpace = () => {
           priority: item.priority,
           columnId: item.columnId,
           description: item.description,
+          userLogin: item.userLogin,
+          userPathImage: item.userPathImage,
+          userId: item.userId,
+          updatedAt: item.updatedAt,
         })
 
         const columnIndex: number = columnIndexStart;
@@ -103,6 +92,10 @@ const BoardSpace = () => {
           priority: item.priority,
           columnId: item.columnId,
           description: item.description,
+          userLogin: item.userLogin,
+          userPathImage: item.userPathImage,
+          userId: item.userId,
+          updatedAt: item.updatedAt,
         })
 
         dispatch(reorderTask(arrTaskStartSort, taskIndexStart, taskIndexEnd, columnIndexStart))
@@ -115,6 +108,10 @@ const BoardSpace = () => {
           priority: item.priority,
           columnId: item.columnId,
           description: item.description,
+          userLogin: item.userLogin,
+          userPathImage: item.userPathImage,
+          updatedAt: item.updatedAt,
+          userId: item.userId,
         })
 
         dispatch(reorderTask(arrTaskEndSort, taskIndexStart, taskIndexEnd, columnIndexEnd))
@@ -142,25 +139,17 @@ const BoardSpace = () => {
 
   return (
     <Main>
-      <div className={styles.columnSpace}>
-        <div className={styles.new_column_input_wrapper}>
-          <h4>" {boardTitle} "</h4>
-          <form onSubmit={creatNewColumnForm} className={styles.header_input_form}>
-            <input
-              onChange={(e) => setTitleColumn(e.target.value)}
-              name='columnInputTitle' required
-              value={titleColumn}
-              type="text"
-              placeholder='New column'
-            />
-            <button type="submit" className={styles.create_button}>CREATE</button>
-          </form >
-        </div>
-      </div>
 
+      <div className={styles.columnSpace}>
+      <img src={boardHard} className={styles.board_hard} alt='pen'></img>
+          <h4>" {boardTitle} "</h4>
+      </div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <BoardItem />
+        <BoardItem 
+          arrLenth={arrLenth()}
+        />
       </DragDropContext>
+
 
     </Main>
 

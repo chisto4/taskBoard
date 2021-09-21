@@ -1,9 +1,22 @@
 import Main from '../components/Main/Main';
 import styles from './homePage.module.scss';
-
+import React, { useEffect, useState } from 'react';
+import DatePicker from 'react-date-picker';
+// import 'react-calendar/dist/Calendar.css';
 import welcomeScreenImage from '../../image/welcomePageScreen.png';
+import Calendar from 'react-calendar';
+import { useDispatch } from 'react-redux';
+import { actionsSetError } from '../../store/userReducer/actionUser';
+import Slider from './Slider/Slider';
 
-const helloWindow = () => {
+const HelloWindow = () => {
+  const [value, onChange] = useState(new Date());
+
+const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(actionsSetError(null))
+  },[dispatch])
+  
   return (
     <Main>
       <div className={styles.Hello_window}>
@@ -17,11 +30,29 @@ const helloWindow = () => {
 
         </div>
 
-        <img className={styles.welcome_img} src={welcomeScreenImage} alt={"logo"} />
+        {/* <img className={styles.welcome_img} src={welcomeScreenImage} alt={"logo"} /> */}
+
+        {/* <Calendar/> */}
+        {/* <div>
+      <DatePicker
+        onChange={onChange}
+        value={value}
+      />
+    </div> */}
+
+  {/* <div>
+    <Calendar
+      onChange={onChange}
+      value={value}
+    />
+  </div> */}
+
+  <Slider/>
+        
 
       </div>
     </Main>
   )
 }
 
-export default helloWindow;
+export default HelloWindow;
