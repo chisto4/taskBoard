@@ -1524,7 +1524,6 @@ __webpack_require__.$Refresh$.setup(module.i);
 
 const regUser = async user => {
   const res = await _index__WEBPACK_IMPORTED_MODULE_0__["default"].post('/registration', user);
-  console.log('ZALUPDA', res);
   return res.data;
 };
 const logUser = async user => {

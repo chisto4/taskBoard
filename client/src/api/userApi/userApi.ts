@@ -6,7 +6,6 @@ import { IUser, ILogUser } from "../../types/types";
 
 export const regUser = async (user: IUser) => {
   const res = await axios.post('/registration', user);
-  console.log('ZALUPDA', res)
   return res.data
 };
 

@@ -27,8 +27,6 @@ const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIn
 
   const updateDescription = (event: React.FormEvent<HTMLFormElement>, taskId?: number) => {
 
-    console.log('taskPriorityState', taskPriorityState);
-    
     const task: IUpdateTask = {
       id: taskId || 0,
       title: taskTitle,
@@ -56,7 +54,7 @@ const DescriptionTask: React.FC<Props> = ({ setVisionDescription, taskId, taskIn
 
           {taskPriority === 2 && <p>Priority<input type="checkbox"
             className={styles.input_checkBox_Red}
-            onChange={(e) => setTaskPriority(e.target.checked ? 1 : 2 )}
+            onChange={(e) => setTaskPriority(e.target.checked ? 1 : 2)}
             name="redCheck"
           />RED</p>}
 

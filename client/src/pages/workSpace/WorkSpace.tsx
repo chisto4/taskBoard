@@ -5,11 +5,9 @@ import React, { useEffect, useState } from 'react';
 import styles from './workSpace.module.scss';
 
 import Main from '../components/Main/Main';
-import { IBoard, IColumn } from '../../types/types';
-import { BOARD_WINDOW } from '../../api/const/const';
+import { IBoard } from '../../types/types';
 import { useAppSelector } from '../../store/reducers';
-import { clearAllColumns, creatBoard, deleteBoard,
-        getAllBoards, getAllColumns } from '../../store/boardReducer/boardThunk';
+import { clearAllColumns, creatBoard, getAllBoards } from '../../store/boardReducer/boardThunk';
 import OneBoard from './OneBoard/OneBoard';
 
 import { WORK_SPACE } from '../../api/const/const';
@@ -26,9 +24,6 @@ const WorkSpace = () => {
   const userBoardArray = useAppSelector((state) => state.board.board)
   const userState = useAppSelector((state) => state.user.user)
   const errorStatus = useAppSelector((state) => state.user.error)
-
-  const stateInfo = useAppSelector((state) => state)
-  console.log('STATE INFO', stateInfo)
 
   const [titleBoard, setTitleBoard] = useState('');
 
@@ -55,11 +50,11 @@ const WorkSpace = () => {
   }
 
   useEffect(() => {
-    if(errorStatus) history.push(WORK_SPACE)
+    if (errorStatus) history.push(WORK_SPACE)
     dispatch(getAllBoards());
     dispatch(clearAllColumns());
-    if(errorStatus)setModalMessage(errorStatus)
-  }, [dispatch, errorStatus])
+    if (errorStatus) setModalMessage(errorStatus)
+  }, [dispatch, errorStatus, history]);
 
   return (
     <Main>
@@ -91,12 +86,12 @@ const WorkSpace = () => {
 
         <div className={styles.board_wrapper}
         >
-          {userBoardArray.map((board, index) => 
-          <OneBoard
-            boardItem={board}
-            index={index}
-            key={index}
-          />
+          {userBoardArray.map((board, index) =>
+            <OneBoard
+              boardItem={board}
+              index={index}
+              key={index}
+            />
           )}
         </div>
       </div>

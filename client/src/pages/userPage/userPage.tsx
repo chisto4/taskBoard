@@ -42,7 +42,7 @@ const UserPage: React.FC = (): JSX.Element => {
   const [userAvatar, setUserAvatar] = useState<string | Blob>('');;
 
   const statusError = () => {
-    if(error){
+    if (error) {
       const ErrorMessage = (`WARRING! ${error}`)
       setModalMessage(ErrorMessage)
     }
@@ -70,8 +70,8 @@ const UserPage: React.FC = (): JSX.Element => {
     };
 
     dispatch(updateUser(user));
-    error ? statusError() : setModalMessage(updateUserInfo) 
-    
+    error ? statusError() : setModalMessage(updateUserInfo)
+
   };
 
   const clearInput = () => {
@@ -102,7 +102,7 @@ const UserPage: React.FC = (): JSX.Element => {
       clearInput();
       setValuePassword(false)
       error ? statusError() : setModalMessage(updateEmailPassword)
-      if(!error) return clearInput();
+      if (!error) return clearInput();
     }
   };
 
@@ -140,51 +140,51 @@ const UserPage: React.FC = (): JSX.Element => {
       <div className={styles.user_update_information_main_wrapper}>
 
         <div className={styles.default_user_info_wrapper}>
-                    
-          <div className={styles.user_avatart_wrapper}>
-          <div className={styles.user_avatar}>
-            <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
-          </div>
 
-          <form
-            onSubmit={(e) => submitUserImg(e)}
-            className={styles.avatar_form}
-          >
-            <div className={styles.upload_wrapper}>
-              <label htmlFor="inp" className={styles.input_label}>upload avatar</label>
-              <input id="inp" className={styles.upload_input_form}
-                type="file" name="file"
-                onChange={(e) => setUseFile(e)}
-              />
+          <div className={styles.user_avatart_wrapper}>
+            <div className={styles.user_avatar}>
+              <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
             </div>
-            <Button
-              variant="outline-primary"
-              className={styles.input_label}
-              as="input" type="submit" value="Load"
-              hidden={!userAvatar}
-            />
-          </form>
+
+            <form
+              onSubmit={(e) => submitUserImg(e)}
+              className={styles.avatar_form}
+            >
+              <div className={styles.upload_wrapper}>
+                <label htmlFor="inp" className={styles.input_label}>upload avatar</label>
+                <input id="inp" className={styles.upload_input_form}
+                  type="file" name="file"
+                  onChange={(e) => setUseFile(e)}
+                />
+              </div>
+              <Button
+                variant="outline-primary"
+                className={styles.input_label}
+                as="input" type="submit" value="Load"
+                hidden={!userAvatar}
+              />
+            </form>
           </div>
 
           <div className={styles.def_string_info_wrapper}>
 
-          <div className={styles.def_string_info}>
-            <h6>Name:</h6><p>{stateName}</p>
-          </div>
+            <div className={styles.def_string_info}>
+              <h6>Name:</h6><p>{stateName}</p>
+            </div>
 
-          <div className={styles.def_string_info}>
-            <h6>Last Name:</h6><p>{stateSurName}</p>
-          </div>
+            <div className={styles.def_string_info}>
+              <h6>Last Name:</h6><p>{stateSurName}</p>
+            </div>
 
-          <div className={styles.def_string_info}>
-            <h6>Login:</h6><p>{stateLogin}</p>
-          </div>
+            <div className={styles.def_string_info}>
+              <h6>Login:</h6><p>{stateLogin}</p>
+            </div>
 
-          <div className={styles.def_string_info}>
-            <h6>Date of born:</h6><p>{trueDateFormat}</p>
+            <div className={styles.def_string_info}>
+              <h6>Date of born:</h6><p>{trueDateFormat}</p>
+            </div>
           </div>
         </div>
-          </div>
 
 
 
@@ -207,9 +207,9 @@ const UserPage: React.FC = (): JSX.Element => {
 
           {formSwitch && <form className={styles.form} onSubmit={userInfoPassEmail}>
             <input onChange={(e) => setUserEmail(e.target.value)} name='email' required defaultValue={stateEmail} type="email" placeholder='Enter New Email' />
-            <input onChange={(e) => setUserPassword(e.target.value)} value= {userPassword} name='Password' required type="password" placeholder='Enter Old Password' />
-            <input onChange={(e) => setNewPassword(e.target.value)} value= {newPassword} name='newPassword' required type="password" placeholder='Enter your New Password' />
-            <input onChange={(e) => setConfirmPassword(e.target.value)} value= {confirmPassword} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
+            <input onChange={(e) => setUserPassword(e.target.value)} value={userPassword} name='Password' required type="password" placeholder='Enter Old Password' />
+            <input onChange={(e) => setNewPassword(e.target.value)} value={newPassword} name='newPassword' required type="password" placeholder='Enter your New Password' />
+            <input onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword} name='confirmPassword' required type="password" placeholder='Confirm New Password' />
             {valuePassword && <p className={styles.password_valid_message}>Password mismatch</p>}
             <button type="submit" className={styles.update_user_inf_button}>update email and password</button>
           </form>}

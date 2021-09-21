@@ -56,7 +56,6 @@ export const sendBoard = (board: IBoardSend) => async (dispatch: AppDispatch): P
 export const creatColumn = (column: IColumnRequest) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await createColumnApi(column)
-    console.log("CREATING COLUMN", data)
     dispatch(actionsCreateColumn(data));
   } catch (error: any) {
     dispatch(actionsSetError(error.response.data.message))

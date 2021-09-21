@@ -37,7 +37,7 @@ const UserRegistration: React.FC = (): JSX.Element => {
   const userInfo: React.FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const parseDate = new Date(userDob);
-    if(userPassword !== confirmCUerPassword)return setModalMessage('PASSWOR MISTMACH')
+    if (userPassword !== confirmCUerPassword) return setModalMessage('PASSWORD MISMATCH')
 
     const user: IUser = {
       name: userName,
@@ -49,15 +49,15 @@ const UserRegistration: React.FC = (): JSX.Element => {
       avatarId: null
     };
     dispatch(registrationUsers(user));
-    if(errorStatus) setModalMessage(errorStatus)
+    if (errorStatus) setModalMessage(errorStatus)
     dispatch(actionsSetError(null));
   };
 
   useEffect(() => {
-    if(errorStatus === 'Please input correct information') dispatch(actionsSetError(null)) && setModalMessage('')
-    if(errorStatus)setModalMessage(errorStatus)
+    if (errorStatus === 'Please input correct information') dispatch(actionsSetError(null)) && setModalMessage('')
+    if (errorStatus) setModalMessage(errorStatus)
     if (auth) { history.push("/user") }
-  }, [auth, history, errorStatus])
+  }, [auth, history, errorStatus, dispatch])
 
   return (
     <Main>

@@ -7,7 +7,7 @@ import styles from './boardSpace.module.scss';
 import { IColumn, ITask, IUseParams } from '../../types/types';
 import boardHard from '../../icon/board_hard.png';
 import { useAppSelector } from '../../store/reducers';
-import {  getAllBoards, getAllColumns, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
+import { getAllBoards, getAllColumns, reorderTask, updateIndexColumn } from '../../store/boardReducer/boardThunk';
 
 import Main from '../components/Main/Main';
 import BoardItem from './BoardItem/BoardItem';
@@ -17,20 +17,20 @@ const BoardSpace = () => {
   const boardIdNumber = Number(useBoardId.id)
 
   const dispatch = useDispatch();
-  
-  const column: IColumn = {
-    id: boardIdNumber,
-    Tasks: [],
-    position: 0,
-  };
 
   useEffect(() => {
+    const column: IColumn = {
+      id: boardIdNumber,
+      Tasks: [],
+      position: 0,
+    };
+
     dispatch(getAllBoards());
     dispatch(getAllColumns(column));
-  }, [])
+  }, [boardIdNumber, dispatch])
 
   const userColumnArray = useAppSelector((state) => state.board.column)
-  const stateBoard = useAppSelector((state) => state.board.board.find(brd=>brd.id===boardIdNumber))
+  const stateBoard = useAppSelector((state) => state.board.board.find(brd => brd.id === boardIdNumber))
   const boardTitle = stateBoard?.title
   const arrLenth = () => {
     if (!userColumnArray) {
@@ -141,11 +141,11 @@ const BoardSpace = () => {
     <Main>
 
       <div className={styles.columnSpace}>
-      <img src={boardHard} className={styles.board_hard} alt='pen'></img>
-          <h4>" {boardTitle} "</h4>
+        <img src={boardHard} className={styles.board_hard} alt='pen'></img>
+        <h4>" {boardTitle} "</h4>
       </div>
       <DragDropContext onDragEnd={onDragEnd}>
-        <BoardItem 
+        <BoardItem
           arrLenth={arrLenth()}
         />
       </DragDropContext>

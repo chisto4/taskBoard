@@ -12,7 +12,6 @@ import closeButton from '../../../icon/close_white.png';
 import { useAppSelector } from '../../../store/reducers';
 import TaskList from '../TaskList/TaskList';
 
-
 interface Props {
   column: IColumn;
   columnIndex: number
@@ -24,7 +23,6 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
 
   const [titleTask, setTitleTask] = useState('');
   const [titleColumn, setTitleColumn] = useState('');
-  // const [titleColumn, setTitleColumn] = useState(column.title);
   const [filterValue, setFilterValue] = useState('')
   const columnArr = useAppSelector((state) => state.board.column[columnIndex].Tasks?.length)
   const arrLenth = () => {
@@ -37,7 +35,7 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
   const userState = useAppSelector((state) => state.user.user)
 
   const creatNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number) => {
-     const task: ITask = {
+    const task: ITask = {
       title: titleTask,
       position: arrLenth(),
       priority: 2,
@@ -52,13 +50,13 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
     event.preventDefault();
   }
 
-  const [inputVision,setInputVision] = useState(false);
+  const [inputVision, setInputVision] = useState(false);
   const inputColumnTitleVision = () => {
     inputVision ? setInputVision(false) : setInputVision(true)
   }
 
   const updateColumnTitle = (event: React.FormEvent<HTMLFormElement>, id: number) => {
-     const columnUpdate: IColumn = {
+    const columnUpdate: IColumn = {
       title: titleColumn,
       id: id,
       Tasks: column.Tasks,
@@ -98,21 +96,21 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
           <div className={styles.title_column_wrapper}>
 
             {inputVision && <form
-            onSubmit={(e) => updateColumnTitle(e, column.id)}
-            className={styles.column_title_input_form}>
-            <input
-              onChange={(e) => setTitleColumn(e.target.value)}
-              name='columnTitleName' required
-              value={titleColumn}
-              type="text"
-            />
-          </form >}
-          {inputVision && <button onClick={() => inputColumnTitleVision()} className={styles.title_column_button_pen}>
+              onSubmit={(e) => updateColumnTitle(e, column.id)}
+              className={styles.column_title_input_form}>
+              <input
+                onChange={(e) => setTitleColumn(e.target.value)}
+                name='columnTitleName' required
+                value={titleColumn}
+                type="text"
+              />
+            </form >}
+            {inputVision && <button onClick={() => inputColumnTitleVision()} className={styles.title_column_button_pen}>
               <img src={closeButton} className={styles.redact_pen} alt='pen'></img>
             </button>}
-          {!inputVision && <p className={styles.title_column_vision}>{column.title}</p>}
+            {!inputVision && <p className={styles.title_column_vision}>{column.title}</p>}
 
-          {!inputVision && <button onClick={() => inputColumnTitleVision()} className={styles.title_column_button_pen}>
+            {!inputVision && <button onClick={() => inputColumnTitleVision()} className={styles.title_column_button_pen}>
               <img src={inputPen} className={styles.redact_pen} alt='pen'></img>
             </button>}
 

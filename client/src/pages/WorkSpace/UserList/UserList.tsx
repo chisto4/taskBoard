@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../../store/reducers';
 import { getAllUserList } from '../../../store/userReducer/userThunk';
 import { IBoard, IUserRequest } from '../../../types/types';
@@ -18,24 +18,24 @@ const UserList: React.FC<Props> = ({ activeBoard, setUserListVive }) => {
   const userState = useAppSelector((state) => state.user.user)
   const allUsersArray = useAppSelector((state) => state.user.usersList)
 
+  useEffect(() => {
     const user: IUserRequest = {
       id: userState.id,
     }
 
-  useEffect(() => {
     dispatch(getAllUserList(user));
-  }, [])
+  }, [dispatch, userState.id])
 
-  return(
+  return (
     <div className={styles.user_list_wrapper}>
       <h3>Send Board to</h3>
 
       <button className={styles.close_button} onClick={() => setUserListVive(false)}>
         <img src={closeButton} className={styles.close_button_img} alt='delete'></img>
       </button>
-      
+
       <div className={styles.user_list}>
-        {allUsersArray.map((user, index) => 
+        {allUsersArray.map((user, index) =>
           <OneUser
             oneUser={user}
             index={index}

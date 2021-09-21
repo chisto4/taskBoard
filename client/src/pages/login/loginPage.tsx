@@ -41,13 +41,12 @@ const UserLogin: React.FC = (): JSX.Element => {
       password: userPassword,
     };
     dispatch(loginUser(user));
-    // if(errorStatus) setModalMessage(errorStatus)
     dispatch(actionsSetError(null))
   };
 
   useEffect(() => {
-    if(errorStatus === 'Please input correct information') dispatch(actionsSetError(null)) && setModalMessage('')
-    if(errorStatus)setModalMessage(errorStatus)
+    if (errorStatus === 'Please input correct information') dispatch(actionsSetError(null)) && setModalMessage('')
+    if (errorStatus) setModalMessage(errorStatus)
     if (auth) { history.push("/user") }
   }, [auth, history, errorStatus, dispatch])
 

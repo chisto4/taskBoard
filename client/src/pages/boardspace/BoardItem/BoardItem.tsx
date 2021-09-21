@@ -78,7 +78,6 @@ const BoardItem: React.FC<Props> = ({ arrLenth }) => {
             type="text"
             placeholder='+ Add another column'
           />
-          {/* <button type="submit" className={styles.create_button}>CREATE</button> */}
         </form >
       </div>
     </div>

@@ -3,14 +3,11 @@ import { editUsers, regUser, logUser, getToken, editUsersEmailPassword, getUsers
 import { IUser, IUserRequest } from "../../types/types";
 import { AppDispatch } from "../reducers";
 import {
-  actionsGetTokenError,
   actionsLogAuth,
-  actionsLogError,
   actionsLogOut,
   actionsSetError,
   actionsUpdateUser,
   actionsSetAuth,
-  actionsUploadError,
   actionsUploadImage,
   actionsGetAllUsers
 } from './actionUser'
@@ -18,7 +15,6 @@ import {
 export const registrationUsers = (user: IUser) => async (dispatch: AppDispatch): Promise<void> => {
   try {
     const data = await regUser(user)
-    console.log('DATA WHEN ERROR', data)
     localStorage.setItem('token', data.token)
     dispatch(actionsUpdateUser(data.newUser));
     dispatch(actionsSetAuth(true));
@@ -76,7 +72,6 @@ export const uploadUserAvatar = (file: FormData) => async (dispatch: AppDispatch
   try {
     const data = await uploadImageApi(file)
     const pathImage = data.file.path
-    console.log(pathImage)
     dispatch(actionsUploadImage(pathImage));
   } catch (error: any) {
     dispatch(actionsSetError(error.response.data.message))

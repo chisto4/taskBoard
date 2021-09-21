@@ -41,8 +41,8 @@ const Header: React.FC = () => {
 
         <div className={styles.userAuthWrapper}>
           <div className={styles.user_avatar}>
-            {isAuth && <img src={urlAvatar} className={styles.circle_avatar} 
-            onClick={() => { history.push(USER) }} alt='User Avatar'></img>}
+            {isAuth && <img src={urlAvatar} className={styles.circle_avatar}
+              onClick={() => { history.push(USER) }} alt='User Avatar'></img>}
           </div>
           {isAuth && <span onClick={() => { history.push(USER) }} >{login}</span>}
           {isAuth && <span onClick={() => { history.push(WORK_SPACE) }} >Work Space</span>}
@@ -54,26 +54,26 @@ const Header: React.FC = () => {
 
       <div className={styles.bottomLine}></div>
 
-    <div className={styles.header_nav_mobile}>
-          <button className={styles.nav_button_wrapper} onClick={() => { history.push("/") }}>
-            <img src={homeIcon} className={styles.nav_img} alt='homePage'></img>
-          </button>
-          {isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(USER) }}>
-            <img src={userIcon} className={styles.nav_img} alt='userPage'></img>
-          </button>}
-          {isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(WORK_SPACE) }}>
-            <img src={workSpaceIcon} className={styles.nav_img} alt='userPage'></img>
-          </button>}
-          {!isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(LOGIN) }}>
-            <img src={loginIcon} className={styles.nav_img} alt='userPage'></img>
-          </button>}
-          {!isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(REGISTRATION) }}>
-            <img src={registrationIcon} className={styles.nav_img} alt='userPage'></img>
-          </button>}
-          {isAuth && <button className={styles.nav_button_wrapper} onClick={(logOuting)}>
-            <img src={logoutIcon} className={styles.nav_img} alt='userPage'></img>
-          </button>}
-    </div>
+      <div className={styles.header_nav_mobile}>
+        <button className={styles.nav_button_wrapper} onClick={() => { history.push("/") }}>
+          <img src={homeIcon} className={styles.nav_img} alt='homePage'></img>
+        </button>
+        {isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(USER) }}>
+          <img src={userIcon} className={styles.nav_img} alt='userPage'></img>
+        </button>}
+        {isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(WORK_SPACE) }}>
+          <img src={workSpaceIcon} className={styles.nav_img} alt='userPage'></img>
+        </button>}
+        {!isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(LOGIN) }}>
+          <img src={loginIcon} className={styles.nav_img} alt='userPage'></img>
+        </button>}
+        {!isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(REGISTRATION) }}>
+          <img src={registrationIcon} className={styles.nav_img} alt='userPage'></img>
+        </button>}
+        {isAuth && <button className={styles.nav_button_wrapper} onClick={(logOuting)}>
+          <img src={logoutIcon} className={styles.nav_img} alt='userPage'></img>
+        </button>}
+      </div>
 
     </div>
 

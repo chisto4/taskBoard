@@ -33,14 +33,12 @@ const OneBoard: React.FC<Props> = ({ index, boardItem }) => {
   const image = useAppSelector((state) => state.user.user.Image)
   const boardImagePath = boardItem.userPathImage
   const urlAvatar = !image ? baseAvatar : baseURL + '/' + boardImagePath;
-  // const urlAvatar = !image ? baseAvatar : baseURL + '/' + image?.pathImages;
-//@ts-ignore
+  //@ts-ignore
   const trueDateFormat = format(new Date(boardItem.updatedAt), 'MM/dd/yyyy')
 
 
 
   const boardUpdate = (event: React.FormEvent<HTMLFormElement>) => {
-    console.log("BOARDID", boardItem.id)
 
     const board: IBoard = {
       title: titleBoardChange,
@@ -77,18 +75,18 @@ const OneBoard: React.FC<Props> = ({ index, boardItem }) => {
   return (
 
     <div className={styles.board} key={index}>
-        <div className={styles.close_button_wrapper}>
-          <button className={styles.close_button} onClick={() => deleteOneBoard(boardItem.id)}>
-            <img src={closeButton} className={styles.close_button_img} alt='delete'></img>
-          </button>
-          <button className={styles.close_button} onClick={() => setUserListVive(true)}>
-            <img src={sendButton} className={styles.close_button_img} alt='send'></img>
-          </button>
-        </div>
+      <div className={styles.close_button_wrapper}>
+        <button className={styles.close_button} onClick={() => deleteOneBoard(boardItem.id)}>
+          <img src={closeButton} className={styles.close_button_img} alt='delete'></img>
+        </button>
+        <button className={styles.close_button} onClick={() => setUserListVive(true)}>
+          <img src={sendButton} className={styles.close_button_img} alt='send'></img>
+        </button>
+      </div>
 
-      <div 
-      className={styles.one_board_wrapper}
-      onClick={() => getAllColumnsClick(boardItem.id)}>
+      <div
+        className={styles.one_board_wrapper}
+        onClick={() => getAllColumnsClick(boardItem.id)}>
 
       </div>
 
@@ -98,38 +96,33 @@ const OneBoard: React.FC<Props> = ({ index, boardItem }) => {
             className={styles.border_update_input}
             onChange={(e) => setTitleBoardChange(e.target.value)}
             name='boardChange' required
-            // value={titleBoard}
             value={titleBoardChange}
-            // defaultValue={board.title}
             type="text"
             placeholder='New board'
           />
         </form >
       </div>
-    <div className={styles.user_info_mini_wrapper}>
-      <div className={styles.user_info_left_wrapper}>
-        <h5>{trueDateFormat}</h5>
-      </div>
-
-      <div className={styles.user_info_right_wrapper}>
-        <div className={styles.user_wrapper}>
-          <div className={styles.user_avatar_mini}>
-            <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
-          </div>
-          <h6>{boardItem.userLogin}</h6>
+      <div className={styles.user_info_mini_wrapper}>
+        <div className={styles.user_info_left_wrapper}>
+          <h5>{trueDateFormat}</h5>
         </div>
+
+        <div className={styles.user_info_right_wrapper}>
+          <div className={styles.user_wrapper}>
+            <div className={styles.user_avatar_mini}>
+              <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
+            </div>
+            <h6>{boardItem.userLogin}</h6>
+          </div>
+        </div>
+
       </div>
 
+      {userListVive && <UserList
+        activeBoard={boardItem}
+        setUserListVive={setUserListVive}
+      />}
     </div>
-
-    { userListVive && <UserList
-      activeBoard={boardItem}
-      setUserListVive={setUserListVive}
-    />}
-    </div>
-
-
-
   )
 
 }
