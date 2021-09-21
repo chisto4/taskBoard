@@ -7,6 +7,7 @@ import welcomeScreenImage from '../../image/welcomePageScreen.png';
 import Calendar from 'react-calendar';
 import { useDispatch } from 'react-redux';
 import { actionsSetError } from '../../store/userReducer/actionUser';
+import Slider from './Slider/Slider';
 
 const HelloWindow = () => {
   const [value, onChange] = useState(new Date());
@@ -39,12 +40,14 @@ const dispatch = useDispatch();
       />
     </div> */}
 
-<div>
-      <Calendar
-        onChange={onChange}
-        value={value}
-      />
-    </div>
+  {/* <div>
+    <Calendar
+      onChange={onChange}
+      value={value}
+    />
+  </div> */}
+
+  <Slider/>
         
 
       </div>

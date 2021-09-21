@@ -1,0 +1,76 @@
+.one_user_wrapper {
+  width: 96%;
+  height: 40px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 1px solid gray;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  background: #33312dbf;
+}
+
+.one_user_info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: 5px;
+  width: 70%;
+  height: 40px;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.one_user_info h6 {
+  font-size: 12px;
+  margin-right: 3px;
+}
+
+.one_user_info h5 {
+  font-size: 14px;
+}
+
+.user_avatar_mini {
+  width: 20px;
+  height: 20px;
+}
+
+.user_avatar_mini img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+
+.circle_avatar {
+  width: 100%;
+  border-radius: 50%;
+}
+
+.send_board_button {
+  width: 18px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 7px;
+}
+
+.close_button_img {
+  width: 100%;
+}
+/*# sourceMappingURL=oneUser.module.css.map */

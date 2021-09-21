@@ -140,7 +140,8 @@ const UserPage: React.FC = (): JSX.Element => {
       <div className={styles.user_update_information_main_wrapper}>
 
         <div className={styles.default_user_info_wrapper}>
-
+                    
+          <div className={styles.user_avatart_wrapper}>
           <div className={styles.user_avatar}>
             <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
           </div>
@@ -163,6 +164,9 @@ const UserPage: React.FC = (): JSX.Element => {
               hidden={!userAvatar}
             />
           </form>
+          </div>
+
+          <div className={styles.def_string_info_wrapper}>
 
           <div className={styles.def_string_info}>
             <h6>Name:</h6><p>{stateName}</p>
@@ -180,6 +184,9 @@ const UserPage: React.FC = (): JSX.Element => {
             <h6>Date of born:</h6><p>{trueDateFormat}</p>
           </div>
         </div>
+          </div>
+
+
 
         <div className={styles.change_user_info_wrapper}>
           {!formSwitch && <h1>Change user information</h1>}

@@ -19,13 +19,10 @@ const OneUser : React.FC<Props> = ({ oneUser, activeBoard }) => {
   const image = useAppSelector((state) => state.user.usersList.find(item => item.id === oneUser.id))
   const userPathImage = image?.Image
   const urlAvatar = !userPathImage ? baseAvatar : baseURL + '/' + userPathImage?.pathImages;
-  console.log('GETING PATH IMAGE', userPathImage)
 
   const dispatch = useDispatch();
 
-  // const dispatch = useDispatch();
   // const userState = useAppSelector((state) => state.user.user)
-  // const allUsersArray = useAppSelector((state) => state.user.usersList)
 
   const sendOneBoard =()=>{
     const boardForSend = {

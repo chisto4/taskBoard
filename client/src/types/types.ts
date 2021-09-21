@@ -109,7 +109,7 @@ export interface ITask {
   description?: string,
   columnId: number,
   priority: number,
-  userId: number,
+  userId?: number,
   userLogin: string,
   userPathImage: string | undefined,
   updatedAt?:Date | string,

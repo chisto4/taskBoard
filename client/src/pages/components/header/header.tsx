@@ -6,6 +6,13 @@ import styles from './headerStyle.module.scss'
 
 import { baseURL } from '../../../api';
 import baseAvatar from '../../../image/baseAvatar/baseAvatar.jpeg';
+import homeIcon from '../../../icon/home_white.png';
+import userIcon from '../../../icon/user_white.png';
+import workSpaceIcon from '../../../icon/graf_board_white.png';
+import loginIcon from '../../../icon/login_white.png';
+import registrationIcon from '../../../icon/registration_white.png';
+import logoutIcon from '../../../icon/logout_white.png';
+
 import { useAppSelector } from '../../../store/reducers';
 import { logOutThunk } from '../../../store/userReducer/userThunk';
 import { LOGIN, REGISTRATION, USER, WORK_SPACE } from '../../../api/const/const';
@@ -46,7 +53,30 @@ const Header: React.FC = () => {
       </div>
 
       <div className={styles.bottomLine}></div>
+
+    <div className={styles.header_nav_mobile}>
+          <button className={styles.nav_button_wrapper} onClick={() => { history.push("/") }}>
+            <img src={homeIcon} className={styles.nav_img} alt='homePage'></img>
+          </button>
+          {isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(USER) }}>
+            <img src={userIcon} className={styles.nav_img} alt='userPage'></img>
+          </button>}
+          {isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(WORK_SPACE) }}>
+            <img src={workSpaceIcon} className={styles.nav_img} alt='userPage'></img>
+          </button>}
+          {!isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(LOGIN) }}>
+            <img src={loginIcon} className={styles.nav_img} alt='userPage'></img>
+          </button>}
+          {!isAuth && <button className={styles.nav_button_wrapper} onClick={() => { history.push(REGISTRATION) }}>
+            <img src={registrationIcon} className={styles.nav_img} alt='userPage'></img>
+          </button>}
+          {isAuth && <button className={styles.nav_button_wrapper} onClick={(logOuting)}>
+            <img src={logoutIcon} className={styles.nav_img} alt='userPage'></img>
+          </button>}
     </div>
+
+    </div>
+
   )
 }
 

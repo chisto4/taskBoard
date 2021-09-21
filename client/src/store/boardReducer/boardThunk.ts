@@ -44,7 +44,8 @@ export const deleteBoard = (board: IBoard) => async (dispatch: AppDispatch): Pro
 };
 export const sendBoard = (board: IBoardSend) => async (dispatch: AppDispatch): Promise<void> => {
   try {
-    await sendBoardApi(board)
+    const res = await sendBoardApi(board)
+    dispatch(actionsSetError(res))
   } catch (error: any) {
     dispatch(actionsSetError(error.response.data.message))
   }
@@ -83,8 +84,7 @@ export const updateColumn = (column: IColumn) => async (dispatch: AppDispatch): 
 export const updateIndexColumn = (column: IColumn[]) => async (dispatch: AppDispatch): Promise<void> => {
   dispatch(actionsUpdateIndexColumn(column));
   try {
-    const data = await updateIndexColumnApi(column)
-    // dispatch(actionsUpdateIndexColumn(data));
+    await updateIndexColumnApi(column)
   } catch (error: any) {
     dispatch(actionsSetError(error.response.data.message))
   }

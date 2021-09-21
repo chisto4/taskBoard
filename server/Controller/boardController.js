@@ -114,8 +114,7 @@ class BoardController {
       if (!tokenId) {
         return res.status(400).json({ message: "ID not found in user data" })
       }
-      const newBoardSend = await db.UserBoard.create({userId, boardId })
-      console.log("newBoardSend", newBoardSend)
+        await db.UserBoard.create({userId, boardId })
         res.status(200).json("Board Send")
     }
     catch (e) {

@@ -25,8 +25,9 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
   const dispatch = useDispatch();
   const [visionDescription, setVisionDescription] = useState(false);
 
-  const image = useAppSelector((state) => state.user.user.Image)
-  const urlAvatar = !image ? baseAvatar : baseURL + '/' + image?.pathImages;
+  // const image = useAppSelector((state) => state.user.user.Image)
+  const image = task.userPathImage
+  const urlAvatar = !image ? baseAvatar : baseURL + '/' + image;
 
 
   const deleteOneTask = (id: number | undefined, columnId: number, position: number) => {
@@ -34,7 +35,10 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
       id: id,
       priority: 2,
       position: position,
-      columnId: columnId
+      columnId: columnId,
+      userId: 0,
+      userLogin: '',
+      userPathImage: ''
     };
     dispatch(deleteTask(taskDel));
   }
@@ -57,6 +61,7 @@ const TaskItem: React.FC<Props> = ({ task, taskIndex, columnIndex }) => {
 
           <div className={styles.user_avatar_mini}>
             <img src={urlAvatar} className={styles.circle_avatar} alt='User Avatar'></img>
+          {task.userLogin}
           </div>
           
           <div className={styles.one_task_button_wrapper}>

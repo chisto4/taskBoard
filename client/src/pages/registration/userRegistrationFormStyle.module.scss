@@ -40,8 +40,14 @@
       color: white;
       opacity: 0.7;
     }
+    @media screen and (max-width:800px) {
+    width:90%;
+    }
   }
-
+  @media screen and (max-width:800px) {
+  left: 0;
+  width: 100vw;
+  }
 }
 
 
@@ -89,16 +95,21 @@
     color: rgb(252, 249, 249);
     padding-top: 18px;
     margin-bottom: 15px;
+    margin-left: 0;
   }
   h6{
     font-size: 18px;
     color: rgb(231, 228, 228);
     padding-bottom: 15px;
   }
+  @media screen and (max-width:800px) {
+  width: 90%;
+  height: 200px;
+  }
 }
 
 .modal_Inform_Window_h4{
-  width: 90%;
+  width: 100%;
 }
 
 .modal_Inform_Window_link{

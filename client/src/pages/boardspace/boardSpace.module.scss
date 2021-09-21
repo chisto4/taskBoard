@@ -83,7 +83,6 @@
   
   .column_wrapper {
     overflow-x: auto;
-    overflow-y:none;
     display: flex;
     justify-content: flex-start;
     width: 88vw;
@@ -357,6 +356,10 @@
 
   .user_avatar_mini{
    margin-right: 15px;
+   font-size: 10px;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
   }
 
   .circle_avatar{

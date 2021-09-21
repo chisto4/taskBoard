@@ -23,8 +23,9 @@ export const deleteBoardApi = async (board: IBoard) => {
 };
 
 export const sendBoardApi = async (board: IBoardSend) => {
-  await axios.put('workspace/board/send',  board );
-    return board
+  const res = await axios.put('workspace/board/send',  board );
+  console.log("RESPONDE BOARD", res)
+    return res.data
 };
 
 export const createColumnApi = async (column: IColumnRequest) => {

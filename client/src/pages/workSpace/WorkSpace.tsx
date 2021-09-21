@@ -66,7 +66,6 @@ const WorkSpace = () => {
 
       {modalMessage && <div className={styles.modal_Inform_Window}>
         <div className={styles.modal_Inform_Window_h4}>
-          <h4>Sorry, but:</h4>
           <h6>{modalMessage}</h6>
         </div>
         <div className={styles.modal_Inform_Window_link}>
@@ -96,7 +95,7 @@ const WorkSpace = () => {
           <OneBoard
             boardItem={board}
             index={index}
-            key={board.id}
+            key={index}
           />
           )}
         </div>

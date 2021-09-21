@@ -34,6 +34,8 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
     return columnArr
   }
 
+  const userState = useAppSelector((state) => state.user.user)
+
   const creatNewTaskForm = (event: React.FormEvent<HTMLFormElement>, id: number) => {
      const task: ITask = {
       title: titleTask,
@@ -41,6 +43,9 @@ const ColumnItem: React.FC<Props> = ({ column, columnIndex }) => {
       priority: 2,
       description: '',
       columnId: id,
+      userId: userState.id,
+      userLogin: userState.login,
+      userPathImage: userState.Image?.pathImages
     }
     dispatch(creatTask(task));
     setTitleTask("");

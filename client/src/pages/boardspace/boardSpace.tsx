@@ -62,6 +62,10 @@ const BoardSpace = () => {
           priority: item.priority,
           columnId: item.columnId,
           description: item.description,
+          userLogin: item.userLogin,
+          userPathImage: item.userPathImage,
+          userId: item.userId,
+          updatedAt: item.updatedAt,
         })
 
         const columnIndex: number = columnIndexStart;
@@ -88,6 +92,10 @@ const BoardSpace = () => {
           priority: item.priority,
           columnId: item.columnId,
           description: item.description,
+          userLogin: item.userLogin,
+          userPathImage: item.userPathImage,
+          userId: item.userId,
+          updatedAt: item.updatedAt,
         })
 
         dispatch(reorderTask(arrTaskStartSort, taskIndexStart, taskIndexEnd, columnIndexStart))
@@ -100,6 +108,10 @@ const BoardSpace = () => {
           priority: item.priority,
           columnId: item.columnId,
           description: item.description,
+          userLogin: item.userLogin,
+          userPathImage: item.userPathImage,
+          updatedAt: item.updatedAt,
+          userId: item.userId,
         })
 
         dispatch(reorderTask(arrTaskEndSort, taskIndexStart, taskIndexEnd, columnIndexEnd))
