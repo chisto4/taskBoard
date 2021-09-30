@@ -2,12 +2,14 @@ const bcrypt = require('bcryptjs');
 const { validationResult } = require('express-validator')
 const authToken = require('../middleware/authMiddleware')
 const db = require('../db/models/index')
+import { Request, Response, NextFunction } from 'express';
+import { TokenUserType } from '../types/type';
 
 const regularEmail = require('../middleware/regularConstant')
 
 class UserController {
 
-    async registrationUser(req, res) {
+    async registrationUser(req: Request, res: Response) {
         const { name, surname, login, email, password, dob, avatarId } = req.body
         const lowerCaseEmail = email.toLowerCase();
         const userEmail = await db.User.findOne({ where: { email: lowerCaseEmail } })
@@ -40,7 +42,7 @@ class UserController {
         }
     }
 
-    async loginUser(req, res) {
+    async loginUser(req: Request, res: Response) {
         try {
             const { login, password } = req.body
             const lowerCaseLogin = login.toLowerCase();
@@ -76,7 +78,7 @@ class UserController {
         }
     }
 
-    async uploadAvatar(req, res) {
+    async uploadAvatar(req: Request, res: Response) {
         try {
             const { id } = req.user
             if (!id) {
@@ -102,7 +104,7 @@ class UserController {
         }
     }
 
-    async tokenUser(req, res) {
+    async tokenUser(req: TokenUserType, res: Response) {
         try {
             const { id } = req.user
             if (!id) {
@@ -125,7 +127,7 @@ class UserController {
         }
     }
 
-    async getUsers(req, res) {
+    async getUsers(req: TokenUserType, res: Response) {
         try {
             const { id } = req.user
             if (!id) {
@@ -168,7 +170,7 @@ class UserController {
         }
     }
 
-    async updateUser(req, res) {
+    async updateUser(req: TokenUserType, res: Response) {
         try {
             const { id: tokenId, email } = req.user
             if (!tokenId) {
